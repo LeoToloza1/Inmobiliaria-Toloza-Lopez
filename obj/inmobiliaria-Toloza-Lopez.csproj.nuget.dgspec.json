@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj": {}
+    "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj": {}
   },
   "projects": {
-    "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj": {
+    "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
+        "projectUniqueName": "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
         "projectName": "inmobiliaria-Toloza-Lopez",
-        "projectPath": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
+        "projectPath": "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
         "packagesPath": "C:\\Users\\casa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\obj\\",
+        "outputPath": "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\casa\\AppData\\Roaming\\NuGet\\NuGet.Config"

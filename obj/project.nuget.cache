@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n6ZnKQCBSH8FlKEsGGN0OjrvEWuFvB4BUh3hCX/sn5yNIxlP+28ono6hvqlqUFo0+tSF3h/R3plyDjaVupbzKQ==",
+  "dgSpecHash": "edkVeFHmwTM273ic/TN11tLfiaNgnaEwrKTHmH4FdrLab/ijVrvfDkwx3D0HfB2KIF+ISFXvAK8KsbMp2gP4/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
+  "projectFilePath": "C:\\Users\\casa\\Desktop\\.Net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\casa\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\casa\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",
