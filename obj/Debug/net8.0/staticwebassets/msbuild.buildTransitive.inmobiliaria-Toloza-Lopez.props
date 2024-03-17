@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\inmobiliaria-Toloza-Lopez.props" />
+</Project>

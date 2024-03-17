@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Inquilino>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Listado de Inquilinos</h1>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="6">Cantidad: @Model.Count()</th>
+            </tr>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inquilino in Model)
+            {
+                <tr>
+                    <td>@inquilino.id</td>
+                    <td>@inquilino.nombre</td>
+                    <td>@inquilino.apellido</td>
+                    <td>@inquilino.dni</td>
+                    <td>@inquilino.email</td>
+                    <td>@inquilino.estado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
