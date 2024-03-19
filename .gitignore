@@ -10,3 +10,6 @@ obj/Debug/net8.0/inmobiliaria-Toloza-Lopez.AssemblyInfoInputs.cache
 obj/Debug/net8.0/inmobiliaria-Toloza-Lopez.AssemblyInfo.cs
 *.exe
 *.dll
+/bin/Debug/net8.0
+/obj/Debug/net8.0
+/obj
