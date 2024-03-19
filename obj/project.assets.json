@@ -1786,24 +1786,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\casa\\.nuget\\packages\\": {}
+    "C:\\Users\\raffarraffa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
+      "projectUniqueName": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\inmobiliaria-Toloza-Lopez.csproj",
       "projectName": "inmobiliaria-Toloza-Lopez",
-      "projectPath": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\inmobiliaria-Toloza-Lopez.csproj",
-      "packagesPath": "C:\\Users\\casa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\casa\\desktop\\.net\\Inmobiliaria-Toloza-Lopez\\obj\\",
+      "projectPath": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\inmobiliaria-Toloza-Lopez.csproj",
+      "packagesPath": "C:\\Users\\raffarraffa\\.nuget\\packages\\",
+      "outputPath": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\casa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\raffarraffa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
