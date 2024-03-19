@@ -13,3 +13,6 @@ obj/Debug/net8.0/inmobiliaria-Toloza-Lopez.AssemblyInfo.cs
 /bin/Debug/net8.0
 /obj/Debug/net8.0
 /obj
+*.dll
+*.exe
+*.bin
