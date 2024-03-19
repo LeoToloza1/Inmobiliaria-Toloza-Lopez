@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Gx9rVcPOyKsn89FJnq5Ilkg4HiTf9sQ2/mGM1xyWLOw=",
+  "Hash": "FDmtOa6QdgQAw5AovKWMHBPAZj5m/1oL6mhQ8L+9lms=",
   "Source": "inmobiliaria-Toloza-Lopez",
   "BasePath": "_content/inmobiliaria-Toloza-Lopez",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "inmobiliaria-Toloza-Lopez\\wwwroot",
       "Source": "inmobiliaria-Toloza-Lopez",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\bundle\\inmobiliaria-Toloza-Lopez.styles.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\bundle\\inmobiliaria-Toloza-Lopez.styles.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "inmobiliaria-Toloza-Lopez.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\bundle\\inmobiliaria-Toloza-Lopez.styles.css"
+      "OriginalItemSpec": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\bundle\\inmobiliaria-Toloza-Lopez.styles.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\inmobiliaria-Toloza-Lopez.bundle.scp.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\inmobiliaria-Toloza-Lopez.bundle.scp.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "inmobiliaria-Toloza-Lopez.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\inmobiliaria-Toloza-Lopez.bundle.scp.css"
+      "OriginalItemSpec": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\inmobiliaria-Toloza-Lopez.bundle.scp.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\css\\adminlte.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\css\\adminlte.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "css/adminlte.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\adminlte.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\css\\all.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\css\\all.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "css/all.css",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\all.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\css\\site.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\css\\site.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\favicon.ico",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\favicon.ico",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\img\\avatar.png",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\img\\avatar.png",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "img/avatar.png",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\img\\avatar.png"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\img\\logo_300.png",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\img\\logo_300.png",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "img/logo_300.png",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\img\\logo_300.png"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\js\\adminlte.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\js\\adminlte.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "js/adminlte.js",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\js\\adminlte.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\js\\jquery.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\js\\jquery.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "js/jquery.min.js",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\js\\jquery.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\js\\site.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\js\\site.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -359,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -378,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -397,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -435,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -473,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -492,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -511,10 +511,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -530,10 +530,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -549,10 +549,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -568,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -587,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -606,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -625,10 +625,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -644,10 +644,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -682,10 +682,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -701,10 +701,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -720,10 +720,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -739,10 +739,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -758,10 +758,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -777,10 +777,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -796,10 +796,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -815,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -834,10 +834,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -853,10 +853,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -872,10 +872,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -891,10 +891,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -910,10 +910,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -929,10 +929,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -948,10 +948,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -967,10 +967,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -986,10 +986,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -1005,10 +1005,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -1024,10 +1024,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -1043,10 +1043,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -1062,10 +1062,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1081,10 +1081,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1100,10 +1100,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1119,10 +1119,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -1138,10 +1138,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1157,10 +1157,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1176,10 +1176,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1195,10 +1195,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1233,10 +1233,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1252,10 +1252,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1271,10 +1271,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -1290,10 +1290,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -1309,12 +1309,12 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-brands-400.eot",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-brands-400.eot",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-brands-400.eot",
+      "RelativePath": "webfonts/fa-brands-400.eot",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1325,15 +1325,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-brands-400.eot"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.eot"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-brands-400.svg",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-brands-400.svg",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-brands-400.svg",
+      "RelativePath": "webfonts/fa-brands-400.svg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1344,15 +1344,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-brands-400.svg"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.svg"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-brands-400.ttf",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-brands-400.ttf",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-brands-400.ttf",
+      "RelativePath": "webfonts/fa-brands-400.ttf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1363,15 +1363,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-brands-400.ttf"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.ttf"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-brands-400.woff",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-brands-400.woff",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-brands-400.woff",
+      "RelativePath": "webfonts/fa-brands-400.woff",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1382,15 +1382,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-brands-400.woff"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.woff"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-brands-400.woff2",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-brands-400.woff2",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-brands-400.woff2",
+      "RelativePath": "webfonts/fa-brands-400.woff2",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1401,15 +1401,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-brands-400.woff2"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.woff2"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-regular-400.eot",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-regular-400.eot",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-regular-400.eot",
+      "RelativePath": "webfonts/fa-regular-400.eot",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1420,15 +1420,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-regular-400.eot"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.eot"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-regular-400.svg",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-regular-400.svg",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-regular-400.svg",
+      "RelativePath": "webfonts/fa-regular-400.svg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1439,15 +1439,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-regular-400.svg"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.svg"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-regular-400.ttf",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-regular-400.ttf",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-regular-400.ttf",
+      "RelativePath": "webfonts/fa-regular-400.ttf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1458,15 +1458,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-regular-400.ttf"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.ttf"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-regular-400.woff",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-regular-400.woff",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-regular-400.woff",
+      "RelativePath": "webfonts/fa-regular-400.woff",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1477,15 +1477,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-regular-400.woff"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.woff"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-regular-400.woff2",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-regular-400.woff2",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-regular-400.woff2",
+      "RelativePath": "webfonts/fa-regular-400.woff2",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1496,15 +1496,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-regular-400.woff2"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.woff2"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-solid-900.eot",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-solid-900.eot",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-solid-900.eot",
+      "RelativePath": "webfonts/fa-solid-900.eot",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1515,15 +1515,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-solid-900.eot"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.eot"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-solid-900.svg",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-solid-900.svg",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-solid-900.svg",
+      "RelativePath": "webfonts/fa-solid-900.svg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1534,15 +1534,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-solid-900.svg"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.svg"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-solid-900.ttf",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-solid-900.ttf",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-solid-900.ttf",
+      "RelativePath": "webfonts/fa-solid-900.ttf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1553,15 +1553,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-solid-900.ttf"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.ttf"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-solid-900.woff",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-solid-900.woff",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-solid-900.woff",
+      "RelativePath": "webfonts/fa-solid-900.woff",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1572,15 +1572,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-solid-900.woff"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.woff"
     },
     {
-      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\lib\\webfonts\\fa-solid-900.woff2",
+      "Identity": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\webfonts\\fa-solid-900.woff2",
       "SourceId": "inmobiliaria-Toloza-Lopez",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez-Leo\\wwwroot\\",
+      "ContentRoot": "E:\\Estudio\\TUDS\\.NET\\TP\\Inmobiliaria-Toloza-Lopez\\wwwroot\\",
       "BasePath": "_content/inmobiliaria-Toloza-Lopez",
-      "RelativePath": "lib/webfonts/fa-solid-900.woff2",
+      "RelativePath": "webfonts/fa-solid-900.woff2",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1591,7 +1591,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\lib\\webfonts\\fa-solid-900.woff2"
+      "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.woff2"
     }
   ]
 }

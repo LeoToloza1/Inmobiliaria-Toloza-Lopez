@@ -31,7 +31,11 @@
                     <td>@inquilino.apellido</td>
                     <td>@inquilino.dni</td>
                     <td>@inquilino.email</td>
-                    <td>@inquilino.estado</td>
+                    <td>
+                        <a class="btn btn-secondary" href="~/inquilino/editar/@inquilino.id"><i class="fas fa-user-edit"></i> Editar </a>
+                        <a class="btn btn-danger" href="~/inquilino/delette/@inquilino.id"><i class="fas fa-user-times"></i> Borrar </a> 
+                    </td>
+                    @* <td>@inquilino.estado</td> *@
                 </tr>
             }
         </tbody>
@@ -39,27 +43,42 @@
 </div>
 
 <div class="container">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Agregar nuevo inquilino
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquilinoModal">
+        <i class="fa fa-user-plus"></i> Nuevo inquilino
     </button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+
+    <div class="modal fade" id="inquilinoModal" tabindex="-1" aria-labelledby="inquilinoModal" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo inquilino</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h1 class="modal-title fs-5" id="inquilinoModal">Nuevo Inquilino</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="w-75 m-5">
+                        <label for="nombre-inquilino" class="">Nombre Inquilino</label>
+                        <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre"
+                            name="nombre">
+                    </div>
+                    <div class="w-75 m-5">
+                        <label for="apellido-inquilino" class="">Apellido Inquilino</label>
+                        <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
+                            name="apellido">
+                    </div>
+                    <div class="w-75 m-5">
+                        <label for="dni-inquilino" class="">Documento Inquilino</label>
+                        <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI"
+                            name="dni">
+                    </div>
+                    @* <div class="modal-body">
                     <label for="nombre">Nombre</label>
-                    <input type="text">
+                    <input type="text" name="inqulino">
+                    </div> *@
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Crear</button>
                 </div>
             </div>
         </div>
