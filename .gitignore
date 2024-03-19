@@ -24,3 +24,9 @@ bin/Debug/net8.0/inmobiliaria-Toloza-Lopez.dll
 bin/Debug/net8.0/inmobiliaria-Toloza-Lopez.dll
 bin/Debug/net8.0/inmobiliaria-Toloza-Lopez.dll
 /bin/Debug
+/obj/Debug/net8.0
+/obj/Debug
+/obj/Debug
+/obj/Debug
+*.bin
+/obj
