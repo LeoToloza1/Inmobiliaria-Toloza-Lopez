@@ -30,9 +30,9 @@
                     <td>@inquilino.dni</td>
                     <td>@inquilino.email</td>
                     <td>
-                        <a class="btn btn-secondary" href="~/inquilino/editar/@inquilino.id"><i
+                        <a class="btn btn-secondary mx-2" href="~/inquilino/editar/@inquilino.id"><i
                                 class="fas fa-user-edit"></i> Editar </a>
-                        <a class="btn btn-danger" href="~/inquilino/delette/@inquilino.id"><i class="fas fa-user-times"></i>
+                        <a class="btn btn-danger mx-2" href="~/inquilino/delette/@inquilino.id"><i class="fas fa-user-times"></i>
                             Borrar </a>
                     </td>
                     @* <td>@inquilino.estado</td> *@
@@ -57,31 +57,32 @@
                         <div class="w-75 m-5">
                             <label for="nombre-inquilino" class="">Nombre Inquilino</label>
                             <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre"
-                                name="nombre">
+                                name="nombre" required>
                         </div>
                         <div class="w-75 m-5">
                             <label for="apellido-inquilino" class="">Apellido Inquilino</label>
                             <input type="text" class="form-control" id="apellido-inquilino"
-                                placeholder="Ingrese apellido" name="apellido">
+                                placeholder="Ingrese apellido" name="apellido" required>
                         </div>
                         <div class="w-75 m-5">
                             <label for="dni-inquilino" class="">Documento Inquilino</label>
                             <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI"
-                                name="dni">
+                                name="dni" required title="Ingrese un dni valido" name="numero" min="5000000" max="99000000" step="1">
                         </div>
                         <div class="w-75 m-5">
                             <label for="email-inquilino" class="">Email Inquilino</label>
                             <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email"
-                                name="dni" title="Ingrese un email valido">
+                                name="dni" title="Ingrese un email valido" required>
                         </div>
                         @* <div class="modal-body">
                         <label for="nombre">Nombre</label>
                         <input type="text" name="inqulino">
                         </div> *@
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer  justify-content-around">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit " class="btn btn-primary">Crear</button>
+                        <button type="reset" class="btn btn-warning">Borrar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </form>
             </div>
