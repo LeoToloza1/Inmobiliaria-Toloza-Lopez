@@ -30,3 +30,4 @@ bin/Debug/net8.0/inmobiliaria-Toloza-Lopez.dll
 *.bin
 /obj
 obj/Debug/net8.0/project.razor.vscode.bin
+obj/Debug/net8.0/project.razor.vscode.bin
