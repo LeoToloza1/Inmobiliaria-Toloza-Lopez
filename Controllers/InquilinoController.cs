@@ -21,16 +21,16 @@ public class InquilinoController : Controller
         return View(lista);
     }
     [HttpGet]
-    public IActionResult Nuevo()
+    public IActionResult Create()
     {
-        return View("NuevoFormulario");
+        return View("InquilinoFormulario");
     }
     [HttpGet]
-    public IActionResult Editar(int id)
+    public IActionResult Edit(int id)
     {
         RepositorioInquilino rp=new RepositorioInquilino();
         var inquilino = rp.GetInquilino(id);
-        return View("NuevoFormulario",inquilino);
+        return View("InquilinoFormulario",inquilino);
     }
 
 

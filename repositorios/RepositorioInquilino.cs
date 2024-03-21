@@ -38,6 +38,7 @@ metodo para obtener todos los inquilinos
                         });
                     }
                 }
+                connection.Close();
             }
         }
         return inquilinos;
@@ -69,7 +70,9 @@ metodo para traer un inquilino
                         telefono = result.GetString(nameof(Inquilino.telefono))
                     };
                 }
+                connection.Close();
             }
+
             return inquilino;
         }
     }

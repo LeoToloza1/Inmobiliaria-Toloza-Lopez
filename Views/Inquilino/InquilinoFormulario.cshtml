@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container w-75 m-5">
+    <div class="text-center">
+        <h1 class="display-1">Nuevo inquilino</h1>
+    </div>
+    <form action="/inquilino/nuevo" method="post">
+        <div class="w-100 m-5">
+            <div class="w-75 m-5">
+                <label for="nombre-inquilino" class="">Nombre Inquilino</label>
+                <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre" name="nombre"
+                    required verfy="text">
+            </div>
+            <div class="w-75 m-5">
+                <label for="apellido-inquilino" class="">Apellido Inquilino</label>
+                <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
+                    name="apellido" required verfy="text">
+            </div>
+            <div class="w-75 m-5">
+                <label for="dni-inquilino" class="">Documento Inquilino</label>
+                <input type="text" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni" required
+                    title="Ingrese un dni valido" verfy="number">
+            </div>
+            <div class="w-75 m-5">
+                <label for="email-inquilino" class="">Email Inquilino</label>
+                <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email" name="email"
+                    title="Ingrese un email valido" required verfy="email">
+            </div>
+        </div>
+        <div class="modal-footer  justify-content-around">
+            <a href="/inquilino" class="btn btn-secondary">
+                Cerrar
+            </a>
+            <button type="reset" class="btn btn-warning">Borrar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    <script src="~/js/inquilino.js"></script>
+}
