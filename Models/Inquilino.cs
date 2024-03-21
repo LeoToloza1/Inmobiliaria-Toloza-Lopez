@@ -1,5 +1,4 @@
 namespace inmobiliaria_Toloza_Lopez.Models;
-
 public class Inquilino
 {
     public int id { get; set; }
@@ -9,5 +8,4 @@ public class Inquilino
     public string? email { get; set; }
     public string? telefono { get; set; }
     public string? estado { get; set; }
-
 }

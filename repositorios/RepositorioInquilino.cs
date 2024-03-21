@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-
 namespace inmobiliaria_Toloza_Lopez.Models;
-
 public class RepositorioInquilino
 {
     private readonly Conexion conexion;
