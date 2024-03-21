@@ -2,37 +2,61 @@
 @{
     ViewData["Title"] = "Inicio";
 }
+
+@{
+    string alertMessage = "";
+
+    string alertType = "";
+
+    if (TempData["AlertMessage"] != null)
+    {
+         alertMessage = TempData["AlertMessage"].ToString();
+    }
+    if (TempData["AlertType"] != null)
+
+    {
+         alertType = TempData["AlertMessage"].ToString();
+    }
+}
+@if (!string.IsNullOrEmpty(alertMessage))
+
+{
+    <script>
+        alert("@alertMessage");
+    </script>
+}
 <div class="text-center">
     <h1 class="display-4">Listado de Inquilinos</h1>
 </div>
 <div>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th colspan="6">Cantidad: @Model.Count()</th>
             </tr>
             <tr>
-                <th>id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Email</th>
-                <th>Estado</th>
+                <th class="text-center">id</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Apellido</th>
+                <th class="text-center">DNI</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var inquilino in Model)
             {
                 <tr>
-                    <td>@inquilino.id</td>
-                    <td>@inquilino.nombre</td>
-                    <td>@inquilino.apellido</td>
-                    <td>@inquilino.dni</td>
-                    <td>@inquilino.email</td>
-                    <td>
+                    <td class="text-center">@inquilino.id</td>
+                    <td class="text-center">@inquilino.nombre</td>
+                    <td class="text-center">@inquilino.apellido</td>
+                    <td class="text-center">@inquilino.dni</td>
+                    <td class="text-center">@inquilino.email</td>
+                    <td class="text-center">
                         <a class="btn btn-secondary mx-2" href="~/inquilino/editar/@inquilino.id"><i
                                 class="fas fa-user-edit"></i> Editar </a>
-                        <a class="btn btn-danger mx-2" href="~/inquilino/delette/@inquilino.id"><i class="fas fa-user-times"></i>
+                        <a class="btn btn-danger mx-2" href="~/inquilino/delette/@inquilino.id"><i
+                                class="fas fa-user-times"></i>
                             Borrar </a>
                     </td>
                     @* <td>@inquilino.estado</td> *@
@@ -42,50 +66,10 @@
     </table>
 </div>
 <div class="container">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquilinoModal">
+    <a href="/inquilino/nuevo" class="btn btn-primary">
         <i class="fa fa-user-plus"></i> Nuevo inquilino
-    </button>
-    <div class="modal fade" id="inquilinoModal" tabindex="-1" aria-labelledby="inquilinoModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action ="/inquilino/nuevo" method="post">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="inquilinoModal">Nuevo Inquilino</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="w-75 m-5">
-                            <label for="nombre-inquilino" class="">Nombre Inquilino</label>
-                            <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre"
-                                name="nombre" required>
-                        </div>
-                        <div class="w-75 m-5">
-                            <label for="apellido-inquilino" class="">Apellido Inquilino</label>
-                            <input type="text" class="form-control" id="apellido-inquilino"
-                                placeholder="Ingrese apellido" name="apellido" required>
-                        </div>
-                        <div class="w-75 m-5">
-                            <label for="dni-inquilino" class="">Documento Inquilino</label>
-                            <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI"
-                                name="dni" required title="Ingrese un dni valido" name="numero" min="5000000" max="99000000" step="1">
-                        </div>
-                        <div class="w-75 m-5">
-                            <label for="email-inquilino" class="">Email Inquilino</label>
-                            <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email"
-                                name="dni" title="Ingrese un email valido" required>
-                        </div>
-                        @* <div class="modal-body">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" name="inqulino">
-                        </div> *@
-                    </div>
-                    <div class="modal-footer  justify-content-around">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="reset" class="btn btn-warning">Borrar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    </a>
 </div>
+@section Scripts {    
+    @* <script src="~/js/inquilino.js"></script> *@
+}
