@@ -2,29 +2,6 @@
 @{
     ViewData["Title"] = "Inicio";
 }
-
-@{
-    string alertMessage = "";
-
-    string alertType = "";
-
-    if (TempData["AlertMessage"] != null)
-    {
-         alertMessage = TempData["AlertMessage"].ToString();
-    }
-    if (TempData["AlertType"] != null)
-
-    {
-         alertType = TempData["AlertMessage"].ToString();
-    }
-}
-@if (!string.IsNullOrEmpty(alertMessage))
-
-{
-    <script>
-        alert("@alertMessage");
-    </script>
-}
 <div class="text-center">
     <h1 class="display-4">Listado de Inquilinos</h1>
 </div>
@@ -53,13 +30,12 @@
                     <td class="text-center">@inquilino.dni</td>
                     <td class="text-center">@inquilino.email</td>
                     <td class="text-center">
-                        <a class="btn btn-secondary mx-2" href="~/inquilino/edit/@inquilino.id"><i
+                        <a class="btn btn-secondary mx-2" asp-controller="Inquilino" asp-action="update" asp-route-id="@inquilino.id"><i
                                 class="fas fa-user-edit"></i> Editar </a>
-                        <a class="btn btn-danger mx-2" href="~/inquilino/delete/@inquilino.id"><i
+                        <a class="btn btn-danger mx-2" asp-controller="Inquilino" asp-action="delete" asp-route-id="@inquilino.id"><i
                                 class="fas fa-user-times"></i>
                             Borrar </a>
                     </td>
-                    @* <td>@inquilino.estado</td> *@
                 </tr>
             }
         </tbody>
