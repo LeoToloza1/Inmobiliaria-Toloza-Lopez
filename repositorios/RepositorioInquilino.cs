@@ -44,36 +44,77 @@ metodo para obtener todos los inquilinos
     /**
 metodo para traer un inquilino
 */
-    public Inquilino GetInquilino(int id)
-    {
-        Inquilino inquilino = null;
 
+public Inquilino GetInquilino(int getId)
+    {
+        Inquilino? inquilinos = null; 
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            var sql = @$"SELECT * FROM inquilino WHERE @{nameof(Inquilino.id)} = @id";
+            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.email)} FROM inquilino WHERE id = {getId}";
             using (var command = new MySqlCommand(sql, connection))
             {
                 connection.Open();
-                command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
-                var result = command.ExecuteReader();
-                if (result.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    inquilino = new Inquilino
+                    while (reader.Read())
                     {
-                        id = result.GetInt32(nameof(Inquilino.id)),
-                        nombre = result.GetString(nameof(Inquilino.nombre)),
-                        apellido = result.GetString(nameof(Inquilino.apellido)),
-                        dni = result.GetString(nameof(Inquilino.dni)),
-                        email = result.GetString(nameof(Inquilino.email)),
-                        telefono = result.GetString(nameof(Inquilino.telefono))
-                    };
+                        inquilinos= (new Inquilino
+                        {
+                            id = reader.GetInt32(nameof(Inquilino.id)),
+                            nombre = reader.GetString(nameof(Inquilino.nombre)),
+                            apellido = reader.GetString(nameof(Inquilino.apellido)),
+                            dni = reader.GetString(nameof(Inquilino.dni)),
+                            email = reader.GetString(nameof(Inquilino.email)),
+                            // estado = reader.GetString(nameof(Inquilino.estado))
+                        });
+                    }
                 }
                 connection.Close();
             }
+        }
+        Console.WriteLine(inquilinos.apellido);
+                return inquilinos;
+    }
+    public Inquilino GetInquilino1(int getId)
+    {
+        Console.WriteLine(getId);
+        Inquilino inquilino = null;
+        using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
+        {
+            //var sql = "SELECT * FROM inquilino WHERE id = 8";
+            var sql = $"SELECT * FROM inquilino WHERE id like {getId}";
 
-            return inquilino;
+            //var sql = @$"SELECT * FROM inquilino WHERE @{nameof(inquilino.id)} = @getId";
+            using (var command = new MySqlCommand(sql, connection))
+            {
+                connection.Open();
+                using (var result = command.ExecuteReader())
+                {
+                    Console.WriteLine("-------------------------");
+                    //Console.WriteLine(result.GetInt32(nameof(Inquilino.id)));
+                    Console.WriteLine("-------------------------");
+                    if (result.Read())
+                    {
+                        Console.WriteLine("-----------******************--------------");
+                        inquilino = new Inquilino
+                        {
+                            id = result.GetInt32(nameof(Inquilino.id)),
+                            nombre = result.GetString(nameof(Inquilino.nombre)),
+                            apellido = result.GetString(nameof(Inquilino.apellido)),
+                            dni = result.GetString(nameof(Inquilino.dni)),
+                            email = result.GetString(nameof(Inquilino.email)),
+                            telefono = result.GetString(nameof(Inquilino.telefono))
+                        };
+                                            Console.WriteLine(inquilino.apellido);
+                                            Console.WriteLine("------------//////////////////-------------");
+                    }
+                }
+                connection.Close();
+                return inquilino;
+            }
         }
     }
+
     /**
 metodo para guardar un nuevo inquilino en la base de datos
 */

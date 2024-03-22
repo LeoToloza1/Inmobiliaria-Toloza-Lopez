@@ -23,6 +23,7 @@ public class InquilinoController : Controller
     [HttpGet]
     public IActionResult Create()
     {
+        ViewBag.tipoForm = "Nuevo Inquilino";
         return View("InquilinoFormulario");
     }
     [HttpGet]
@@ -30,6 +31,9 @@ public class InquilinoController : Controller
     {
         RepositorioInquilino rp=new RepositorioInquilino();
         var inquilino = rp.GetInquilino(id);
+        //Console.WriteLine("conrtiller inquilino: ");
+        //Console.Write(inquilino.apellido);
+        //ViewBag.tipoForm = "Editando Inquilino";
         return View("InquilinoFormulario",inquilino);
     }
 
