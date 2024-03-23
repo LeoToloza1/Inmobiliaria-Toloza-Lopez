@@ -29,4 +29,5 @@
 <!--enlaces-->
 
 [contributors-shield]: https://img.shields.io/badge/Contribuidores-11-orange?style=for-the-badge&logo=appveyor
-[contributors-url]: https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/pulse
+[contributors-url]: https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/graphs/traffic
+
