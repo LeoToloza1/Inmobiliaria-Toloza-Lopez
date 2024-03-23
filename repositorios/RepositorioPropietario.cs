@@ -16,7 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var propietarios = new List<Propietario>();
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)},{nameof(Propietario.telefono)} FROM propietario;";
+                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)},{nameof(Propietario.telefono)} FROM propietario WHERE {nameof(Propietario.estado)} = 1;";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();

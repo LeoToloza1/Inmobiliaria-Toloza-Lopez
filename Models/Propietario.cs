@@ -9,5 +9,6 @@ public class Propietario
     public string? email { get; set; }
     public string? password { get; set; }
     public int telefono { get; set; }
+    public string? estado { get; set; }
 
 }
