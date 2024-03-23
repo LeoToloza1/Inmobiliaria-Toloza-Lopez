@@ -50,4 +50,12 @@ public class PropietarioController : Controller
         return RedirectToAction("Index");
     }
 
+    public IActionResult Delete(int id)
+    {
+        RepositorioPropietario rp = new RepositorioPropietario();
+        rp.EliminarPropietario(id);
+        return RedirectToAction("Index");
+
+    }
+
 }

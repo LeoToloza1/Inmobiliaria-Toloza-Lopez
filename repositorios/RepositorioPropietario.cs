@@ -128,5 +128,27 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return respuesta;
         }
+
+        public bool EliminarPropietario(int id)
+        {
+            bool respuesta = false;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                string sql = "UPDATE propietario SET estado = 0 WHERE id = @Id";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    int columnas = command.ExecuteNonQuery();
+                    if (columnas > 0)
+                    {
+                        respuesta = true;
+                    }
+                }
+            }
+            return respuesta;
+        }
+
+
     }
 }
