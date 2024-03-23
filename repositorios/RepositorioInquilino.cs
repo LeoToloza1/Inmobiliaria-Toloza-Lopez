@@ -18,7 +18,7 @@ metodo para obtener todos los inquilinos
         var inquilinos = new List<Inquilino>();
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
+            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
             using (var command = new MySqlCommand(sql, connection))
             {
                 connection.Open();
@@ -32,6 +32,7 @@ metodo para obtener todos los inquilinos
                             nombre = reader.GetString(nameof(Inquilino.nombre)),
                             apellido = reader.GetString(nameof(Inquilino.apellido)),
                             dni = reader.GetString(nameof(Inquilino.dni)),
+                            telefono = reader.GetString(nameof(Inquilino.telefono)),
                             email = reader.GetString(nameof(Inquilino.email)),
                             //email = reader.IsDBNull(reader.GetOrdinal(nameof(Inquilino.email))) ? null : reader.GetString(nameof(Inquilino.email)),
                             // estado = reader.GetString(nameof(Inquilino.estado))
