@@ -4,29 +4,31 @@
   <a href="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/">
     <img src="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/blob/main/ulp.png" alt="Logo" width="400" height="">
   </a>
+ <div align="right">    
+  [![Contributors][contributors-shield]][contributors-url]
+ </div> 
   <div>
   <h1  align="center"> ULP 2024</h1>
 </div>
- <div align="right">
-    
-  [![Contributors][contributors-shield]][contributors-url]
-  
-</div> 
-  <div align="left">
+<div align="left">
     <h2> .NET </h2>
-   <h2>Profesor Mariano Luzza</h2>
+    <h2>Profesor Mariano Luzza</h2>
 </div>
 <div align="center">
       <img src="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/blob/main/netmvc.jpeg" alt="Logo" width="500" height="">
-  <div>
+<div>
 <div align="left">
   <ul><h2>Integrantes</h2>
     <li> Toloza, Santiago Leonel </li>
     <li> Lopez, Enrique Rafael </li>
-</ul>
+  </ul>
 </div>
+<!-- DER-->    
+<div align="center">
+  <img src="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/blob/main/der_inmobilairia.png" alt="DER" width="700" height="">
+<div>
 <p align="right">((<a href="#readme-top"> Regresar al comienzo </a>))</p>
-<!--enlaces-->
+<!--enlaces-->   
 
 [contributors-shield]: https://img.shields.io/badge/Contribuidores-11-orange?style=for-the-badge&logo=appveyor
 [contributors-url]: https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/graphs/traffic
