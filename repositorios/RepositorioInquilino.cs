@@ -104,7 +104,7 @@ metodo para guardar un nuevo inquilino en la base de datos
                 Console.WriteLine($"DNI: {inquilino.dni}");
                 Console.WriteLine($"Email: {inquilino.email}");
                 Console.WriteLine($"telefono: {inquilino.telefono}");
-                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)});";
+                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`,`estado`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)}, '1');";
             }
             else
             {
