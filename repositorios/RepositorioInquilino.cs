@@ -88,13 +88,11 @@ metodo para guardar un nuevo inquilino en la base de datos
     public bool GuardarInquilino(Inquilino inquilino, int? id)
     {
         bool respuesta = false;
-        //        id = (id==null)? 9:id;
         Console.WriteLine("id: " + id);
-
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
             String sql = "";
-            if (id == null)
+            if (!id.HasValue)
             {
                 // Console.Clear();
                 id = 0;
@@ -106,21 +104,15 @@ metodo para guardar un nuevo inquilino en la base de datos
                 Console.WriteLine($"DNI: {inquilino.dni}");
                 Console.WriteLine($"Email: {inquilino.email}");
                 Console.WriteLine($"telefono: {inquilino.telefono}");
-                //                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`, `telefono`)                          VALUES (@{nameof(Inquilino.nombre)}, @nameof(Inquilino.apellido)},                          @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)})";
-
-                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`)
-                         VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)},
-                         @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)});";
+                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)});";
             }
             else
             {
                 sql = @$"UPDATE inquilino SET `nombre` = @{nameof(Inquilino.nombre)}, `apellido` = @{nameof(Inquilino.apellido)}, `dni` = @{nameof(Inquilino.dni)}, `email` = @{nameof(Inquilino.email)}, `telefono` = @{nameof(Inquilino.telefono)} WHERE id = @Id";
             }
-
-
             using var command = new MySqlCommand(sql, connection);
             connection.Open();
-            command.Parameters.AddWithValue("@Id", id);
+            if (id.HasValue) { command.Parameters.AddWithValue("@Id", id); }
             command.Parameters.AddWithValue($"@{nameof(inquilino.nombre)}", inquilino.nombre);
             command.Parameters.AddWithValue($"@{nameof(inquilino.apellido)}", inquilino.apellido);
             command.Parameters.AddWithValue($"@{nameof(inquilino.dni)}", inquilino.dni);
@@ -128,14 +120,11 @@ metodo para guardar un nuevo inquilino en la base de datos
             command.Parameters.AddWithValue($"@{nameof(inquilino.telefono)}", inquilino.telefono);
             // command.Parameters.AddWithValue($"@{nameof(inquilino.estado)}", inquilino.estado);
             int columnas = command.ExecuteNonQuery();
-
-
-
+            
             if (columnas > 0)
             {
                 respuesta = true;
             }
-
         }
         return respuesta;
     }
