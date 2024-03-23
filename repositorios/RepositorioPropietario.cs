@@ -46,7 +46,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"SELECT * FROM propietario WHERE @{nameof(Propietario.id)} = @id";
+                var sql = @$"SELECT * FROM propietario WHERE {nameof(Propietario.id)} = @id";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
