@@ -16,7 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var propietarios = new List<Propietario>();
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)} FROM propietario;";
+                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)},{nameof(Propietario.telefono)} FROM propietario;";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -31,6 +31,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 apellido = reader.GetString(nameof(Propietario.apellido)),
                                 dni = reader.GetString(nameof(Propietario.dni)),
                                 email = reader.GetString(nameof(Propietario.email)),
+                                telefono = reader.GetInt32(nameof(Propietario.telefono)),
                             });
                         }
                     }
@@ -60,8 +61,9 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             apellido = result.GetString(nameof(Propietario.apellido)),
                             dni = result.GetString(nameof(Propietario.dni)),
                             email = result.GetString(nameof(Propietario.email)),
-                            password = result.GetString(nameof(Propietario.password)),
-                            telefono = result.GetString(nameof(Propietario.telefono))
+                            password = result.IsDBNull(result.GetOrdinal(nameof(Propietario.password))) ? null : result.GetString(nameof(Propietario.password)),
+                            // password = result.GetString(nameof(Propietario.password)),
+                            telefono = result.GetInt32(nameof(Propietario.telefono))
                         };
                     }
                     connection.Close();
@@ -98,7 +100,33 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return respuesta;
         }
 
-
-
+        public bool ActualizarPropietario(Propietario propietario)
+        {
+            bool respuesta = false;
+            Propietario? prop = getPropietario(propietario.id);
+            if (prop != null)
+            {
+                using (var connection = new MySqlConnection(conexion))
+                {
+                    var sql = @$"UPDATE `propietario` SET `nombre` = @nombre, `apellido` = @apellido, `dni` = @dni, `email` = @email, `password` = @password, `telefono` = @telefono WHERE `id` = @id;";
+                    using var command = new MySqlCommand(sql, connection);
+                    connection.Open();
+                    command.Parameters.AddWithValue("@id", propietario.id);
+                    command.Parameters.AddWithValue("@nombre", propietario.nombre);
+                    command.Parameters.AddWithValue("@apellido", propietario.apellido);
+                    command.Parameters.AddWithValue("@dni", propietario.dni);
+                    command.Parameters.AddWithValue("@password", propietario.password);
+                    command.Parameters.AddWithValue("@email", propietario.email);
+                    command.Parameters.AddWithValue("@telefono", propietario.telefono);
+                    int columnas = command.ExecuteNonQuery(); //se ejecuta la consulta
+                                                              //si columnas es mayor a 0 entonces la consulta fue correcta
+                    if (columnas > 0)
+                    {
+                        respuesta = true;
+                    }
+                }
+            }
+            return respuesta;
+        }
     }
 }

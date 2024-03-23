@@ -17,12 +17,16 @@ public class PropietarioController : Controller
     [HttpGet]
     public IActionResult Create()
     {
+        ViewBag.tipoForm = "Nuevo Propietario";
+        ViewBag.verboForm = "Nuevo";
         return View("PropietarioFormulario");
     }
     [HttpGet]
     public IActionResult Edit(int id)
     {
         RepositorioPropietario rp = new RepositorioPropietario();
+        ViewBag.tipoForm = "Editando Propietario";
+        ViewBag.verboForm = "update";
         var propietario = rp.getPropietario(id);
         return View("PropietarioFormulario", propietario);
     }
@@ -37,6 +41,13 @@ public class PropietarioController : Controller
             return RedirectToAction("Index");
         }
         return View(propietario);
+    }
+    [HttpPost]
+    public IActionResult Update(Propietario propietario)
+    {
+        RepositorioPropietario rp = new RepositorioPropietario();
+        rp.ActualizarPropietario(propietario);
+        return RedirectToAction("Index");
     }
 
 }

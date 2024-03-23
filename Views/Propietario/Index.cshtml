@@ -35,11 +35,12 @@
                 <th colspan="6">Cantidad: @Model.Count()</th>
             </tr>
             <tr>
-                <th class="text-center">id</th>
+                <th class="text-center">Num Interno</th>
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
                 <th class="text-center">DNI</th>
                 <th class="text-center">Email</th>
+                <th class="text-center">Telefono</th>
                 <th class="text-center">Acciones</th>
             </tr>
         </thead>
@@ -52,6 +53,7 @@
                     <td class="text-center">@propietario.apellido</td>
                     <td class="text-center">@propietario.dni</td>
                     <td class="text-center">@propietario.email</td>
+                    <td class="text-center">@propietario.telefono</td>
                     <td class="text-center">
                         <a class="btn btn-secondary mx-2" href="~/propietario/edit/@propietario.id"><i
                                 class="fas fa-user-edit"></i> Editar </a>
