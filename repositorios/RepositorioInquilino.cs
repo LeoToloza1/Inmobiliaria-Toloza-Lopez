@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using MySql.Data.MySqlClient;
 namespace inmobiliaria_Toloza_Lopez.Models;
 public class RepositorioInquilino
@@ -32,6 +33,7 @@ metodo para obtener todos los inquilinos
                             apellido = reader.GetString(nameof(Inquilino.apellido)),
                             dni = reader.GetString(nameof(Inquilino.dni)),
                             email = reader.GetString(nameof(Inquilino.email)),
+                            //email = reader.IsDBNull(reader.GetOrdinal(nameof(Inquilino.email))) ? null : reader.GetString(nameof(Inquilino.email)),
                             // estado = reader.GetString(nameof(Inquilino.estado))
                         });
                     }
@@ -68,46 +70,72 @@ metodo para traer un inquilino
                             apellido = reader.GetString("apellido"),
                             dni = reader.GetString("dni"),
                             email = reader.GetString("email"),
-                            // estado = reader.GetString(nameof(Inquilino.estado))
+                            telefono = reader.GetString("telefono"),
+                            //email = reader.IsDBNull(reader.GetOrdinal(nameof(Inquilino.email))) ? null : reader.GetString(nameof(Inquilino.email)),
+                            //estado = reader.GetString(nameof(Inquilino.estado))
                         };
                     }
                 }
                 connection.Close();
             }
         }
-
-        if (inquilino != null)
-        {
-            Console.WriteLine(inquilino.apellido);
-        }
-
         return inquilino;
     }
 
     /**
 metodo para guardar un nuevo inquilino en la base de datos
 */
-    public bool GuardarInquilino(Inquilino inquilino)
+    public bool GuardarInquilino(Inquilino inquilino, int? id)
     {
         bool respuesta = false;
+        //        id = (id==null)? 9:id;
+        Console.WriteLine("id: " + id);
+
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            var sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`) 
-            VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)})";
+            String sql = "";
+            if (id == null)
+            {
+                // Console.Clear();
+                id = 0;
+                Console.WriteLine("pasando por 99");
+                Console.WriteLine("Datos del Inquilino:");
+                Console.WriteLine($"ID: {id}");
+                Console.WriteLine($"Nombre: {inquilino.nombre}");
+                Console.WriteLine($"Apellido: {inquilino.apellido}");
+                Console.WriteLine($"DNI: {inquilino.dni}");
+                Console.WriteLine($"Email: {inquilino.email}");
+                Console.WriteLine($"telefono: {inquilino.telefono}");
+                //                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`, `telefono`)                          VALUES (@{nameof(Inquilino.nombre)}, @nameof(Inquilino.apellido)},                          @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)})";
+
+                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`)
+                         VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)},
+                         @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)});";
+            }
+            else
+            {
+                sql = @$"UPDATE inquilino SET `nombre` = @{nameof(Inquilino.nombre)}, `apellido` = @{nameof(Inquilino.apellido)}, `dni` = @{nameof(Inquilino.dni)}, `email` = @{nameof(Inquilino.email)}, `telefono` = @{nameof(Inquilino.telefono)} WHERE id = @Id";
+            }
+
 
             using var command = new MySqlCommand(sql, connection);
             connection.Open();
+            command.Parameters.AddWithValue("@Id", id);
             command.Parameters.AddWithValue($"@{nameof(inquilino.nombre)}", inquilino.nombre);
             command.Parameters.AddWithValue($"@{nameof(inquilino.apellido)}", inquilino.apellido);
             command.Parameters.AddWithValue($"@{nameof(inquilino.dni)}", inquilino.dni);
             command.Parameters.AddWithValue($"@{nameof(inquilino.email)}", inquilino.email);
-            //            command.Parameters.AddWithValue($"@{nameof(inquilino.estado)}", inquilino.estado);
-            int columnas = command.ExecuteNonQuery(); //se ejecuta la consulta
-                                                      //si columnas es mayor a 0 entonces la consulta fue correcta
+            command.Parameters.AddWithValue($"@{nameof(inquilino.telefono)}", inquilino.telefono);
+            // command.Parameters.AddWithValue($"@{nameof(inquilino.estado)}", inquilino.estado);
+            int columnas = command.ExecuteNonQuery();
+
+
+
             if (columnas > 0)
             {
                 respuesta = true;
             }
+
         }
         return respuesta;
     }

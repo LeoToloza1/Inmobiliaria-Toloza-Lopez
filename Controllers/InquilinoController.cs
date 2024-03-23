@@ -15,7 +15,7 @@ public class InquilinoController : Controller
     public IActionResult Index()
     {
         RepositorioInquilino rp = new RepositorioInquilino();
-        var lista = rp.GetInquilinos();  
+        var lista = rp.GetInquilinos();
         return View(lista);
     }
     [HttpGet]
@@ -27,39 +27,35 @@ public class InquilinoController : Controller
     [HttpGet]
     public IActionResult Update(int id)
     {
-        RepositorioInquilino rp=new RepositorioInquilino();
+        RepositorioInquilino rp = new RepositorioInquilino();
         var inquilino = rp.GetInquilino(id);
-        if(inquilino !=null){
-            Console.WriteLine("conrtiller inquilino: ");
-            Console.Write(inquilino.apellido);
+        if (inquilino != null)
+        {
+            //   Console.WriteLine("conrtiller inquilino: ");
+            //   Console.Write(inquilino.apellido);
 
         }
         ViewBag.tipoForm = "Editando Inquilino";
         ViewBag.verboForm = "save";
-        return View("InquilinoFormulario",inquilino);
+        return View("InquilinoFormulario", inquilino);
     }
     [HttpPost]
-    public IActionResult Save(int id=0)
+    public IActionResult Save(Inquilino inquilino, int? id)
     {
-        if(id==0){
+        //      Console.WriteLine(id);
+        //    Debug.WriteLine("Inquilino: "+inquilino.ToString());
+        //   Console.WriteLine(inquilino.nombre);
+        RepositorioInquilino rp = new RepositorioInquilino();
+
+        if (rp.GuardarInquilino(inquilino, id))
+        {
             Console.WriteLine("mierda");
-        }else{
+        }
+        else
+        {
             Console.WriteLine("mierda 2");
         }
-       /* RepositorioInquilino rp=new RepositorioInquilino();
-        var inquilino = rp.GetInquilino(id);
-        if(inquilino !=null){
-            Console.WriteLine("conrtiller inquilino: ");
-            Console.Write(inquilino.apellido);
-
-        }
-        ViewBag.tipoForm = "Editando Inquilino save";
-        ViewBag.verboForm = "edit";
-        return View("InquilinoFormulario",inquilino);
-        */
-            Console.WriteLine("controller inquilino: ",  @id);
-            RepositorioInquilino rp = new RepositorioInquilino();
         var lista = rp.GetInquilinos();
-        return View("index",lista);
+        return View("index", lista);
     }
 }
