@@ -26,11 +26,11 @@
 <div>
 <div align="right">    
   
-  <a href="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/">
+  <a href="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/graphs/traffic">
     <img src="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/blob/main/worker.png" alt="Logo" width="60" height="">
   </a>
 </div> 
-<p align="right">((<a href="#readme-top"> Regresar al comienzo </a>))</p>
+<p align="right">^^<a href="#readme-top"> Regresar al comienzo </a>^^</p>
  
 
 
