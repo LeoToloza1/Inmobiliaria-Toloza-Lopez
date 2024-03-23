@@ -16,7 +16,7 @@
    <h2>Profesor Mariano Luzza</h2>
 </div>
 <div align="center">
-      <img src="" alt="Logo" width="800" height="650">
+      <img src="https://github.com/LeoToloza1/Inmobiliaria-Toloza-Lopez/blob/main/netmvc.jpeg" alt="Logo" width="800" height="650">
   <div>
 <div align="left">
   <ul><h2>Integrantes</h2>
