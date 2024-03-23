@@ -1,49 +1,115 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - inmobiliaria_Toloza_Lopez</title>
+    <title>@ViewData["Title"] - Inmobiliaria</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/inmobiliaria_Toloza_Lopez.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/all.css" asp-append-version="false" />
+    <link rel="stylesheet" href="~/css/adminlte.css" asp-append-version="false" />
+    @* <link rel="stylesheet" href="~/inmobiliaria_Toloza_Lopez.styles.css" asp-append-version="true" /> *@
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">inmobiliaria_Toloza_Lopez</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+<body class="hold-transition sidebar-mini-md sidebar-collapse">
+    <div>
+        <aside class="main-sidebar sidebar-light-primary elevation-4">            
+            <a class="brand-link" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo_300.png" alt="Inmobiliaria TL Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
+                <span class="brand-text font-weight-light">Inmobiliara T & L</span>
+            </a>
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">"ViewData[UserName]"</a>
+                    </div>
+                </div>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p> SysAdmi</p>
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Propiedades
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/propiedad/all" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Todas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/propiedad/residencial" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Residencial</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/propiedad/comercial" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Comercial</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/propietario" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Propietarios
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/inquilino" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Inquilinos
+                                </p>
+                            </a>
+                        </li>
+                </nav>
+            </div>
+        </aside>
+        @* seccion del body *@
         <div class="container">
-            &copy; 2024 - inmobiliaria_Toloza_Lopez - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" >
+                @* se inyecta el body *@
+                @RenderBody()
+            </main>
         </div>
+        @* seccion del footer *@
+        <footer class="border-top footer text-muted fixed-bottom">
+            <div class="container">
+                &copy; 2024 Inmobiliaria Toloza-Lopez - <a asp-area="" asp-controller="Home"
+                    asp-action="Privacy">Privacy</a>
+            </div>
+    </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/adminlte.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
