@@ -18,7 +18,7 @@ metodo para obtener todos los inquilinos
         var inquilinos = new List<Inquilino>();
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.email)} FROM inquilino";
+            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
             using (var command = new MySqlCommand(sql, connection))
             {
                 connection.Open();
@@ -120,10 +120,29 @@ metodo para guardar un nuevo inquilino en la base de datos
             command.Parameters.AddWithValue($"@{nameof(inquilino.telefono)}", inquilino.telefono);
             // command.Parameters.AddWithValue($"@{nameof(inquilino.estado)}", inquilino.estado);
             int columnas = command.ExecuteNonQuery();
-            
+
             if (columnas > 0)
             {
                 respuesta = true;
+            }
+        }
+        return respuesta;
+    }
+    public bool EliminarInquilino(int id)
+    {
+        bool respuesta = false;
+        using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
+        {
+            string sql = "UPDATE inquilino SET estado = 0 WHERE id = @Id";
+            using (var command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@Id", id);
+                connection.Open();
+                int columnas = command.ExecuteNonQuery();
+                if (columnas > 0)
+                {
+                    respuesta = true;
+                }
             }
         }
         return respuesta;

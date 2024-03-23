@@ -29,12 +29,6 @@ public class InquilinoController : Controller
     {
         RepositorioInquilino rp = new RepositorioInquilino();
         var inquilino = rp.GetInquilino(id);
-        if (inquilino != null)
-        {
-            //   Console.WriteLine("conrtiller inquilino: ");
-            //   Console.Write(inquilino.apellido);
-
-        }
         ViewBag.tipoForm = "Editando Inquilino";
         ViewBag.verboForm = "save";
         return View("InquilinoFormulario", inquilino);
@@ -42,18 +36,29 @@ public class InquilinoController : Controller
     [HttpPost]
     public IActionResult Save(Inquilino inquilino, int? id)
     {
-        //      Console.WriteLine(id);
-        //    Debug.WriteLine("Inquilino: "+inquilino.ToString());
-        //   Console.WriteLine(inquilino.nombre);
         RepositorioInquilino rp = new RepositorioInquilino();
-
         if (rp.GuardarInquilino(inquilino, id))
         {
-            Console.WriteLine("mierda");
+            // setear alerta
         }
         else
         {
-            Console.WriteLine("mierda 2");
+            // Seterar No alerta
+        }
+        var lista = rp.GetInquilinos();
+        return View("index", lista);
+    }
+    public IActionResult Delete(int id)
+    {
+
+        RepositorioInquilino rp = new RepositorioInquilino();
+        if (rp.EliminarInquilino(id))
+        {
+            //setear alerta
+        }
+        else
+        {
+            //setear alerta
         }
         var lista = rp.GetInquilinos();
         return View("index", lista);
