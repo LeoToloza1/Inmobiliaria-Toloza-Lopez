@@ -31,7 +31,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 apellido = reader.GetString(nameof(Propietario.apellido)),
                                 dni = reader.GetString(nameof(Propietario.dni)),
                                 email = reader.GetString(nameof(Propietario.email)),
-                                telefono = reader.GetInt32(nameof(Propietario.telefono)),
+                                telefono = reader.GetString(nameof(Propietario.telefono)),
                             });
                         }
                     }
@@ -63,7 +63,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             email = result.GetString(nameof(Propietario.email)),
                             password = result.IsDBNull(result.GetOrdinal(nameof(Propietario.password))) ? null : result.GetString(nameof(Propietario.password)),
                             // password = result.GetString(nameof(Propietario.password)),
-                            telefono = result.GetInt32(nameof(Propietario.telefono))
+                            telefono = result.GetString(nameof(Propietario.telefono))
                         };
                     }
                     connection.Close();

@@ -8,7 +8,7 @@ public class Propietario
     public string? dni { get; set; }
     public string? email { get; set; }
     public string? password { get; set; }
-    public int telefono { get; set; }
+    public string? telefono { get; set; }
     public string? estado { get; set; }
 
 }
