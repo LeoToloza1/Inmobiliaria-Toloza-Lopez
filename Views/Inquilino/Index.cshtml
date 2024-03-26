@@ -10,6 +10,9 @@
         <thead>
             <tr>
                 <th colspan="6">Cantidad: @Model.Count()</th>
+                <th>
+                    <a href="/inquilino/create" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo inquilino</a>
+                </th>
             </tr>
             <tr>
                 <th class="text-center">id</th>
@@ -44,10 +47,10 @@
     </table>
 </div>
 <div class="container">
-    <a href="/inquilino/create" class="btn btn-primary">
-        <i class="fa fa-user-plus"></i> Nuevo inquilino
-    </a>
+<p><< paginador >> </p>    
 </div>
 @section Scripts {    
     @* <script src="~/js/inquilino.js"></script> *@
 }
+
+
