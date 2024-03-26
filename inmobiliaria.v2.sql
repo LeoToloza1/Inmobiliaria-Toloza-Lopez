@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-03-2024 a las 04:32:47
+-- Tiempo de generación: 26-03-2024 a las 11:54:09
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -73,7 +73,7 @@ CREATE TABLE `inquilino` (
   `apellido` varchar(45) NOT NULL,
   `dni` varchar(11) NOT NULL,
   `email` varchar(45) DEFAULT 'a@a',
-  `telefono` varchar(20) NOT NULL,
+  `telefono` varchar(45) NOT NULL,
   `estado` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -105,7 +105,7 @@ CREATE TABLE `propietario` (
   `apellido` varchar(45) DEFAULT NULL,
   `dni` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `telefono` int(11) DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
