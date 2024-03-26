@@ -2,29 +2,6 @@
 @{
     ViewData["Title"] = "Inicio";
 }
-
-@{
-    string alertMessage = "";
-
-    string alertType = "";
-
-    if (TempData["AlertMessage"] != null)
-    {
-        alertMessage = TempData["AlertMessage"].ToString();
-    }
-    if (TempData["AlertType"] != null)
-
-    {
-        alertType = TempData["AlertMessage"].ToString();
-    }
-}
-@if (!string.IsNullOrEmpty(alertMessage))
-
-{
-    <script>
-        alert("@alertMessage");
-    </script>
-}
 <div class="text-center">
     <h1 class="display-4">Listado de Propietarios</h1>
 </div>
