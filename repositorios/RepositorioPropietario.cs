@@ -16,7 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var propietarios = new List<Propietario>();
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)},{nameof(Propietario.telefono)} FROM propietario WHERE {nameof(Propietario.estado)} = 1;";
+                var sql = @$"SELECT {nameof(Propietario.id)},{nameof(Propietario.nombre)},{nameof(Propietario.apellido)},{nameof(Propietario.dni)},{nameof(Propietario.email)},{nameof(Propietario.telefono)} FROM propietario WHERE {nameof(Propietario.borrado)} = 0;";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -61,8 +61,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             apellido = result.GetString(nameof(Propietario.apellido)),
                             dni = result.GetString(nameof(Propietario.dni)),
                             email = result.GetString(nameof(Propietario.email)),
-                            password = result.IsDBNull(result.GetOrdinal(nameof(Propietario.password))) ? null : result.GetString(nameof(Propietario.password)),
-                            // password = result.GetString(nameof(Propietario.password)),
                             telefono = result.GetString(nameof(Propietario.telefono))
                         };
                     }
@@ -80,14 +78,13 @@ namespace inmobiliaria_Toloza_Lopez.Models
             using (var connection = new MySqlConnection(conexion))
             {
                 var sql = @$"INSERT INTO propietario (`nombre`, `apellido`, `dni`, `email`, `password`, `telefono`) 
-         VALUES (@{nameof(Propietario.nombre)}, @{nameof(Propietario.apellido)}, @{nameof(Propietario.dni)}, @{nameof(Propietario.email)}, @{nameof(Propietario.password)}, @{nameof(Propietario.telefono)})";
+         VALUES (@{nameof(Propietario.nombre)}, @{nameof(Propietario.apellido)}, @{nameof(Propietario.dni)}, @{nameof(Propietario.email)}, @{nameof(Propietario.telefono)})";
 
                 using var command = new MySqlCommand(sql, connection);
                 connection.Open();
                 command.Parameters.AddWithValue($"@{nameof(Propietario.nombre)}", propietario.nombre);
                 command.Parameters.AddWithValue($"@{nameof(Propietario.apellido)}", propietario.apellido);
                 command.Parameters.AddWithValue($"@{nameof(Propietario.dni)}", propietario.dni);
-                command.Parameters.AddWithValue($"@{nameof(Propietario.password)}", propietario.password);
                 command.Parameters.AddWithValue($"@{nameof(Propietario.email)}", propietario.email);
                 command.Parameters.AddWithValue($"@{nameof(Propietario.telefono)}", propietario.telefono);
                 int columnas = command.ExecuteNonQuery(); //se ejecuta la consulta
@@ -108,14 +105,13 @@ namespace inmobiliaria_Toloza_Lopez.Models
             {
                 using (var connection = new MySqlConnection(conexion))
                 {
-                    var sql = @$"UPDATE `propietario` SET `nombre` = @nombre, `apellido` = @apellido, `dni` = @dni, `email` = @email, `password` = @password, `telefono` = @telefono WHERE `id` = @id;";
+                    var sql = @$"UPDATE `propietario` SET `nombre` = @nombre, `apellido` = @apellido, `dni` = @dni, `email` = @email, `telefono` = @telefono WHERE `id` = @id;";
                     using var command = new MySqlCommand(sql, connection);
                     connection.Open();
                     command.Parameters.AddWithValue("@id", propietario.id);
                     command.Parameters.AddWithValue("@nombre", propietario.nombre);
                     command.Parameters.AddWithValue("@apellido", propietario.apellido);
                     command.Parameters.AddWithValue("@dni", propietario.dni);
-                    command.Parameters.AddWithValue("@password", propietario.password);
                     command.Parameters.AddWithValue("@email", propietario.email);
                     command.Parameters.AddWithValue("@telefono", propietario.telefono);
                     int columnas = command.ExecuteNonQuery(); //se ejecuta la consulta
@@ -132,9 +128,10 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public bool EliminarPropietario(int id)
         {
             bool respuesta = false;
+
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "UPDATE propietario SET estado = 0 WHERE id = @Id";
+                string sql = "UPDATE propietario SET borrado = 1,email =UUID(),telefono=UUID() WHERE id = @Id";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);

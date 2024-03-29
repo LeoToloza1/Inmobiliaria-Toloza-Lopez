@@ -2,29 +2,6 @@
 @{
     ViewData["Title"] = "Inicio";
 }
-
-@{
-    string alertMessage = "";
-
-    string alertType = "";
-
-    if (TempData["AlertMessage"] != null)
-    {
-        alertMessage = TempData["AlertMessage"].ToString();
-    }
-    if (TempData["AlertType"] != null)
-
-    {
-        alertType = TempData["AlertMessage"].ToString();
-    }
-}
-@if (!string.IsNullOrEmpty(alertMessage))
-
-{
-    <script>
-        alert("@alertMessage");
-    </script>
-}
 <div class="text-center">
     <h1 class="display-4">Listado de Propietarios</h1>
 </div>
@@ -33,12 +10,12 @@
         <thead>
             <tr>
                 <th colspan="6">Cantidad: @Model.Count()</th>
-                <th>    <a href="/propietario/create" class="btn btn-primary">
-        <i class="fa fa-user-plus"></i> Nuevo Propietario
-    </a></th>
+                <th> <a href="/propietario/create" class="btn btn-primary">
+                        <i class="fa fa-user-plus"></i> Nuevo Propietario
+                    </a></th>
             </tr>
             <tr>
-                <th class="text-center">Num Interno</th>
+
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
                 <th class="text-center">DNI</th>
@@ -51,7 +28,7 @@
             @foreach (var propietario in Model)
             {
                 <tr>
-                    <td class="text-center">@propietario.id</td>
+
                     <td class="text-center">@propietario.nombre</td>
                     <td class="text-center">@propietario.apellido</td>
                     <td class="text-center">@propietario.dni</td>
@@ -71,7 +48,9 @@
     </table>
 </div>
 <div class="container">
-<p><< paginador >> </p>
+    <p>
+        << paginador>>
+    </p>
 </div>
 @section Scripts {
     @* <script src="~/js/inquilino.js"></script> *@
