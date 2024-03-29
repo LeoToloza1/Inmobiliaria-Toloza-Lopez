@@ -61,6 +61,7 @@ public class InquilinoController : Controller
             //setear alerta
         }
         var lista = rp.GetInquilinos();
-        return View("index", lista);
+        return RedirectToAction("Index");
+        // return View("index", lista);
     }
 }

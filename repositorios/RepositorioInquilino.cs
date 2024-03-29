@@ -18,7 +18,8 @@ metodo para obtener todos los inquilinos
         var inquilinos = new List<Inquilino>();
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
+       //     var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
+            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.borrado)} = 0;";
             using (var command = new MySqlCommand(sql, connection))
             {
                 connection.Open();
@@ -105,7 +106,7 @@ metodo para guardar un nuevo inquilino en la base de datos
                 Console.WriteLine($"DNI: {inquilino.dni}");
                 Console.WriteLine($"Email: {inquilino.email}");
                 Console.WriteLine($"telefono: {inquilino.telefono}");
-                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`,`estado`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)}, '1');";
+                sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`,`borrado`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)}, '0');";
             }
             else
             {
@@ -134,7 +135,7 @@ metodo para guardar un nuevo inquilino en la base de datos
         bool respuesta = false;
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            string sql = "UPDATE inquilino SET estado = 0 WHERE id = @Id";
+            string sql = "UPDATE inquilino SET borrado = 1, email = UUID(), telefono = UUID()   WHERE id = @Id";
             using (var command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.AddWithValue("@Id", id);
