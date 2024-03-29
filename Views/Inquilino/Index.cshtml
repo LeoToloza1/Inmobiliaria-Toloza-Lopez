@@ -14,27 +14,25 @@
                     <a href="/inquilino/create" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo inquilino</a>
                 </th>
             </tr>
-            <tr>
-                <th class="text-center">id</th>
+            <tr>             
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
                 <th class="text-center">DNI</th>
                 <th class="text-center">Telefono</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Acciones</th>
+                <th colspan=2 class="text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var inquilino in Model)
             {
                 <tr>
-                    <td class="text-center">@inquilino.id</td>
                     <td class="text-center">@inquilino.nombre</td>
                     <td class="text-center">@inquilino.apellido</td>
                     <td class="text-center">@inquilino.dni</td>
                     <td class="text-center">@inquilino.telefono</td>
                     <td class="text-center">@inquilino.email</td>
-                    <td class="text-center">
+                    <td colspan=2 class="text-center">
                         <a class="btn btn-secondary mx-2" asp-controller="Inquilino" asp-action="update" asp-route-id="@inquilino.id"><i
                                 class="fas fa-user-edit"></i> Editar </a>
                         <a class="btn btn-danger mx-2" asp-controller="Inquilino" asp-action="delete" asp-route-id="@inquilino.id"><i
