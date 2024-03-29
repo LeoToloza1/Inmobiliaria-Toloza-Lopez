@@ -128,14 +128,13 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public bool EliminarPropietario(int id)
         {
             bool respuesta = false;
-            string email = "";
+
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "UPDATE propietario SET estado = 0,email = @email WHERE id = @Id";
+                string sql = "UPDATE propietario SET borrado = 1,email =UUID(),telefono=UUID() WHERE id = @Id";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
-                    command.Parameters.AddWithValue("@email", email);
                     connection.Open();
                     int columnas = command.ExecuteNonQuery();
                     if (columnas > 0)
