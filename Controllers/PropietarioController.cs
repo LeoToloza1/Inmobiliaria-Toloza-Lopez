@@ -45,6 +45,7 @@ public class PropietarioController : Controller
     [HttpPost]
     public IActionResult Update(Propietario propietario)
     {
+        Console.WriteLine("Propietario:-> " + propietario.ToString());
         RepositorioPropietario rp = new RepositorioPropietario();
         rp.ActualizarPropietario(propietario);
         return RedirectToAction("Index");

@@ -7,8 +7,7 @@ public class Propietario
     public string? apellido { get; set; }
     public string? dni { get; set; }
     public string? email { get; set; }
-    public string? password { get; set; }
     public string? telefono { get; set; }
-    public string? estado { get; set; }
+    public bool borrado { get; set; }
 
 }
