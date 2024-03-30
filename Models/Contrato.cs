@@ -6,7 +6,7 @@ public class Contrato
     public int id_inmueble { get; set; }
     public DateOnly fecha_inicio { get; set; }
     public DateOnly fecha_fin { get; set; }
-    public DateOnly fecha_fin_efectiva { get; set; }
+    public DateOnly fecha_efectiva { get; set; }
     public decimal incremento { get; set; }
     public string? estado { get; set; }
 }
