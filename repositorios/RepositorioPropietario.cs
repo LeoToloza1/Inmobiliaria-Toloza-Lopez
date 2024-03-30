@@ -77,7 +77,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"INSERT INTO propietario (`nombre`, `apellido`, `dni`, `email`, `password`, `telefono`) 
+                var sql = @$"INSERT INTO propietario (`nombre`, `apellido`, `dni`, `email`, `telefono`) 
          VALUES (@{nameof(Propietario.nombre)}, @{nameof(Propietario.apellido)}, @{nameof(Propietario.dni)}, @{nameof(Propietario.email)}, @{nameof(Propietario.telefono)})";
 
                 using var command = new MySqlCommand(sql, connection);
