@@ -27,5 +27,7 @@ public class Inmueble
     public int id_zona { get; set; }
     public bool borrado { get; set; }
     public string? descripcion { get; set; }
+public Propietario? propietario { get; set; }
+public Tipo_Inmueble? tipo_inmueble { get; set; }
 
 }

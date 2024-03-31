@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
+using inmobiliaria_Toloza_Lopez.Models;
 
 namespace inmobiliaria_Toloza_Lopez.Models
+
 {
     public class RepositorioInmueble
     {
@@ -29,27 +31,30 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 while (reader.Read())
                 {
                     inmuebles.Add(new Inmueble
+                {
+                    id = reader.GetInt32("id"),
+                    direccion = reader.GetString("direccion"),
+                    uso = (usoInmueble)reader.GetInt32(reader.GetOrdinal("uso")),
+                    id_tipo = reader.GetInt32("id_tipo"),
+                    ambientes = reader.GetInt32("ambientes"),
+                    coordenadas = reader.GetString("coordenadas"),
+                    precio = reader.GetDecimal("precio"),
+                    id_propietario = reader.GetInt32("id_propietario"),
+                    estado = (Estado)reader.GetInt32(reader.GetOrdinal("estado")),
+                    id_ciudad = reader.GetInt32("id_ciudad"),
+                    id_zona = reader.GetInt32("id_zona"),
+                    borrado = reader.GetBoolean("borrado"),
+                    descripcion = reader.GetString("descripcion"),
+                    tipo_inmueble = new Tipo_Inmueble{
+                        tipo = reader.GetString("tipo_inmueble")
+                    },
+                    propietario = new Propietario
                     {
-                        id = reader.GetInt32("id"),
-                        direccion = reader.GetString("direccion"),
-                        uso = (usoInmueble)reader.GetInt32(reader.GetOrdinal("uso")),
-                        id_tipo = reader.GetInt32("id_tipo"),
-                        ambientes = reader.GetInt32("ambientes"),
-                        coordenadas = reader.GetString("coordenadas"),
-                        precio = reader.GetDecimal("precio"),
-                        id_propietario = reader.GetInt32("id_propietario"),
-                        estado = (Estado)reader.GetInt32(reader.GetOrdinal("estado")),
-                        id_ciudad = reader.GetInt32("id_ciudad"),
-                        id_zona = reader.GetInt32("id_zona"),
-                        borrado = reader.GetBoolean("borrado"),
-                        descripcion = reader.GetString("descripcion"),
-                        tipo_inmueble = reader.GetString("tipo_inmueble"),
-                        propietario = new Propietario
-                        {
-                            nombre = reader.GetString("nombre_propietario"),
-                            apellido = reader.GetString("apellido_propietario")
-                        }
-                    });
+                        nombre = reader.GetString("nombre_propietario"),
+                        apellido = reader.GetString("apellido_propietario")
+                    }
+                });
+
                 }
             }
         }
@@ -82,7 +87,7 @@ public Inmueble? GetInmueble(int id)
                         id = reader.GetInt32("id"),
                         direccion = reader.GetString("direccion"),
                         uso = (usoInmueble)reader.GetInt32(reader.GetOrdinal("uso")),
-                        tipo_inmueble = reader.GetString("tipo_inmueble"),
+                        id_tipo = reader.GetInt32("id_tipo"),
                         ambientes = reader.GetInt32("ambientes"),
                         coordenadas = reader.GetString("coordenadas"),
                         precio = reader.GetDecimal("precio"),
@@ -91,6 +96,9 @@ public Inmueble? GetInmueble(int id)
                         id_ciudad = reader.GetInt32("id_ciudad"),
                         id_zona = reader.GetInt32("id_zona"),
                         descripcion = reader.GetString("descripcion"),
+                        tipo_inmueble = new Tipo_Inmueble{
+                        tipo = reader.GetString("tipo_inmueble")
+                    },
                         propietario = new Propietario
                         {
                             nombre = reader.GetString("nombre_propietario"),
