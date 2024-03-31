@@ -49,5 +49,43 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
             return inmuebles;
         }
+      public Inmueble? GetInmueble(int id)
+{
+    Inmueble? inmueble = null;
+    using (var connection = new MySqlConnection(conexion))
+    {
+        string sql = "SELECT * FROM inmueble WHERE id = @id";
+        using (var command = new MySqlCommand(sql, connection))
+        {
+            command.Parameters.AddWithValue("@id", id);
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    inmueble = new Inmueble
+                    {
+                        id = reader.GetInt32(reader.GetOrdinal("id")),
+                        direccion = reader.GetString(reader.GetOrdinal("direccion")),
+                        uso = (usoInmueble)reader.GetInt32(reader.GetOrdinal("uso")),
+                        id_tipo = reader.GetInt32(reader.GetOrdinal("id_tipo")),
+                        ambientes = reader.GetInt32(reader.GetOrdinal("ambientes")),
+                        coordenadas = reader.GetString(reader.GetOrdinal("coordenadas")),
+                        precio = reader.GetDecimal(reader.GetOrdinal("precio")),
+                        id_propietario = reader.GetInt32(reader.GetOrdinal("id_propietario")),
+                        estado = (Estado)reader.GetInt32(reader.GetOrdinal("estado")),
+                        id_ciudad = reader.GetInt32(reader.GetOrdinal("id_ciudad")),
+                        id_zona = reader.GetInt32(reader.GetOrdinal("id_zona")),
+                        descripcion = reader.GetString(reader.GetOrdinal("descripcion")),
+                    };
+                }
+            }
+        }
     }
+
+    return inmueble;
+}
+  
+    }
+
 }

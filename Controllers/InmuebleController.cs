@@ -11,4 +11,23 @@ public class InmuebleController : Controller
         var lista = rp.GetInmuebles();
         return View(lista);
     }
+      [HttpGet]
+    public IActionResult Create()
+    {
+        ViewBag.tipoForm = "Nuevo Inmueble";
+        return View("InmuebleFormulario");
+    }
+      [HttpGet]
+    public IActionResult Update(int id)
+    {
+        RepositorioInmueble rp = new RepositorioInmueble();
+        var inmueble = rp.getInmueble(id);
+        ViewBag.tipoForm = "Editando Inmueble";
+        ViewBag.verboForm = "save";
+        return View("InmuebleFormulario", inmueble);
+    }
+
+
+
+
 }
