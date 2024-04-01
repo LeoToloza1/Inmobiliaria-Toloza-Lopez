@@ -29,7 +29,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
         sql += "ON c.id = i.id_ciudad ";
         sql += "JOIN zona AS z ";
         sql += "ON z.id = i.id_zona ";
-        Console.WriteLine(sql);
+       // Console.WriteLine(sql);
 
 
         using (var command = new MySqlCommand(sql, connection))
@@ -47,7 +47,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         uso =reader.GetString("uso"),
                         id_tipo = reader.GetInt32("id_tipo"),
                         ambientes = reader.GetInt32("ambientes"),
-                        //coordenadas = reader.GetString("coordenadas"),
+                        coordenadas = reader.GetString("coordenadas"),
  
                         latitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.latitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.latitud)),
                         longitud= reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.longitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.longitud)),
