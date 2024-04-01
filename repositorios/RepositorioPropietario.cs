@@ -36,6 +36,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         }
                     }
                 }
+             connection.Close();   
             }
             return propietarios;
         }
@@ -93,6 +94,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 {
                     respuesta = true;
                 }
+                connection.Close();
             }
             return respuesta;
         }
@@ -120,6 +122,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                     {
                         respuesta = true;
                     }
+                    connection.Close();
                 }
             }
             return respuesta;
@@ -142,6 +145,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         respuesta = true;
                     }
                 }
+                connection.Close();
             }
             return respuesta;
         }

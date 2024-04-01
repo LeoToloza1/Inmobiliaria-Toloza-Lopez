@@ -127,6 +127,7 @@ metodo para guardar un nuevo inquilino en la base de datos
             {
                 respuesta = true;
             }
+            connection.Close();
         }
         return respuesta;
     }
@@ -145,6 +146,7 @@ metodo para guardar un nuevo inquilino en la base de datos
                 {
                     respuesta = true;
                 }
+                connection.Close();
             }
         }
         return respuesta;
