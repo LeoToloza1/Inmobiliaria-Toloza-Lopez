@@ -1,8 +1,9 @@
 @model inmobiliaria_Toloza_Lopez.Models.Inmueble
-
 @{
+    @using inmobiliaria_Toloza_Lopez.Controllers
+    var tiposInmuebles = new TipoInmuebleController().CargarDatosEnViewBag();
     ViewData["Title"] = "Inicio";
-    Console.WriteLine(ViewBag.tipoForm);
+    @* Console.WriteLine(ViewBag.tipoForm); *@
     int id = 0;
     var direccion = "";
     var uso = "";
@@ -39,7 +40,7 @@
     <div class="text-center">
         <h1 class="display-3">@ViewBag.tipoForm</h1>
     </div>
-    <form asp-action="@verbo" asp-controller="inmueble" asp-route-id="@(((int)id != 0) ? (int)id : "")">
+   <form asp-action="@verbo" asp-controller="inmueble" asp-route-id="@(((int)id != 0) ? (int)id : "")">
         <div class="w-100 m-5">
             <div class="w-75 m-5">
                 <label for="direccion-inmueble" class="">Dirección</label>
@@ -48,13 +49,37 @@
             </div>
             <div class="w-75 m-5">
                 <label for="uso-inmueble" class="">Uso</label>
-                <input type="text" class="form-control" id="uso-inmueble" placeholder="Ingrese uso" name="uso" required
-                    verfy="text" value="@uso">
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="uso" id="comercial" value="Comercial" @if (uso
+                            == "Comercial")
+                        {
+                            <text>checked</text>
+                        }>
+                        <label class="form-check-label" for="comercial">Comercial</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="uso" id="residencial" value="Residencial"
+                        @if (uso == "Residencial")
+                        {
+                            <text>checked</text>
+                        }>
+                        <label class="form-check-label" for="residencial">Residencial</label>
+                    </div>
+                </div>
             </div>
-            <div class="w-75 m-5">
-                <label for="id-tipo-inmueble" class="">ID Tipo</label>
-                <input type="number" class="form-control" id="id-tipo-inmueble" placeholder="Ingrese ID tipo"
-                    name="id_tipo" required verfy="number" value="@id_tipo">
+                <div class="w-75 m-5">
+                <label for="id-tipo-inmueble" class="">Tipo de Inmueble</label>
+         <select class="form-select" id="id-tipo-inmueble" name="id_tipo" required>
+                <option value="">Seleccione el tipo de inmueble</option>
+                @if (tiposInmuebles != null)
+                {
+                    foreach (var tipo in tiposInmuebles)
+                    {
+                        <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                    }
+                }
+            </select>
             </div>
             <div class="w-75 m-5">
                 <label for="ambientes-inmueble" class="">Ambientes</label>
@@ -103,11 +128,29 @@
             <a href="/inmueble" class="btn btn-secondary">
                 Cerrar
             </a>
-            <button type="reset" class="btn btn-warning">Borrar</button>
+            <button type="reset" class="btn btn-warning" onclick="alerta()">Borrar</button>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </div>
     </form>
 </div>
 @section Scripts {
     <script src="~/js/propietario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function alerta() {
+            Swal.fire({
+                title: 'Cuidado!',
+                text: '¿Está seguro que quiere limpiar el formulario?',
+                icon: 'question',
+                showCloseButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Limpiando", "", "success");
+                }
+            });
+        }
+    </script>
 }
+
+
