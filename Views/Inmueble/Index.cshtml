@@ -9,7 +9,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th colspan="6">Cantidad: @Model.Count()</th>
+                <th colspan="8">Cantidad: @Model.Count()</th>
                 <th>
                     <a href="/inquilino/create" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo
                         Inmueble</a>
@@ -17,6 +17,7 @@
             </tr>
             <tr>
                 <th class="text-center">Tipo</th>
+                <th class="text-center">Uso</th>
                 <th class="text-center">Ambientes</th>
                 <th class="text-center">Coordenadas</th>
                 <th class="text-center">Precio</th>
@@ -25,23 +26,24 @@
                 <th class="text-center">Ciudad</th>
                 <th class="text-center">Zona</th>
                 <th class="text-center">Descripcion</th>
-                <th colspan="2" class="text-center">Acciones</th>
+                <th colspan="4" class="text-center">Adminstracion</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var inmuebles in Model)
             {
                 <tr>
-                    <td class="text-center">@inmuebles.id_tipo</td>
+                    <td class="text-center">@inmuebles.tipoInmueble.tipo</td>
+                    <td class="text-center">@inmuebles.uso</td>
                     <td class="text-center">@inmuebles.ambientes</td>
-                    <td class="text-center">@inmuebles.coordenadas</td>
+                    <td class="text-center">Lat. @inmuebles.latitud   Lon. @inmuebles.longitud</td>
                     <td class="text-center">@inmuebles.precio</td>
-                    <td class="text-center">@inmuebles.id_propietario</td>
+                    <td class="text-center">@inmuebles.propietario.apellido, @inmuebles.propietario.nombre </td>
                     <td class="text-center">@inmuebles.estado</td>
-                    <td class="text-center">@inmuebles.id_ciudad</td>
-                    <td class="text-center">@inmuebles.id_zona</td>
+                    <td class="text-center">@inmuebles.ciudad.ciudad</td>
+                    <td class="text-center">@inmuebles.zona.zona</td>
                     <td class="text-center">@inmuebles.descripcion</td>
-                    <td colspan="2" class="text-center">
+                    <td colspan="4" class="text-center">
                         <a class="btn btn-secondary mx-2" asp-controller="Inquilino" asp-action="update"
                             asp-route-id="@inmuebles.id"><i class="fas fa-user-edit"></i> Editar </a>
                         <a class="btn btn-danger mx-2" asp-controller="Inquilino" asp-action="delete"
