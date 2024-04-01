@@ -2,6 +2,12 @@ html {
   font-size: 14px;
 }
 
+@media (min-width: 1700px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1660px;
+}
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -27,9 +33,10 @@ body {
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
-.primary{
+
+.primary {
   margin-bottom: 50px;
 }
