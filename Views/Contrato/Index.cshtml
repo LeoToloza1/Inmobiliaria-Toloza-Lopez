@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Contrato>
+@{
+    ViewData["Title"] = "Inicio";
+    foreach (var mod in Model)
+    {
+        Console.WriteLine(" Index contrato : " + mod.ToString());
+    }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Listado de Contratos</h1>
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            @* <tr>
+                <th colspan="7">Cantidad: @Model.Count()</th>
+                <th>
+                    <a href="/contrato/create" class="btn btn-primary"><i class="fa fa-user-plus"></i>
+                        Nuevo Contrato</a>
+                </th>
+            </tr> *@
+            <tr>
+                <th class="text-center">Inicia</th>
+                <th class="text-center">Finaliza</th>
+                <th class="text-center">Monto</th>
+                <th class="text-center">Inquilino</th>
+                <th class="text-center">Propietario</th>
+                <th colspan="5" class="text-center">Administracion</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var contrato in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @contrato.fecha_inicio
+                    </td>
+                    <td class="text-center">
+                        @contrato.fecha_fin
+                    </td>
+                    <td class="text-center">
+                        $ @contrato.monto
+                    </td>
+                    <td class="text-center">
+                        @contrato.inquilino.apellido, @contrato.inquilino.nombre
+                    </td>
+                    <td class="text-center">
+                        @contrato.inmueble.propietario.apellido, @contrato.inmueble.propietario.nombre
+                    </td>
+                    <td colspan="4" class="text-center">
+                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="send"
+                            asp-route-id="@contrato.id"><i class="fas fa-at mx-2"></i> Enviar por email
+                        </a>
+                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="view"
+                            asp-route-id="@contrato.id"><i class="fas fa-info-circle mx-2"></i> Ver Detalle
+                        </a>
+                        <a class="btn btn-danger mx-2" asp-controller="contrato" asp-action="print"
+                            asp-route-id="@contrato.id" title="Imprimir Contrato"><i class="fas fa-solid fa-print mx-2"></i> Imprimir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <p>
+        << paginador>>
+    </p>
+</div>
+@section Scripts {
+    @* <script src="~/js/inquilino.js"></script> *@
+}

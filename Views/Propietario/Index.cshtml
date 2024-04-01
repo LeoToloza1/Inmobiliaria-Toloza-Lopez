@@ -9,10 +9,12 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th colspan="6">Cantidad: @Model.Count()</th>
-                <th> <a href="/propietario/create" class="btn btn-primary">
+                <th colspan="9">Cantidad: @Model.Count()</th>
+                <th class="text-center"> 
+                    <a href="/propietario/create" class="btn btn-primary">
                         <i class="fa fa-user-plus"></i> Nuevo Propietario
-                    </a></th>
+                    </a>
+                </th>
             </tr>
             <tr>
                 <th class="text-center">Nombre</th>
@@ -20,7 +22,7 @@
                 <th class="text-center">DNI</th>
                 <th class="text-center">Email</th>
                 <th class="text-center">Telefono</th>
-                <th colspan="2" class="text-center">Acciones</th>
+                <th colspan="5" class="text-center">Administracion</th>
             </tr>
         </thead>
         <tbody>
@@ -33,12 +35,24 @@
                     <td class="text-center">@propietario.dni</td>
                     <td class="text-center">@propietario.email</td>
                     <td class="text-center">@propietario.telefono</td>
-                    <td colspan="2" class="text-center">
-                        <a class="btn btn-secondary mx-2" href="~/propietario/edit/@propietario.id"><i
-                                class="fas fa-user-edit"></i> Editar </a>
-                        <a class="btn btn-danger mx-2" href="~/propietario/delete/@propietario.id"><i
-                                class="fas fa-user-times"></i>
-                            Borrar </a>
+                    @* <td colspan="4" class="text-center"> *@
+                    <td colspan="5" class="text-center ms-col">                        
+                        <a class="btn btn-danger mx-2 mb-2 text-nowrap w-20" title="Editar propietario" href="~/propietario/edit/@propietario.id">
+                            <i class="fas fa-user-edit"></i> 
+                            <span class="d-none d-md-inline">Editar</span>
+                        </a>
+                        <a class="btn btn-danger mx-2 mb-2 text-nowrap w-20" title ="Borrar popietario" href="~/propietario/delete/@propietario.id">
+                            <i class="fas fa-user-times mx-2"></i>
+                            <span class="d-none d-md-inline">Borrar</span>
+                        </a>
+                        <a class="btn btn-danger mx-2 mb-2 text-nowrap w-20" title="Inmuebles del propietario" href="~/propietario/inmuebles/@propietario.id">
+                            <i class="fas fa-solid fa-house-user mx-2"></i>
+                            <span class="d-none d-md-inline">Inmuebles </span>
+                        </a>
+                        <a class="btn btn-danger mx-2 mb-2 text-nowrap w-20" title="Contratos del Propietario" href="~/propietario/contratos/@propietario.id">
+                            <i class="fas fa-solid fa-file-contract mx-2 "></i>
+                            <span class="d-none d-md-inline">Contratos </span>
+                        </a>                        
                     </td>
 
                 </tr>
