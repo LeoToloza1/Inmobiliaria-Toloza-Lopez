@@ -2,6 +2,8 @@
 @{
     @using inmobiliaria_Toloza_Lopez.Controllers
     var tiposInmuebles = new TipoInmuebleController().CargarDatosEnViewBag();
+    var ciudades = new CiudadController().CargarCiudades();
+    var zonas = new ZonaController().CargarZonas();
     ViewData["Title"] = "Inmuebles";
     @* Console.WriteLine(ViewBag.tipoForm); *@
     int id = 0;
@@ -103,20 +105,60 @@
                     placeholder="Ingrese ID propietario" name="id_propietario" required verfy="number"
                     value="@id_propietario">
             </div>
-            <div class="w-75 m-5">
-                <label for="estado-inmueble" class="">Estado</label>
-                <input type="text" class="form-control" id="estado-inmueble" placeholder="Ingrese estado" name="estado"
-                    required verfy="text" value="@estado">
+        <div class="w-75 m-5">
+            <label for="estado-inmueble">Estado</label>
+            <select class="form-select" name="estado" id="estado">
+                @if(estado == "No Disponible")
+                {
+                    <option value="No Disponible" selected>No disponible</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Reserva">Reserva</option>
+                }
+                else if(estado == "Disponible")
+                {
+                    <option value="No Disponible">No disponible</option>
+                    <option value="Disponible" selected>Disponible</option>
+                    <option value="Reserva">Reserva</option>
+                }
+                else if(estado == "Reserva")
+                {
+                    <option value="No Disponible">No disponible</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Reserva" selected>Reserva</option>
+                }
+                else
+                {
+                    <option value="No Disponible">No disponible</option>
+                    <option value="Disponible">Disponible</option>
+                    <option value="Reserva">Reserva</option>
+                }
+            </select>
             </div>
             <div class="w-75 m-5">
-                <label for="id-ciudad-inmueble" class="">ID Ciudad</label>
-                <input type="number" class="form-control" id="id-ciudad-inmueble" placeholder="Ingrese ID ciudad"
-                    name="id_ciudad" required verfy="number" value="@id_ciudad">
+                <label for="id-ciudad-inmueble" class="">Ciudad</label>
+                 <select class="form-select" id="id-ciudad" name="id_ciudad" required>
+                <option value="">Seleccione la ciudad</option>
+                @if (ciudades != null)
+                {
+                    foreach (var ciudad in ciudades)
+                    {
+                        <option value="@ciudad.id" selected="@(ciudad.id == id_ciudad)">@ciudad.ciudad</option>
+                    }
+                }
+            </select>
             </div>
             <div class="w-75 m-5">
-                <label for="id-zona-inmueble" class="">ID Zona</label>
-                <input type="number" class="form-control" id="id-zona-inmueble" placeholder="Ingrese ID zona"
-                    name="id_zona" required verfy="number" value="@id_zona">
+                <label for="id-zona-inmueble" class="">Zona</label>
+            <select class="form-select" id="id_zona" name="id_zona" required>
+                <option value="">Seleccione la Zona</option>
+                @if (zonas != null)
+                {
+                    foreach (var zona in zonas)
+                    {
+                        <option value="@zona.id" selected="@(zona.id == id_zona)">@zona.zona</option>
+                    }
+                }
+            </select>
             </div>
             <div class="w-75 m-5">
                 <label for="descripcion-inmueble" class="">Descripción</label>
