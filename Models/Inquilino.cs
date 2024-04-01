@@ -8,4 +8,9 @@ public class Inquilino
     public string? email { get; set; }
     public string? telefono { get; set; }
     public bool? borrado { get; set; }
+    public override string ToString()
+    {
+        return $"ID: {id}, Nombre: {nombre}, Apellido: {apellido}, DNI: {dni}, Email: {email}, Teléfono: {telefono}, Borrado: {borrado}";
+
+    }
 }
