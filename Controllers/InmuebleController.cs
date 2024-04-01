@@ -21,7 +21,7 @@ public class InmuebleController : Controller
     public IActionResult Update(int id)
     {
         RepositorioInmueble rp = new RepositorioInmueble();
-        var inmueble = rp.getInmueble(id);
+        var inmueble = rp.GetInmueble(id);
         ViewBag.tipoForm = "Editando Inmueble";
         ViewBag.verboForm = "save";
         return View("InmuebleFormulario", inmueble);

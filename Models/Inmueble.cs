@@ -27,5 +27,17 @@ public class Inmueble
     public int id_zona { get; set; }
     public bool borrado { get; set; }
     public string? descripcion { get; set; }
+    public Propietario? propietario { set; get; }
+
+    public override string ToString()
+    {
+        return $"ID: {id}, Dirección: {direccion}, Uso: {uso}, ID Tipo: {id_tipo}, Ambientes: {ambientes}, "
+        + $"Coordenadas: {coordenadas}, Precio: {precio}, ID Propietario: {id_propietario}, Estado: {estado}, "
+        + $"ID Ciudad: {id_ciudad}, ID Zona: {id_zona}, Borrado: {borrado}, Descripción: {descripcion}"
+        + $"Propietario: {propietario}";
+    }
+    public string datosPropietario(){
+        return $"{propietario.nombre}, {propietario?.apellido}";
+    }
 
 }
