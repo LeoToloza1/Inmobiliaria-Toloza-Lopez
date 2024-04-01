@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 26-03-2024 a las 11:54:09
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: mysql-raffarraffa.alwaysdata.net
+-- Generation Time: Apr 01, 2024 at 06:44 AM
+-- Server version: 10.6.16-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,10 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `inmobiliaria`
+-- Database: `raffarraffa_inmobiliaria`
 --
-CREATE DATABASE IF NOT EXISTS `inmobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `inmobiliaria`;
+CREATE DATABASE IF NOT EXISTS `raffarraffa_inmobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `raffarraffa_inmobiliaria`;
 
 -- --------------------------------------------------------
 
@@ -29,6 +29,7 @@ USE `inmobiliaria`;
 -- Table structure for table `ciudad`
 --
 
+DROP TABLE IF EXISTS `ciudad`;
 CREATE TABLE `ciudad` (
   `id` int(11) NOT NULL,
   `ciudad` varchar(100) NOT NULL
@@ -48,6 +49,7 @@ INSERT INTO `ciudad` (`id`, `ciudad`) VALUES
 -- Table structure for table `contrato`
 --
 
+DROP TABLE IF EXISTS `contrato`;
 CREATE TABLE `contrato` (
   `id` int(11) NOT NULL,
   `id_inquilino` int(11) NOT NULL,
@@ -73,6 +75,7 @@ INSERT INTO `contrato` (`id`, `id_inquilino`, `id_inmueble`, `fecha_inicio`, `fe
 -- Table structure for table `inmueble`
 --
 
+DROP TABLE IF EXISTS `inmueble`;
 CREATE TABLE `inmueble` (
   `id` int(11) NOT NULL,
   `direccion` varchar(100) NOT NULL COMMENT 'calle y altura',
@@ -106,6 +109,7 @@ INSERT INTO `inmueble` (`id`, `direccion`, `uso`, `id_tipo`, `ambientes`, `coord
 -- Table structure for table `inquilino`
 --
 
+DROP TABLE IF EXISTS `inquilino`;
 CREATE TABLE `inquilino` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -132,6 +136,7 @@ INSERT INTO `inquilino` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`,
 -- Table structure for table `pago`
 --
 
+DROP TABLE IF EXISTS `pago`;
 CREATE TABLE `pago` (
   `id` int(11) NOT NULL,
   `id_contrato` int(11) NOT NULL,
@@ -149,6 +154,7 @@ CREATE TABLE `pago` (
 -- Table structure for table `propietario`
 --
 
+DROP TABLE IF EXISTS `propietario`;
 CREATE TABLE `propietario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -173,6 +179,7 @@ INSERT INTO `propietario` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono
 -- Table structure for table `tipo_inmueble`
 --
 
+DROP TABLE IF EXISTS `tipo_inmueble`;
 CREATE TABLE `tipo_inmueble` (
   `id` int(11) NOT NULL,
   `tipo` varchar(200) NOT NULL
@@ -196,6 +203,7 @@ INSERT INTO `tipo_inmueble` (`id`, `tipo`) VALUES
 -- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
@@ -212,6 +220,7 @@ CREATE TABLE `usuario` (
 -- Table structure for table `zona`
 --
 
+DROP TABLE IF EXISTS `zona`;
 CREATE TABLE `zona` (
   `id` int(11) NOT NULL,
   `zona` varchar(50) NOT NULL
@@ -231,6 +240,7 @@ INSERT INTO `zona` (`id`, `zona`) VALUES
 -- Table structure for table `zona_has_ciudad`
 --
 
+DROP TABLE IF EXISTS `zona_has_ciudad`;
 CREATE TABLE `zona_has_ciudad` (
   `zona_id` int(11) NOT NULL,
   `ciudad_id` int(11) NOT NULL
