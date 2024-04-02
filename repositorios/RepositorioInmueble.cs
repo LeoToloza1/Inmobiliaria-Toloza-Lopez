@@ -10,6 +10,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public RepositorioInmueble()
         { //esto llama a la misma conexion 
             this.conexion = Conexion.GetConnectionString();
+            // this.conexion = Conexion.GetConnectionStringRemota();
         }
         public IList<Inmueble> GetInmuebles()
         {

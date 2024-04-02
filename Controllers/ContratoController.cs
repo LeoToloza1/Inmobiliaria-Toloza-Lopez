@@ -16,21 +16,29 @@ public class ContratoController : Controller
     public IActionResult Index()
     {
         RepositorioContrato repositorioContrato = new RepositorioContrato();
-        var contratos = repositorioContrato.GetContratos();  
+        var contratos = repositorioContrato.GetContratos();
         foreach (var contrato in contratos)
+        {
+            foreach (var property in contrato.GetType().GetProperties())
             {
-                foreach (var property in contrato.GetType().GetProperties())
-                {
-                    var propertyName = property.Name;
-                    var propertyValue = property.GetValue(contrato);
+                var propertyName = property.Name;
+                var propertyValue = property.GetValue(contrato);
 
-                    Console.WriteLine($"{propertyName}: {propertyValue}");
-                }               
-                Console.WriteLine("------------------------");
+                Console.WriteLine($"{propertyName}: {propertyValue}");
             }
+            Console.WriteLine("------------------------");
+        }
         return View(contratos);
     }
-
+    public IActionResult List(int id)
+    {
+        Console.WriteLine("id qu erecibo"+id);
+        RepositorioContrato repositorioContrato = new RepositorioContrato();
+        var contratos = repositorioContrato.GetContratos(id);
+        //return RedirectToAction("Index", contratos);
+        return View("index",contratos);
+    }
+    
     public IActionResult Privacy()
     {
         return View();

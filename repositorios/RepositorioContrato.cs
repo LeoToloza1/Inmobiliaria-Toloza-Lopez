@@ -13,8 +13,10 @@ public class RepositorioContrato
     /**
 metodo para obtener todos los Contratos
 */
-    public IList<Contrato> GetContratos()
+    public IList<Contrato> GetContratos(int? id = null)
     {
+        Console.WriteLine("el id en repositorio es " + id);
+
         var Contratos = new List<Contrato>();
         try
         {
@@ -33,11 +35,14 @@ metodo para obtener todos los Contratos
                 string dataJoinInmueble = " JOIN inmueble AS p ";
                 string dataOnInmueble = " ON p.id = c.id_inmueble ";
                 string dataJoinPropietario = " JOIN propietario AS pro ";
-                string dataOnPropietario = " ON pro.id = p.id_propietario";
-               // string dataWhere ="WHERE c.fecha_efectiva IS NULL";
+                string dataOnPropietario = " ON pro.id = p.id_propietario ";
+                string dataWhere = "";
+                if (id != null) { dataWhere = " WHERE c.id_inquilino = " + id; }
+
+                // string dataWhere ="WHERE c.fecha_efectiva IS NULL";
                 // creacion consulta
-                string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom ;
-                sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario ;
+                string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
+                sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
                 Console.WriteLine(sql);
                 using (var command = new MySqlCommand(sql, connection))
                 {
@@ -64,7 +69,7 @@ metodo para obtener todos los Contratos
                                     propietario = new Propietario
                                     {
                                         nombre = reader.GetString("propietarioNombre"),
-                                        apellido =reader.GetString("propietarioApellido").ToUpper()
+                                        apellido = reader.GetString("propietarioApellido").ToUpper()
                                     },
                                 }
                             };
