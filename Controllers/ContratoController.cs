@@ -15,6 +15,7 @@ public class ContratoController : Controller
 
     public IActionResult Index()
     {
+        //TODO devuelve index
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         var contratos = repositorioContrato.GetContratos();
         foreach (var contrato in contratos)

@@ -15,17 +15,16 @@ metodo para obtener todos los Contratos
 */
     public IList<Contrato> GetContratos(int? id = null)
     {
+        //TODO  hacer otro metodo para devolver todos los contratos para un propitario
         Console.WriteLine("el id en repositorio es " + id);
-
         var Contratos = new List<Contrato>();
         try
         {
             using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
             {
-
                 // particionaod consulta
                 string dataAccion = "SELECT ";
-                string dataContrato = @$"  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin,";
+                string dataContrato = @$"c.{nameof(Contrato.id_inquilino)}  AS idInquilino,  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin,";
                 string dataInquilino = @$"  i.{nameof(Inquilino.nombre)} AS inquilinoNombre, i.{nameof(Inquilino.apellido)} AS inquilinoApellido, ";
                 string dataInmueble = @$" p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, ";
                 string dataPropietario = @$" pro.{nameof(Propietario.nombre)} AS propietarioNombre , pro.{nameof(Propietario.apellido)} AS propietarioApellido ";
@@ -55,6 +54,7 @@ metodo para obtener todos los Contratos
                             Contrato contrato = new Contrato
                             {
                                 id = reader.GetInt32("idContrato"),
+                                id_inquilino = reader.GetInt32("idInquilino"),
                                 monto = reader.GetDecimal("montoContrato"),
                                 fecha_inicio = new DateOnly(reader.GetDateTime("fechaInicio").Year, reader.GetDateTime("fechaInicio").Month, reader.GetDateTime("fechaInicio").Day),
                                 fecha_fin = new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day),
