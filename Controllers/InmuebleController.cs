@@ -53,7 +53,11 @@ public class InmuebleController : Controller
     return RedirectToAction("Index");
   }
 
-
+public IActionResult Propietario(int id){
+   RepositorioInmueble rp = new RepositorioInmueble();
+    var lista = rp.GetInmuebles(id);
+    return View("Index",lista);
+}
 
 
 }

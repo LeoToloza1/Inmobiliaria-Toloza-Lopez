@@ -3,7 +3,7 @@
     ViewData["Title"] = "Inicio";
     foreach (var mod in Model)
     {
-        Console.WriteLine(" Index contrato : " + mod.ToString());
+//        Console.WriteLine(" Index contrato : " + mod.ToString());
     }
 }
 
@@ -16,10 +16,13 @@
             @* <tr>
                 <th colspan="7">Cantidad: @Model.Count()</th>
                 <th>
-                    <a href="/contrato/create" class="btn btn-primary"><i class="fa fa-user-plus"></i>
-                        Nuevo Contrato</a>
+                    <a asp-asp-controller="contrato" asp-action="create"  class="btn btn-primary">
+                        <i class="fa fa-user-plus"></i>
+                            Nuevo Contrato
+                    </a>
                 </th>
-            </tr> *@
+            </tr>
+            *@
             <tr>
                 <th class="text-center">Inicia</th>
                 <th class="text-center">Finaliza</th>
