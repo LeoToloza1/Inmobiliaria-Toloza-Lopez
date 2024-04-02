@@ -31,10 +31,10 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             });
                         }
                     }
-                    Console.WriteLine("Probanbdo la consulta ->" + sql);
+                    connection.Close();
                 }
             }
-            Console.WriteLine(tipoInmuebles);
+
             return tipoInmuebles;
 
         }
