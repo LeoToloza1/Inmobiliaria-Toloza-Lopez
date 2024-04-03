@@ -263,3 +263,5 @@ paket-files/
 __pycache__/
 *.pyc
 .vscode/*
+appsettingsRemota.json
+appsettings2.json
