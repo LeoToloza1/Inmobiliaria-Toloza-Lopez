@@ -3,15 +3,35 @@
     ViewData["Title"] = "Inicio";
     var request = ViewContext.HttpContext.Request;
     string urlActual = request.Path + request.QueryString;
-    foreach (string key in request.Query.Keys)
-    {
-Console.WriteLine(key + "-" + request.Query[key]);
-    }
-    // string urlParam = (string)request.QueryString;
+    List<string> listaTipoInmueble = new List<string> {"Casa", "Quinta", "Local" }; //uso en dev
+    List<string> listaCiudadInmueble = new List<string> {"Merlo", "San Luis", "Carpinetria" }; //uso en dev
+                                                                                  // bool existeTipoInmueble = valoresDesdeBD.Contains(request.Query["tipoInmueble"]);
+
     Console.WriteLine(request.Query["precio"]);
-    var urlParam = request.QueryString;
-    Console.WriteLine("query" + urlParam);
-    // string[] parameters = urlParam.Split('&');
+    string? usoInmueble = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
+    string? precioInmueble = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" : request.Query["precioInmueble"];
+    string? tipoInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["tipoInmueble"];
+    string? ciudadInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["ciudadInmueble"];
+    @*
+
+
+if (string.IsNullOrEmpty(request.Query["usoInmueble"]))
+{
+Console.WriteLine("No inmueble");
+}
+else
+{
+Console.WriteLine("Si hayinmeuble");
+}
+if (request.Query.Count == 0)
+{
+Console.WriteLine("No hay query");
+}
+else
+{
+Console.WriteLine(" hay query");
+} *@
+
 
 }
 <div class="text-center">
@@ -21,46 +41,51 @@ Console.WriteLine(key + "-" + request.Query[key]);
     <div class="container-fluid p-0">
         <div class="border-top border-bottom mb-1 mt-5">
             <div class="d-flex justify-content-between align-items-center px-3 py-2">
-                <form method="get" action="/inmueble" name="form-inmueble" class="d-flex justify-content-evenly w-50">
+                <form method="get" action="/inmueble" name="form-inmueble" class="d-flex justify-content-evenly w-75">
                     <div class="d-flex justify-content-evenly w-100">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value="all">
+                            <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value="all"
+                            @(usoInmueble == "all" ? "checked" : "")>
                             <label class="form-check-label" for="todosRadio">
                                 Todos
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="comercialRadio"
-                                value="comercial">
+                                value="comercial" @(usoInmueble == "comercial" ? "checked" : "")>
                             <label class="form-check-label" for="comercialRadio">
                                 Comercial
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="residencialRadio"
-                                value="residencial">
+                                value="residencial" @(usoInmueble == "residencial" ? "checked" : "")>
                             <label class="form-check-label" for="residencialRadio">
                                 Residencial
                             </label>
                         </div>
                         <div class="flex-item">
-                            <input name="precio" class="form-control py-1 w-75" type="number" placeholder="Precio"
-                                aria-label="tipo-inmueble">
+                            <input name="precioInmueble" class="form-control py-1 w-75" type="number"
+                                placeholder="Precio" aria-label="tipo-inmueble" value="@precioInmueble">
                         </div>
                         <div class="flex-item">
-                            <select name="tipo" class="form-select p-1" aria-label="Select tipo">
-                                <option value=0 selected>Casa</option>
-                                <option value=1>Departamento</option>
-                                <option value=2>Quinta</option>
+                            <select name="tipoInmueble" class="form-select px-5 w-100" aria-label="Select tipo">
+                                <option value="0" selected="@((tipoInmueble == "0") ? "selected" : null)">Todas</option>
+                                @foreach (var item in listaTipoInmueble)
+                                {
+                                    <option value="@item" selected="@((tipoInmueble == item) ? "selected" : null)">@item</option>
+                                }    
                             </select>
                         </div>
                         <div class="flex-item">
-                            <select name="ciudad" class="form-select p-1" aria-label="Select Ciudad">
-                                <option value=0 selected>Todas</option>
-                                <option value=1>Merlo</option>
-                                <option value=2>Carpinteria</option>
+                            <select name="ciudadInmueble" class="form-select px-5 w-100" aria-label="Select tipo">
+                                <option value="0" selected="@((ciudadInmueble == "0") ? "selected" : null)">Todas</option>
+                                @foreach (var item in listaCiudadInmueble)
+                                {
+                                    <option value="@item" selected="@((ciudadInmueble == item) ? "selected" : null)">@item</option>
+                                }    
                             </select>
-                        </div>
+                        </div>                       
                         <div class="flex-item">
                             <button type="submit" class="btn btn-primary py-1">Filtrar</button>
                         </div>
