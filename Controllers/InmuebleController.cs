@@ -5,15 +5,38 @@ namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class InmuebleController : Controller
 {
+  private readonly RepositorioInmueble _repositorioInmueble;
+  private readonly RepositorioTipoInmueble _repositorioTipoInmueble;
+  private readonly RepositorioPropietario repositorioPropietario;
+  private readonly RepositorioCiudad _repositorioCiudad;
+  private readonly RepositorioZona _repositorioZona;
+
+  public InmuebleController(
+      RepositorioInmueble repositorioInmueble,
+      RepositorioTipoInmueble repositorioTipoInmueble,
+      RepositorioPropietario repositorioPropietario,
+      RepositorioCiudad repositorioCiudad,
+      RepositorioZona repositorioZona
+      )
+  {
+    _repositorioInmueble = repositorioInmueble;
+    _repositorioTipoInmueble = repositorioTipoInmueble;
+    this.repositorioPropietario = repositorioPropietario;
+    _repositorioCiudad = repositorioCiudad;
+    _repositorioZona = repositorioZona;
+  }
   public IActionResult Index()
   {
-    RepositorioInmueble rp = new RepositorioInmueble();
-    var lista = rp.GetInmuebles();
+    var lista = _repositorioInmueble.GetInmuebles();
     return View(lista);
   }
   [HttpGet]
   public IActionResult Create()
   {
+    ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+    ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+    ViewBag.zonas = _repositorioZona.ListarZonas();
+    ViewBag.propietarios = repositorioPropietario.getPropietarios();
     ViewBag.tipoForm = "Nuevo Inmueble";
     ViewBag.verboForm = "Nuevo";
     return View("InmuebleFormulario");
@@ -21,8 +44,11 @@ public class InmuebleController : Controller
   [HttpGet]
   public IActionResult Edit(int id)
   {
-    RepositorioInmueble rp = new RepositorioInmueble();
-    var inmueble = rp.GetInmueble(id);
+    var inmueble = _repositorioInmueble.GetInmueble(id);
+    ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+    ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+    ViewBag.zonas = _repositorioZona.ListarZonas();
+    ViewBag.propietarios = repositorioPropietario.getPropietarios();
     ViewBag.tipoForm = "Editando Inmueble";
     ViewBag.verboForm = "Update";
     return View("InmuebleFormulario", inmueble);
@@ -30,7 +56,7 @@ public class InmuebleController : Controller
   [HttpPost]
   public IActionResult Nuevo(Inmueble inmueble)
   {
-    RepositorioInmueble rp = new RepositorioInmueble();
+    var rp = _repositorioInmueble;
     if (ModelState.IsValid)
     {
       rp.GuardarInmueble(inmueble);
@@ -41,23 +67,21 @@ public class InmuebleController : Controller
   [HttpPost]
   public IActionResult Update(Inmueble inmueble)
   {
-    RepositorioInmueble rp = new RepositorioInmueble();
+    var rp = _repositorioInmueble;
     rp.ActualizarInmueble(inmueble);
     return RedirectToAction("Index");
   }
 
   public IActionResult Delete(int id)
   {
-    RepositorioInmueble rp = new RepositorioInmueble();
+    var rp = _repositorioInmueble;
     rp.EliminarInmueble(id);
     return RedirectToAction("Index");
   }
 
-public IActionResult Propietario(int id){
-   RepositorioInmueble rp = new RepositorioInmueble();
-    var lista = rp.GetInmuebles(id);
-    return View("Index",lista);
-}
-
-
+  public IActionResult InmueblesPorPropietario(int id_propietario)
+  {
+    var lista = _repositorioInmueble.GetInmuebles(id_propietario);
+    return View("Index", lista);
+  }
 }
