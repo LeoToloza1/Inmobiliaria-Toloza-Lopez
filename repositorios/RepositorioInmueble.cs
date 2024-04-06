@@ -12,7 +12,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             this.conexion = Conexion.GetConnectionString();
             // this.conexion = Conexion.GetConnectionStringRemota();
         }
-        public IList<Inmueble> GetInmuebles()
+        public IList<Inmueble> GetInmuebles(int page, int pageSize)
         {
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
@@ -30,9 +30,14 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 sql += "ON c.id = i.id_ciudad ";
                 sql += "JOIN zona AS z ";
                 sql += "ON z.id = i.id_zona ";
-                // Console.WriteLine(sql);
+                sql += "LIMIT @PageSize OFFSET @Offset";
+
                 using (var command = new MySqlCommand(sql, connection))
                 {
+                    int offset = (page - 1) * pageSize;
+                    command.Parameters.AddWithValue("@PageSize", pageSize);
+                    command.Parameters.AddWithValue("@Offset", offset);
+
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
@@ -166,7 +171,23 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
             return inmuebles;
         }
+        public int GetTotalInmuebles()
+        {
+            int total = 0;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                string sql = "SELECT COUNT(*) FROM inmueble";
 
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    connection.Open();
+                    total = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                }
+            }
+
+            return total;
+        }
         public Inmueble? GetInmueble(int id)
         {
             Inmueble? inmueble = null;

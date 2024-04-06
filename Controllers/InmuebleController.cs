@@ -25,13 +25,28 @@ public class InmuebleController : Controller
     _repositorioCiudad = repositorioCiudad;
     _repositorioZona = repositorioZona;
   }
-  public IActionResult Index()
+  // public IActionResult Index()
+  // {
+  //   ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+  //   ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+  //   ViewBag.zonas = _repositorioZona.ListarZonas();
+  //   var lista = _repositorioInmueble.GetInmuebles();
+  //   return View(lista);
+  // }
+  [HttpGet]
+  public IActionResult Index(int page = 1)
   {
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
     ViewBag.zonas = _repositorioZona.ListarZonas();
-    var lista = _repositorioInmueble.GetInmuebles();
-    return View(lista);
+    int pageSize = 1; // Elementos por pagina
+    var totalItems = _repositorioInmueble.GetTotalInmuebles(); // Obtener el total de elementos
+    var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize); // Calcular el total de páginas
+    var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize); // Obtener los inmuebles para la página actual
+    ViewBag.CurrentPage = page;
+    ViewBag.TotalPages = totalPages;
+
+    return View(inmuebles);
   }
   [HttpGet]
   public IActionResult Create()

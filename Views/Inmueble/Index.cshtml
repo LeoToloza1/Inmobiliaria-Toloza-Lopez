@@ -3,7 +3,6 @@
     ViewData["Title"] = "Inicio";
     var request = ViewContext.HttpContext.Request;
     string urlActual = request.Path + request.QueryString;
-    Console.WriteLine("ACA LLEGA LA REQUEST -->" + request);
     Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
     var id_tipo = 0;
     var id_ciudad = 0;
@@ -71,35 +70,28 @@
                     </div>
                     <div class="mt-2">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                            <li class="page-item @(ViewBag.paginaActual == 1 ? "disabled" : "")">
+                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage - 1)"
+                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Anterior</span>
                                 </a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    1
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    2
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    3
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="/inmueble?page=@i">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Siguiente</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
+
                 </div>
             </form>
         </div>
