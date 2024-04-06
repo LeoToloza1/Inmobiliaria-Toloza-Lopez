@@ -6,6 +6,13 @@
     Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
     var id_tipo = 0;
     var id_ciudad = 0;
+    List<string> listaTipoInmueble = new List<string> {"Casa", "Quinta", "Local" }; //uso en dev
+    List<string> listaCiudadInmueble = new List<string> {"Merlo", "San Luis", "Carpinetria" }; //uso en dev
+    Console.WriteLine(request.Query["precio"]);
+    string? usoInmueble = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
+    string? precioInmueble = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" : request.Query["precioInmueble"];
+    string? tipoInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["tipoInmueble"];
+    string? ciudadInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["ciudadInmueble"];
 }
 <div class="text-center">
     <h1 class="display-4">Listado de Inmuebles</h1>
@@ -13,25 +20,26 @@
 <div>
     <div class="container-fluid p-0">
         <div class="border-top border-bottom mb-1 mt-5">
-            <form method="get" action="/inmueble" name="form-inmueble">
-                <div class="d-flex justify-content-between align-items-center px-3 py-2">
-                    <div class="d-flex justify-content-evenly w-75">
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                <form method="get" action="/inmueble" name="form-inmueble" class="d-flex justify-content-evenly w-75">
+                    <div class="d-flex justify-content-evenly w-100">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value="all">
+                            <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value="all"
+                            @(usoInmueble == "all" ? "checked" : "")>
                             <label class="form-check-label" for="todosRadio">
                                 Todos
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="comercialRadio"
-                                value="comercial">
+                                value="comercial" @(usoInmueble == "comercial" ? "checked" : "")>
                             <label class="form-check-label" for="comercialRadio">
                                 Comercial
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="residencialRadio"
-                                value="residencial">
+                                value="residencial" @(usoInmueble == "residencial" ? "checked" : "")>
                             <label class="form-check-label" for="residencialRadio">
                                 Residencial
                             </label>
@@ -96,7 +104,6 @@
             </form>
         </div>
     </div>
-
     <table class="table table-striped">
         <thead>
             @* <tr>
