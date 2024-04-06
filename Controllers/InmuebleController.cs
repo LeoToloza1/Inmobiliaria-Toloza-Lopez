@@ -27,6 +27,9 @@ public class InmuebleController : Controller
   }
   public IActionResult Index()
   {
+    ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+    ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+    ViewBag.zonas = _repositorioZona.ListarZonas();
     var lista = _repositorioInmueble.GetInmuebles();
     return View(lista);
   }
