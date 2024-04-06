@@ -1,6 +1,16 @@
+using inmobiliaria_Toloza_Lopez.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuración de servicios
+builder.Services.AddScoped<RepositorioInmueble>();
+builder.Services.AddScoped<RepositorioTipoInmueble>();
+builder.Services.AddScoped<RepositorioCiudad>();
+builder.Services.AddScoped<RepositorioZona>();
+builder.Services.AddScoped<RepositorioPropietario>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

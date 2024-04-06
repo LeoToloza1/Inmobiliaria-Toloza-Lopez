@@ -234,7 +234,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return inmueble;
         }
 
-        public Inmueble? GetInmuebleByPropietario(int id)
+        public Inmueble? GetInmuebleByPropietario(int id_propietario)
         {
 
             Inmueble? inmueble = null;
@@ -243,7 +243,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 string sql = "SELECT * FROM inmueble WHERE id_propietario = @id_propietario";
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@id_propietario", id);
+                    command.Parameters.AddWithValue("@id_propietario", id_propietario);
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
@@ -263,8 +263,18 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 id_ciudad = reader.GetInt32("id_ciudad"),
                                 id_zona = reader.GetInt32("id_zona"),
                                 borrado = reader.GetBoolean("borrado"),
-                                descripcion = reader.GetString("descripcion")
-
+                                descripcion = reader.GetString("descripcion"),
+                                tipoInmueble = new TipoInmueble
+                                {
+                                    id = reader.GetInt32("t_id_tipo"),
+                                    tipo = reader.GetString("tipo_inmueble")
+                                },
+                                propietario = new Propietario
+                                {
+                                    id = reader.GetInt32("p_id"),
+                                    nombre = reader.GetString("nombre_propietario"),
+                                    apellido = reader.GetString("apellido_propietario")
+                                }
                             };
                         }
                         connection.Close();
