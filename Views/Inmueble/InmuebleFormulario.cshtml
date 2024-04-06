@@ -1,15 +1,12 @@
 @model inmobiliaria_Toloza_Lopez.Models.Inmueble
+
 @{
-    @using inmobiliaria_Toloza_Lopez.Controllers
-    var tiposInmuebles = new TipoInmuebleController().CargarDatosEnViewBag();
-    var ciudades = new CiudadController().CargarCiudades();
-    var zonas = new ZonaController().CargarZonas();
     ViewData["Title"] = "Inmuebles";
     @* Console.WriteLine(ViewBag.tipoForm); *@
     int id = 0;
     var direccion = "";
     var uso = "";
-    var id_tipo = 1;
+    var id_tipo = 0;
     var ambientes = 0;
     var coordenadas = "";
     var precio = (Decimal)0.00;
@@ -74,13 +71,13 @@
                 <label for="id-tipo-inmueble" class="">Tipo de Inmueble</label>
          <select class="form-select" id="id-tipo-inmueble" name="id_tipo" required>
                 <option value="">Seleccione el tipo de inmueble</option>
-                @if (tiposInmuebles != null)
-                {
-                    foreach (var tipo in tiposInmuebles)
+               @if (ViewBag.tipoInmuebles != null)
                     {
-                        <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                        foreach (var tipo in ViewBag.tipoInmuebles)
+                        {
+                            <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                        }
                     }
-                }
             </select>
             </div>
             <div class="w-75 m-5">
@@ -100,10 +97,17 @@
                     name="precio" required verfy="number" value="@precio">
             </div>
             <div class="w-75 m-5">
-                <label for="id-propietario-inmueble" class="">ID Propietario</label>
-                <input type="number" class="form-control" id="id-propietario-inmueble"
-                    placeholder="Ingrese ID propietario" name="id_propietario" required verfy="number"
-                    value="@id_propietario">
+                <label for="id-propietario-inmueble" class="">Propietario del Inmueble</label>
+                 <select class="form-select" id="id_propietario" name="id_propietario" required>
+                <option value="">Seleccione El propietario</option>
+                @if (ViewBag.propietarios != null)
+                {
+                    foreach (var prop in ViewBag.propietarios)
+                    {
+                        <option value="@prop.id" selected="@(prop.id == id_propietario)">@prop.nombre @prop.apellido</option>
+                    }
+                }
+            </select>
             </div>
         <div class="w-75 m-5">
             <label for="estado-inmueble">Estado</label>
@@ -112,25 +116,16 @@
                 {
                     <option value="No Disponible" selected>No disponible</option>
                     <option value="Disponible">Disponible</option>
-                    <option value="Reserva">Reserva</option>
                 }
                 else if(estado == "Disponible")
                 {
                     <option value="No Disponible">No disponible</option>
                     <option value="Disponible" selected>Disponible</option>
-                    <option value="Reserva">Reserva</option>
-                }
-                else if(estado == "Reserva")
-                {
-                    <option value="No Disponible">No disponible</option>
-                    <option value="Disponible">Disponible</option>
-                    <option value="Reserva" selected>Reserva</option>
                 }
                 else
                 {
                     <option value="No Disponible">No disponible</option>
                     <option value="Disponible">Disponible</option>
-                    <option value="Reserva">Reserva</option>
                 }
             </select>
             </div>
@@ -138,9 +133,9 @@
                 <label for="id-ciudad-inmueble" class="">Ciudad</label>
                  <select class="form-select" id="id-ciudad" name="id_ciudad" required>
                 <option value="">Seleccione la ciudad</option>
-                @if (ciudades != null)
+                @if (ViewBag.ciudades != null)
                 {
-                    foreach (var ciudad in ciudades)
+                    foreach (var ciudad in ViewBag.ciudades)
                     {
                         <option value="@ciudad.id" selected="@(ciudad.id == id_ciudad)">@ciudad.ciudad</option>
                     }
@@ -151,9 +146,9 @@
                 <label for="id-zona-inmueble" class="">Zona</label>
             <select class="form-select" id="id_zona" name="id_zona" required>
                 <option value="">Seleccione la Zona</option>
-                @if (zonas != null)
+                @if (ViewBag.zonas != null)
                 {
-                    foreach (var zona in zonas)
+                    foreach (var zona in ViewBag.zonas)
                     {
                         <option value="@zona.id" selected="@(zona.id == id_zona)">@zona.zona</option>
                     }
