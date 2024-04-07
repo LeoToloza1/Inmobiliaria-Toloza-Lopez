@@ -3,36 +3,16 @@
     ViewData["Title"] = "Inicio";
     var request = ViewContext.HttpContext.Request;
     string urlActual = request.Path + request.QueryString;
+    Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
+    var id_tipo = 0;
+    var id_ciudad = 0;
     List<string> listaTipoInmueble = new List<string> {"Casa", "Quinta", "Local" }; //uso en dev
     List<string> listaCiudadInmueble = new List<string> {"Merlo", "San Luis", "Carpinetria" }; //uso en dev
-                                                                                  // bool existeTipoInmueble = valoresDesdeBD.Contains(request.Query["tipoInmueble"]);
-
     Console.WriteLine(request.Query["precio"]);
     string? usoInmueble = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
     string? precioInmueble = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" : request.Query["precioInmueble"];
     string? tipoInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["tipoInmueble"];
     string? ciudadInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["ciudadInmueble"];
-    @*
-
-
-if (string.IsNullOrEmpty(request.Query["usoInmueble"]))
-{
-Console.WriteLine("No inmueble");
-}
-else
-{
-Console.WriteLine("Si hayinmeuble");
-}
-if (request.Query.Count == 0)
-{
-Console.WriteLine("No hay query");
-}
-else
-{
-Console.WriteLine(" hay query");
-} *@
-
-
 }
 <div class="text-center">
     <h1 class="display-4">Listado de Inmuebles</h1>
@@ -65,67 +45,65 @@ Console.WriteLine(" hay query");
                             </label>
                         </div>
                         <div class="flex-item">
-                            <input name="precioInmueble" class="form-control py-1 w-75" type="number"
-                                placeholder="Precio" aria-label="tipo-inmueble" value="@precioInmueble">
+                            <input name="precio" class="form-control form-control-sm" type="number" placeholder="Precio"
+                                aria-label="tipo-inmueble">
                         </div>
                         <div class="flex-item">
-                            <select name="tipoInmueble" class="form-select px-5 w-100" aria-label="Select tipo">
-                                <option value="0" selected="@((tipoInmueble == "0") ? "selected" : null)">Todas</option>
-                                @foreach (var item in listaTipoInmueble)
+                            <select name="tipo" class="form-select " aria-label="Select tipo">
+                                <option value="">Filtrar tipo de inmueble</option>
+                                @if (ViewBag.tipoInmuebles != null)
                                 {
-                                    <option value="@item" selected="@((tipoInmueble == item) ? "selected" : null)">@item</option>
-                                }    
+                                    foreach (var tipo in ViewBag.tipoInmuebles)
+                                    {
+                                        <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                                    }
+                                }
                             </select>
                         </div>
                         <div class="flex-item">
-                            <select name="ciudadInmueble" class="form-select px-5 w-100" aria-label="Select tipo">
-                                <option value="0" selected="@((ciudadInmueble == "0") ? "selected" : null)">Todas</option>
-                                @foreach (var item in listaCiudadInmueble)
+                            <select name="ciudad" class="form-select " aria-label="Select Ciudad">
+                                <option value="">Filtrar por ciudad</option>
+                                @if (ViewBag.ciudades != null)
                                 {
-                                    <option value="@item" selected="@((ciudadInmueble == item) ? "selected" : null)">@item</option>
-                                }    
+                                    foreach (var ciudad in ViewBag.ciudades)
+                                    {
+                                        <option value="@ciudad.id" selected="@(ciudad.id == id_ciudad)">@ciudad.ciudad</option>
+                                    }
+                                }
                             </select>
-                        </div>                       
+                        </div>
                         <div class="flex-item">
-                            <button type="submit" class="btn btn-primary py-1">Filtrar</button>
+                            <button type="submit" class="btn btn-primary py-1">Buscar</button>
                         </div>
                     </div>
-                </form>
-                <div class="mt-2">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Anterior</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                1
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                2
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                3
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Siguiente</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="mt-2">
+                        <ul class="pagination">
+                            <li class="page-item @(ViewBag.paginaActual == 1 ? "disabled" : "")">
+                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage - 1)"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                            {
+                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="/inmueble?page=@i">@i</a>
+                                </li>
+                            }
+                            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-
     <table class="table table-striped">
         <thead>
             @* <tr>
@@ -153,17 +131,17 @@ Console.WriteLine(" hay query");
             @foreach (var inmuebles in Model)
             {
                 <tr>
-                    <td class="text-center">@inmuebles.tipoInmueble.tipo</td>
+                    <td class="text-center">@inmuebles.tipoInmueble?.tipo</td>
                     <td class="text-center">@inmuebles.uso</td>
                     <td class="text-center">@inmuebles.ambientes</td>
                     <td class="text-center"><a class="btn btn-secondary mx-2"
                             href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank"><i
                                 class="fas fa-map-marked-alt mx-2"></i>Mapa</a></td>
                     <td class="text-center">@inmuebles.precio</td>
-                    <td class="text-center">@inmuebles.propietario.apellido, @inmuebles.propietario.nombre </td>
+                    <td class="text-center">@inmuebles.propietario?.apellido, @inmuebles.propietario?.nombre </td>
                     <td class="text-center">@inmuebles.estado</td>
-                    <td class="text-center">@inmuebles.ciudad.ciudad</td>
-                    <td class="text-center">@inmuebles.zona.zona</td>
+                    <td class="text-center">@inmuebles.ciudad?.ciudad</td>
+                    <td class="text-center">@inmuebles.zona?.zona</td>
                     <td class="text-center">@inmuebles.descripcion</td>
                     <td colspan="4" class="text-center">
                         <a class="btn btn-secondary mx-2" asp-controller="inmueble" asp-action="Edit"
