@@ -3,19 +3,32 @@
     ViewData["Title"] = "Inicio";
     var request = ViewContext.HttpContext.Request;
     string urlActual = request.Path + request.QueryString;
+    string? tipoInmuebleForm = request.Query["tipoInmueble"];
+    string? ciudadInmuebleForm = request.Query["ciudadInmueble"];
+    string? paginaActualForm = request.Query["page"];
+
     Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
-    var id_tipo = 0;
-    var id_ciudad = 0;
-    List<string> listaTipoInmueble = new List<string> {"Casa", "Quinta", "Local" }; //uso en dev
-    List<string> listaCiudadInmueble = new List<string> {"Merlo", "San Luis", "Carpinetria" }; //uso en dev
     Console.WriteLine(request.Query["precio"]);
-    string? usoInmueble = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
-    string? precioInmueble = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" : request.Query["precioInmueble"];
-    string? tipoInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["tipoInmueble"];
-    string? ciudadInmueble = string.IsNullOrEmpty(request.Query["tipoInmueble"]) ? "0" : request.Query["ciudadInmueble"];
+
+    int? paginaActual = string.IsNullOrEmpty(paginaActualForm) ? null : (int.TryParse(paginaActualForm, out int
+    parsedPaginaActual) ? parsedPaginaActual : (int)0);
+    string? usoInmuebleValor = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
+    string? precioInmuebleValor = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" :
+    request.Query["precioInmueble"];
+    int? tipoInmuebleValor = string.IsNullOrEmpty(tipoInmuebleForm) ? null : (int.TryParse(tipoInmuebleForm, out int
+    parsedTipoInmueble) ? parsedTipoInmueble : (int?)null);
+    int? ciudadInmuebleValor = string.IsNullOrEmpty(ciudadInmuebleForm) ? null : (int.TryParse(ciudadInmuebleForm, out int
+    parsedCasaInmueble) ? parsedCasaInmueble : (int?)null);
+    string? urlLimpia = Url.Action("", new
+    {
+        usoInmueble = usoInmuebleValor,
+        precioInmueble = precioInmuebleValor,
+        tipoInmueble = tipoInmuebleValor,
+        ciudadInmueble = ciudadInmuebleValor
+    });
 }
 <div class="text-center">
-    <h1 class="display-4">Listado de Inmuebles</h1>
+    <h1 class="display-4">Listado de Inmuebles @ViewBag.paginaActual - @ViewBag.TotalPages</h1>
 </div>
 <div>
     <div class="container-fluid p-0">
@@ -25,49 +38,50 @@
                     <div class="d-flex justify-content-evenly w-100">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value="all"
-                            @(usoInmueble == "all" ? "checked" : "")>
+                            @(usoInmuebleValor == "all" ? "checked" : "")>
                             <label class="form-check-label" for="todosRadio">
                                 Todos
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="comercialRadio"
-                                value="comercial" @(usoInmueble == "comercial" ? "checked" : "")>
+                                value="comercial" @(usoInmuebleValor == "comercial" ? "checked" : "")>
                             <label class="form-check-label" for="comercialRadio">
                                 Comercial
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="usoInmueble" id="residencialRadio"
-                                value="residencial" @(usoInmueble == "residencial" ? "checked" : "")>
+                                value="residencial" @(usoInmuebleValor == "residencial" ? "checked" : "")>
                             <label class="form-check-label" for="residencialRadio">
                                 Residencial
                             </label>
                         </div>
                         <div class="flex-item">
-                            <input name="precio" class="form-control form-control-sm" type="number" placeholder="Precio"
-                                aria-label="tipo-inmueble">
+                            <input name="precioInmueble" class="form-control form-control-sm" type="number"
+                                placeholder="Precio" aria-label="tipo-inmueble" value="@precioInmuebleValor">
                         </div>
                         <div class="flex-item">
-                            <select name="tipo" class="form-select " aria-label="Select tipo">
+                            <select name="tipoInmueble" class="form-select " aria-label="Select tipo">
                                 <option value="">Filtrar tipo de inmueble</option>
                                 @if (ViewBag.tipoInmuebles != null)
                                 {
                                     foreach (var tipo in ViewBag.tipoInmuebles)
                                     {
-                                        <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                                        <option value="@tipo.id" selected="@(tipo.id == tipoInmuebleValor)">@tipo.tipo</option>
                                     }
                                 }
                             </select>
                         </div>
                         <div class="flex-item">
-                            <select name="ciudad" class="form-select " aria-label="Select Ciudad">
+                            <select name="ciudadInmueble" class="form-select " aria-label="Select Ciudad">
                                 <option value="">Filtrar por ciudad</option>
                                 @if (ViewBag.ciudades != null)
                                 {
                                     foreach (var ciudad in ViewBag.ciudades)
                                     {
-                                        <option value="@ciudad.id" selected="@(ciudad.id == id_ciudad)">@ciudad.ciudad</option>
+                                        <option value="@ciudad.id" selected="@(ciudad.id == ciudadInmuebleValor)">@ciudad.ciudad
+                                        </option>
                                     }
                                 }
                             </select>
@@ -76,32 +90,119 @@
                             <button type="submit" class="btn btn-primary py-1">Buscar</button>
                         </div>
                     </div>
+                </form>
+                @* ---- Paginacion---- *@
+                @if (ViewBag.TotalPages > 1)
+                {
                     <div class="mt-2">
                         <ul class="pagination">
                             <li class="page-item @(ViewBag.paginaActual == 1 ? "disabled" : "")">
-                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage - 1)"
+                                <a class="page-link" href="@urlLimpia&page=@(ViewBag.paginaActual - 1)"
                                     aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Anterior</span>
                                 </a>
                             </li>
-                            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+
+                            @* -- seccion de paginacion truncada --- *@
+
+                            @for (int? i = 1; i <= ViewBag.TotalPages && paginaActual >= 1; i += 3)
                             {
-                                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                                    <a class="page-link" href="/inmueble?page=@i">@i</a>
-                                </li>
+                                if (ViewBag.TotalPages <= 4)
+                                {
+                                    <li class="page-item @(i == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                                    </li>
+                                }
+                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 3 <= ViewBag.TotalPages)
+                                {
+                                    <li class="page-item @(i == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                                    </li>
+                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@(i+1)">@(i + 1) </a>
+                                    </li>
+                                    <li class="page-item @((i+2) == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@(i+2)">@(i + 2) </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 2 <= ViewBag.TotalPages)
+                                {
+                                    <li class="page-item @(i == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                                    </li>
+                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@(i+1)">@(i + 1) </a>
+                                    </li>
+                                    <li class="page-item @((i+2) == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@(i+2)">@(i + 2) </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                }
+                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 1 <= ViewBag.TotalPages)
+                                {
+                                    <li class="page-item">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                    <li class="page-item @(i == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                                    </li>
+                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
+                                        <a class="page-link" href="@urlLimpia&page=@(i+1)">@(i + 1) </a>
+                                    </li>
+                                }
+
+
                             }
-                            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
-                                <a class="page-link" href="/inmueble?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+
+                            @* if (i == 1)
+                        {
+                        <li class="page-item @(i == paginaActual ? "active" : "")">
+                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                        </li>
+                        }
+                        if(ViewBag.TotalPages >4){
+                        if(i<paginaActual -1 && i>1) )
+                        }
+                        if (i == ViewBag.TotalPages)
+                        {
+                        <li class="page-item @(i == paginaActual ? "active" : "")">
+                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                        </li>
+                        } *@
+
+
+
+
+                            @* if (i > 0 && i > paginaActual + 1 && i <= ViewBag.TotalPages - 1)
+                        {
+                        <li class="page-item">
+                        <span class="page-link">...</span>
+                        </li>
+                        }
+                        if ((i > 0 && i > paginaActual + 2 && i <= ViewBag.TotalPages) || (i == ViewBag.TotalPages &&
+                        paginaActual + 1 < ViewBag.TotalPages))
+                        {
+                        <li class="page-item @(i == paginaActual ? "active" : "")">
+                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
+                        </li>
+                        } *@
+
+                            <li class="page-item @(ViewBag.paginaActual == ViewBag.TotalPages ? "disabled" : "")">
+                                <a class="page-link" href="@urlLimpia&page=@(ViewBag.paginaActual + 1)" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Siguiente</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-
-                </div>
-            </form>
+                }
+            </div>
         </div>
     </div>
     <table class="table table-striped">
