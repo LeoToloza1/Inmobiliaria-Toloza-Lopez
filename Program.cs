@@ -10,6 +10,7 @@ builder.Services.AddScoped<RepositorioTipoInmueble>();
 builder.Services.AddScoped<RepositorioCiudad>();
 builder.Services.AddScoped<RepositorioZona>();
 builder.Services.AddScoped<RepositorioPropietario>();
+builder.Services.AddScoped<RepositorioUsuario>();
 
 builder.Services.AddControllersWithViews();
 
@@ -29,9 +30,13 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 app.MapControllerRoute(
-    name: "default",
+name: "default",
+pattern: "{controller=Login}/{action=Login}/{id?}");
+app.MapControllerRoute(
+    name: "Home",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();
