@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
-
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class InmuebleController : Controller
@@ -42,7 +41,7 @@ public class InmuebleController : Controller
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
     ViewBag.zonas = _repositorioZona.ListarZonas();
-    int pageSize = 3; // Elementos por pagina
+    int pageSize = 10; // Elementos por pagina
     var totalItems = _repositorioInmueble.GetTotalInmuebles(usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble); // Obtener el total de elementos
     var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize); // Calcular el total de páginas
 //    var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize); // Obtener los inmuebles para la página actual

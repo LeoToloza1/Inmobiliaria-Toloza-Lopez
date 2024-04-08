@@ -11,7 +11,7 @@ builder.Services.AddScoped<RepositorioCiudad>();
 builder.Services.AddScoped<RepositorioZona>();
 builder.Services.AddScoped<RepositorioPropietario>();
 builder.Services.AddScoped<RepositorioUsuario>();
-
+builder.Services.AddScoped<RepositorioInquilino>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
