@@ -1,0 +1,189 @@
+@model IEnumerable<Contrato>
+
+@{
+    var inquilinos = ViewBag.listaInquilinos;
+    var inmueble = ViewBag.inmueble;
+    foreach (Inquilino inquilino in inquilinos)
+    {
+        Console.WriteLine(inquilino.nombre);
+    }
+    Console.WriteLine(inmueble.ToString());
+}
+
+<div class="container w-75 m-5">
+    <div class="text-center">
+        <h1 class="display-3">@ViewBag.tipoForm</h1>
+    </div>
+
+    </select>
+    <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
+        <div class="w-100 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="dataInmueble" class="col-md-2 col-form-label text-md-lefth ">Datos
+                                inmueble</label>
+                            <p class="form-control w-100 text-truncate" id="dataInmueble"> @ViewBag.inmueble.ToString()
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-100 ">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="idInquilino"
+                                class="col-md-2 col-form-label text-md-right align-items-center ">Inquilino</label>
+                            <div class="col-md-4">
+                                <input class="form-control my-2" id="valueInquilino" name="value" type="text"
+                                    placeholder="Ingrese nombre, apellido, email o dni">
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-select my-2 d-none" id="idInquilino" name="idInquilino" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="contratoEtapa2" class="d-none">
+            <div class="w-100 ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label for="fechaInicio" class="col-md-2 col-form-label text-md-right">Fecha inicio
+                                    Contrato</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" id="fechaInicio" name="fechaInicio" type="date">
+                                </div>
+                                <label for="fechaFin" class="col-md-2 col-form-label text-md-right">Fecha fin
+                                    Contrato</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" id="fechaFin" name="fechaFin" type="date">
+                                </div>
+                                <label for="montoMes" class="col-md-2 col-form-label text-md-right">Monto
+                                    mensual</label>
+                                <div class="col-md-2">
+                                    <input class="form-control" id="montoMes" name="montoMes" type="number" step="any" placeholder="Ingrese monto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 mt-5">
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-md-5">
+                            <button type="submit" class="btn btn-primary w-50">Registrar Contrato</button>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-secondary w-50">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @* <script src="~/js/contrato.js"></script> *@
+    @* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fechaInicio = document.getElementById('fechaInicio');
+            const fechaActual = new Date().toISOString().split('T')[0];
+            const inputValor = document.getElementById('valueInquilino');
+            const selectInquilino = document.getElementById('idInquilino');
+            const contratoEtapa2 = document.getElementById('contratoEtapa2');
+            let timeoutId = null;
+            const urlInquilinos = "/inquilino/findinquilinos?value=";
+
+            fechaInicio.value = fechaActual;
+            inputValor.focus();
+            inputValor.addEventListener('input', () => {
+                selectInquilino.innerHTML = '';
+                const valor = inputValor.value.trim();
+                console.log(valor);
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+                if (valor.length >= 3) {
+                    findInquilinos(valor);
+                }
+            });
+
+            function findInquilinos(valor) {
+                fetch(urlInquilinos + encodeURIComponent(valor))
+                    .then(response => {
+                        if (!response.ok) {
+                            selectInquilino.innerHTML = '';
+                            throw new Error('Error al obtener los datos.');
+                        }
+                        let resp = false;
+                        try {
+                            //   selectInquilino.innerHTML = '';
+                            resp = response.json();
+                        }
+                        catch {
+                            console.log('error');
+                        }
+                        if (!resp) {
+                            console.log('mierda');
+                        }
+                        return resp;
+                    })
+                    .then(data => {
+                        data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.text = `${item.apellido}, ${item.nombre}. DNI: ${item.dni} Teléfono: ${item.telefono}`;
+                            selectInquilino.appendChild(option);
+                        });
+                        toggleDisplay(data);
+                    })
+                    .catch(error => {
+                        selectInquilino.innerHTML = '';
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.text = "No se econtro inquilino debe crearlo antes";
+                        alerta('Inquilino', "No se econtro inquilino debe crearlo antes")
+                        selectInquilino.appendChild(option);
+                        console.error('Error:', error);
+                        selectInquilino.classList.add("d-none");
+                    });
+            }
+
+            function toggleDisplay(data) {
+                //const selectInquilino = document.getElementById('idInquilino');
+                if (data.length > 0) {
+                    selectInquilino.classList.remove("d-none");
+                    contratoEtapa2.classList.remove("d-none");
+                    //   selectInquilino.style.display = 'block';
+                } else {
+                    selectInquilino.classList.add("d-none");
+                    contratoEtapa2.classList.add("d-none");
+                }
+            }
+            function alerta(titulo, msg) {
+                Swal.fire({
+                    title: `<h1>${titulo}</h1>`,
+                    icon: 'question',
+                    html: ` <b>${msg}</b>`,
+                    showConfirmButton: false,
+                    //     showCloseButton: true,
+                    showCancelButton: true,
+                    focusCancel: true,
+                    cancelButtonText: `<i class="fas fa-thumbs-down"></i> Cerrar`,
+                    cancelButtonAriaLabel: "Thumbs down"
+                })
+            }
+        });
+    </script>
+}

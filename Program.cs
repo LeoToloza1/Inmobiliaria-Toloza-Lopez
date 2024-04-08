@@ -10,6 +10,7 @@ builder.Services.AddScoped<RepositorioTipoInmueble>();
 builder.Services.AddScoped<RepositorioCiudad>();
 builder.Services.AddScoped<RepositorioZona>();
 builder.Services.AddScoped<RepositorioPropietario>();
+builder.Services.AddScoped<RepositorioInquilino>();
 
 builder.Services.AddControllersWithViews();
 

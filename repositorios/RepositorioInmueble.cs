@@ -30,7 +30,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 sql += "ON c.id = i.id_ciudad ";
                 sql += "JOIN zona AS z ";
                 sql += "ON z.id = i.id_zona ";
-                sql += "WHERE 1=1 ";
+                sql += "WHERE i.borrado = 0 ";
+                sql += " AND estado =\"Disponible\" ";
                 if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
                 if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
                 if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
@@ -276,7 +277,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
             int total = 0;
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "SELECT COUNT(*) FROM inmueble WHERE 1=1 ";
+                string sql = "SELECT COUNT(*) FROM inmueble ";
+                sql += " WHERE borrado = 0  AND estado =\"Disponible\" ";
                 if (zonaInmueble != "") { sql += " AND id_zona = @zonaInmueble "; }
                 if (ciudadInmueble != "") { sql += " AND id_ciudad = @ciudadInmueble "; }
                 if (tipoInmueble != "") { sql += " AND id_tipo = @tipoInmueble "; }

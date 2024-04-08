@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inmobiliaria</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/all.css" asp-append-version="false" />
+    <link rel="stylesheet" href="~/css/adminlte.css" asp-append-version="false" />
+</head>
+
+<body class="hold-transition sidebar-mini-md sidebar-collapse">
+    <div class="container-xxl primary">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="border-top footer text-muted fixed-bottom">
+        <div class="container">
+            &copy; 2024 Inmobiliaria Toloza-Lopez - <a asp-area="" asp-controller="Home"
+                asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+</html>
