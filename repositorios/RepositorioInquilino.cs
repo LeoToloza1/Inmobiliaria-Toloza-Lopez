@@ -153,25 +153,38 @@ metodo para guardar un nuevo inquilino en la base de datos
         }
         return respuesta;
     }
-    public string FindInquilinos(string value)
+    public string FindInquilinos(string busqueda)
     {
-        string inquilinos ="";
+        string inquilinos = "";
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-            string sql ="SELECT obtener_inquilinos_json('"+value+"') AS inquilinos_json;";
-
+            // string sql ="SELECT obtener_inquilinos_json('"+value+"') AS inquilinos_json;";
+            string sql = "";
+            sql += " SELECT ";
+            sql += " CONCAT('[', ";
+            sql += " GROUP_CONCAT( ";
+            sql += " JSON_OBJECT( ";
+            sql += " 'id', id, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'telefono', telefono, 'email', email ) ";
+            sql += " ORDER BY nombre ASC ";
+            sql += " SEPARATOR ','  ), ']') ";
+            sql += " AS result ";
+            sql +="  FROM inquilino ";
+            sql += " WHERE borrado = 0 ";
+            sql += " AND (nombre LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR apellido LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR email LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR telefono LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR dni LIKE CONCAT('%', @busqueda, '%'));";
             Console.WriteLine(sql);
             using (var command = new MySqlCommand(sql, connection))
             {
-//                command.Parameters.AddWithValue("@value", value);
+                command.Parameters.AddWithValue("@busqueda", busqueda);
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
-                    if(reader.Read())
+                    if (reader.Read())
                     {
-                      //  inquilinos = reader.GetString("inquilinos_json");
-                      inquilinos = reader.IsDBNull("inquilinos_json") ? string.Empty : reader.GetString("inquilinos_json");
-
+                        inquilinos = reader.IsDBNull(reader.GetOrdinal("result")) ? string.Empty : reader.GetString(reader.GetOrdinal("result"));
                     }
                 }
                 connection.Close();
