@@ -30,6 +30,7 @@ metodo para obtener todos los inquilinos
                 {
                     while (reader.Read())
                     {
+
                         inquilinos.Add(new Inquilino
                         {
                             id = reader.GetInt32(nameof(Inquilino.id)),
@@ -92,22 +93,12 @@ metodo para guardar un nuevo inquilino en la base de datos
     public bool GuardarInquilino(Inquilino inquilino, int? id)
     {
         bool respuesta = false;
-        Console.WriteLine("id: " + id);
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
             String sql = "";
             if (!id.HasValue)
             {
-                // Console.Clear();
                 id = 0;
-                Console.WriteLine("pasando por 99");
-                Console.WriteLine("Datos del Inquilino:");
-                Console.WriteLine($"ID: {id}");
-                Console.WriteLine($"Nombre: {inquilino.nombre}");
-                Console.WriteLine($"Apellido: {inquilino.apellido}");
-                Console.WriteLine($"DNI: {inquilino.dni}");
-                Console.WriteLine($"Email: {inquilino.email}");
-                Console.WriteLine($"telefono: {inquilino.telefono}");
                 sql = @$"INSERT INTO inquilino (`nombre`, `apellido`, `dni`, `email`,`telefono`,`borrado`)  VALUES (@{nameof(Inquilino.nombre)}, @{nameof(Inquilino.apellido)}, @{nameof(Inquilino.dni)}, @{nameof(Inquilino.email)}, @{nameof(Inquilino.telefono)}, '0');";
             }
             else
@@ -153,12 +144,14 @@ metodo para guardar un nuevo inquilino en la base de datos
         }
         return respuesta;
     }
-    public string FindInquilinos(string busqueda)
+    public List<Inquilino> FindInquilinos(string busqueda)
     {
-        string inquilinos = "";
+        //        string inquilinos = "";
+        var inquilinos = new List<Inquilino>();
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
             // string sql ="SELECT obtener_inquilinos_json('"+value+"') AS inquilinos_json;";
+            /*
             string sql = "";
             sql += " SELECT ";
             sql += " CONCAT('[', ";
@@ -170,22 +163,48 @@ metodo para guardar un nuevo inquilino en la base de datos
             sql += " AS result ";
             sql +="  FROM inquilino ";
             sql += " WHERE borrado = 0 ";
-            sql += " AND (nombre LIKE CONCAT('%', @busqueda, '%') ";
-            sql += " OR apellido LIKE CONCAT('%', @busqueda, '%') ";
-            sql += " OR email LIKE CONCAT('%', @busqueda, '%') ";
-            sql += " OR telefono LIKE CONCAT('%', @busqueda, '%') ";
-            sql += " OR dni LIKE CONCAT('%', @busqueda, '%'));";
-            Console.WriteLine(sql);
+            sql += " AND (nombre LIKE CONCAT(' @busqueda, '%') ";
+            sql += " OR apellido LIKE CONCAT(' @busqueda, '%') ";
+            sql += " OR email LIKE CONCAT(' @busqueda, '%') ";
+            sql += " OR telefono LIKE CONCAT(' @busqueda, '%') ";
+            sql += " OR dni LIKE CONCAT(' @busqueda, '%'));";
+            */
+            string sql = @" SELECT 
+                            `id`,                                                       
+                            `nombre`,
+                            `apellido`,
+                            `dni`,
+                            `telefono`,
+                            `email`
+                            FROM inquilino 
+                            WHERE borrado = 0 
+                            AND (nombre LIKE  @busqueda 
+                            OR email LIKE  @busqueda 
+                            OR apellido LIKE  @busqueda 
+                            OR telefono LIKE  @busqueda 
+                            OR dni LIKE  @busqueda );";
             using (var command = new MySqlCommand(sql, connection))
             {
-                command.Parameters.AddWithValue("@busqueda", busqueda);
+                command.Parameters.AddWithValue("@busqueda", busqueda + "%");
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        inquilinos = reader.IsDBNull(reader.GetOrdinal("result")) ? string.Empty : reader.GetString(reader.GetOrdinal("result"));
+                        inquilinos.Add(new Inquilino
+                        {
+                            id = reader.GetInt32(nameof(Inquilino.id)),
+                            nombre = reader.GetString(nameof(Inquilino.nombre)),
+                            apellido = reader.GetString(nameof(Inquilino.apellido)),
+                            dni = reader.GetString(nameof(Inquilino.dni)),
+                            telefono = reader.GetString(nameof(Inquilino.telefono)),
+                            email = reader.GetString(nameof(Inquilino.email)),
+                            //email = reader.IsDBNull(reader.GetOrdinal(nameof(Inquilino.email))) ? null : reader.GetString(nameof(Inquilino.email)),
+                            // estado = reader.GetString(nameof(Inquilino.estado))
+                        });
                     }
+
+
                 }
                 connection.Close();
             }
