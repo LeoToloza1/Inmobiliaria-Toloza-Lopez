@@ -1,38 +1,67 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+
 namespace inmobiliaria_Toloza_Lopez.Controllers
 {
-    public class UsuariosController : Controller
+    public class UsuarioController : Controller
     {
         private readonly RepositorioUsuario repositorioUsuario;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public UsuariosController(RepositorioUsuario _repositorioUsuario)
+        public UsuarioController(RepositorioUsuario _repositorioUsuario, IWebHostEnvironment _hostingEnvironment)
         {
-            this.repositorioUsuario = _repositorioUsuario;
+            repositorioUsuario = _repositorioUsuario;
+            hostingEnvironment = _hostingEnvironment;
         }
-        [HttpPost]
-        public IActionResult Login(string email, string password)
-        {
-            //NO ANDA LA RUTA VA A /USUARIO/LOGIN
-            Console.WriteLine("CREDENCIALES ENVIADAS: " + email + " " + password);
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-                ViewData["ErrorMessage"] = "El email y la contraseña son requeridos.";
-                return View();
-            }
-            bool loginSuccessful = repositorioUsuario.CompararPassword(password, email); //si es true siempre va a iniciar sesion
+        [Authorize]
 
-            if (loginSuccessful)
+        public IActionResult Perfil()
+        {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            Usuario? user = repositorioUsuario.GetUsuarioPorEmail(userEmail);
+
+            return View("Perfil", user);
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, Usuario usuario, IFormFile avatarFile)
+        {
+            string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+            if (ModelState.IsValid)
             {
-                Console.WriteLine("Inicio sesion como: " + email);
-                return RedirectToPage("Index", "Home");
+                Usuario? user = repositorioUsuario?.GetUsuario(id);
+                user.nombre = usuario.nombre;
+                user.apellido = usuario.apellido;
+                user.dni = usuario.dni;
+
+                if (!Directory.Exists(folderPath))
+                {
+                    // Si no existe, la crea
+                    Directory.CreateDirectory(folderPath);
+                }
+                if (avatarFile != null)
+                {
+                    var filePath = Path.Combine(folderPath, avatarFile.FileName);
+                    using var stream = new FileStream(filePath, FileMode.Create);
+                    await avatarFile.CopyToAsync(stream);
+                    user.avatarUrl = avatarFile.FileName;
+                }
+
+                bool actualizacionExitosa = repositorioUsuario.ActualizarUsuario(user);
+                if (actualizacionExitosa)
+                {
+                    return RedirectToAction("Perfil", "Usuario");
+                }
             }
-            else
-            {
-                ViewData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
-                return View("Index", "Inmueble");
-            }
+            return View("Perfil", usuario);
+        }
+
+        public IActionResult Admin()
+        {
+            return View("Index");
 
         }
     }

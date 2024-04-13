@@ -1,0 +1,21 @@
+@{
+    var userName = User?.Identity?.Name;
+    var userRol
+    = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    ViewData["Title"] = "Administracion del sistema";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <div class="card-body">
+                    <p>Panel de control:</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

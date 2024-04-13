@@ -10,7 +10,9 @@ public class Inquilino
     public bool? borrado { get; set; }
     public override string ToString()
     {
+#pragma warning disable CS8602 // Desreferencia de una referencia posiblemente NULL.
         return $" {apellido.ToUpper()}, {nombre}, DNI: {dni}, Email: {email}, Teléfono: {telefono}";
+#pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
 
     }
 }

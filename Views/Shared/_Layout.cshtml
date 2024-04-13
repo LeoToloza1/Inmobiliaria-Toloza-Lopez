@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var userName = User?.Identity?.Name;
+    var avatarUrl = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value;
+    var
+    userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+}
+
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -25,22 +33,35 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="~/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+                        @{
+                            if (!string.IsNullOrEmpty(avatarUrl))
+                            {
+                                <img src="@Url.Content("~/uploads/" + avatarUrl)" class="img-circle elevation-2"
+                                    alt="User Image">
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/img/avatar.png")" class="img-circle elevation-2" alt="User Image">
+                            }
+                        }
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">"ViewData[UserName]"</a>
+                        <a asp-controller="Usuario" asp-action="Perfil" class="d-block">@userName</a>
                     </div>
                 </div>
+
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-item">
-                            <a href="/admin" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p> Administracion sistema</p>
-                            </a>
-
-                        </li>
+                        @if (userRol == "administrador")
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Usuario" asp-action="admin" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p> Administracion sistema</p>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a href="/inmueble?q=1" class="nav-link">
                                 @* <i class="nav-icon fas fa-th"></i> *@
@@ -95,7 +116,7 @@
             </div>
     </div>
     </footer>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
