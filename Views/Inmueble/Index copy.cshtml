@@ -6,10 +6,6 @@
     string? tipoInmuebleForm = request.Query["tipoInmueble"];
     string? ciudadInmuebleForm = request.Query["ciudadInmueble"];
     string? paginaActualForm = request.Query["page"];
-
-    Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
-    Console.WriteLine(request.Query["precio"]);
-
     int? paginaActual = string.IsNullOrEmpty(paginaActualForm) ? null : (int.TryParse(paginaActualForm, out int
     parsedPaginaActual) ? parsedPaginaActual : (int)0);
     string? usoInmuebleValor = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "all" : request.Query["usoInmueble"];
