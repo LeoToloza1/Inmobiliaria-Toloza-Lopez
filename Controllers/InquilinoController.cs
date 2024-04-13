@@ -6,12 +6,10 @@ namespace inmobiliaria_Toloza_Lopez.Controllers;
 public class InquilinoController : Controller
 {
     private readonly ILogger<InquilinoController> _logger;
-
     public InquilinoController(ILogger<InquilinoController> logger)
     {
         _logger = logger;
     }
-
     public IActionResult Index()
     {
         RepositorioInquilino rp = new RepositorioInquilino();
@@ -63,5 +61,13 @@ public class InquilinoController : Controller
         var lista = rp.GetInquilinos();
         return RedirectToAction("Index");
         // return View("index", lista);
+    }
+    public IActionResult FindInquilinos(string value)
+    {
+        Console.WriteLine(value);
+        RepositorioInquilino rp = new RepositorioInquilino();
+        string listaInquilinos = rp.FindInquilinos(value);
+       //return Content(listaInquilinos, "application/text");
+        return Content(listaInquilinos, "application/json");
     }
 }

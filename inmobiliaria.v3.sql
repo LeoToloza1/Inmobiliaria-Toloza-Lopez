@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql-raffarraffa.alwaysdata.net
--- Generation Time: Apr 06, 2024 at 07:40 PM
+-- Generation Time: Apr 07, 2024 at 02:46 AM
 -- Server version: 10.6.16-MariaDB
 -- PHP Version: 7.4.33
 
@@ -23,6 +23,22 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `raffarraffa_inmobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `raffarraffa_inmobiliaria`;
 
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `listarCiudades`$$
+CREATE DEFINER=`321087_rafa`@`%` PROCEDURE `listarCiudades` ()   BEGIN
+    select * from ciudad;
+END$$
+
+DROP PROCEDURE IF EXISTS `listarZonas`$$
+CREATE DEFINER=`321087_rafa`@`%` PROCEDURE `listarZonas` ()   BEGIN
+    select * from zona;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -34,6 +50,14 @@ CREATE TABLE `ciudad` (
   `id` int(11) NOT NULL,
   `ciudad` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ciudad`
+--
+
+INSERT INTO `ciudad` (`id`, `ciudad`) VALUES
+(1, 'San Luis'),
+(2, 'Carpinteria');
 
 -- --------------------------------------------------------
 
@@ -53,6 +77,13 @@ CREATE TABLE `contrato` (
   `incremento` decimal(3,2) DEFAULT NULL,
   `estado` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contrato`
+--
+
+INSERT INTO `contrato` (`id`, `id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`, `fecha_efectiva`, `monto`, `incremento`, `estado`) VALUES
+(1, 1, 2, '2023-12-01', '2025-01-03', NULL, 99999.99, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -79,6 +110,16 @@ CREATE TABLE `inmueble` (
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `inmueble`
+--
+
+INSERT INTO `inmueble` (`id`, `direccion`, `uso`, `id_tipo`, `ambientes`, `coordenadas`, `latitud`, `longitud`, `precio`, `id_propietario`, `estado`, `id_ciudad`, `id_zona`, `borrado`, `descripcion`) VALUES
+(1, 'san martin 45', 'Comercial', 1, 0, '-32.414566613131946, -65.00877119828924', '-32.33', '-66.44', 99999.99, 1, 'No disponible', 2, 2, 0, 'Local con dependencias, oficina de 12m2'),
+(2, 'av illia 566', 'Comercial', 1, 0, '-32.4239588393048, -65.01171109578154', '-32.00', '-66.47', 99999.99, 1, 'Disponible', 2, 2, 0, 'Local con dependencias, oficina de 12m2'),
+(3, 'dpto', 'Comercial', 2, 0, '-32.35045498578529, -65.01366813627159', '-33.45', '-65.45', 99999.99, 1, 'Disponible', 2, 2, 0, 'Local con dependencias, oficina de 12m2'),
+(4, 'Los Ranqueles 465', 'Residencial', 2, 3, '-32.33956201596181, -65.02491930996581', NULL, NULL, 99999.99, 3, 'Disponible', 1, 1, 0, 'Departamento para 2 personas, se permiten animales y se permiten fiestas si invitan al dueño.');
+
 -- --------------------------------------------------------
 
 --
@@ -95,6 +136,16 @@ CREATE TABLE `inquilino` (
   `telefono` varchar(45) NOT NULL,
   `borrado` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inquilino`
+--
+
+INSERT INTO `inquilino` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
+(1, 'fgs', 'pirulo', '1256555', 'e11d4861-efd4-11ee-beee-52540008656e', 'e11d486c-efd4-11ee-beee-52540008656e', 1),
+(2, 'sdf', 'sdfs', '1256555', '905b3f1b-ee14-11ee-8ebc-b8aeedb3ac9e', '905b3f29-ee14-11ee-8ebc-b8aeedb3ac9e', 1),
+(3, 'AF', 'ZSFD', '1256555', '90b29911-ee14-11ee-8ebc-b8aeedb3ac9e', '90b29921-ee14-11ee-8ebc-b8aeedb3ac9e', 1),
+(4, 'zxc', 'as', '1256555', 'admin@gmail.com', '7777777777777', 0);
 
 -- --------------------------------------------------------
 
@@ -131,6 +182,14 @@ CREATE TABLE `propietario` (
   `borrado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `propietario`
+--
+
+INSERT INTO `propietario` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
+(1, 'Jose', 'Perez', '12345678', 'aaa@aa.com', '123456', 0),
+(3, 'Marcelo', 'JOFE', '12345678', 'aaa@aab.com', '123456', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -142,6 +201,18 @@ CREATE TABLE `tipo_inmueble` (
   `id` int(11) NOT NULL,
   `tipo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tipo_inmueble`
+--
+
+INSERT INTO `tipo_inmueble` (`id`, `tipo`) VALUES
+(1, 'Casa'),
+(2, 'Departamento'),
+(3, 'Deposito'),
+(4, 'Local'),
+(5, 'Cabaña'),
+(6, 'Quinta');
 
 -- --------------------------------------------------------
 
@@ -172,6 +243,14 @@ CREATE TABLE `zona` (
   `zona` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `zona`
+--
+
+INSERT INTO `zona` (`id`, `zona`) VALUES
+(1, 'Norte'),
+(2, 'Centro');
+
 -- --------------------------------------------------------
 
 --
@@ -183,6 +262,16 @@ CREATE TABLE `zona_has_ciudad` (
   `zona_id` int(11) NOT NULL,
   `ciudad_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `zona_has_ciudad`
+--
+
+INSERT INTO `zona_has_ciudad` (`zona_id`, `ciudad_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 2);
 
 --
 -- Indexes for dumped tables
@@ -267,25 +356,25 @@ ALTER TABLE `zona_has_ciudad`
 -- AUTO_INCREMENT for table `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pago`
@@ -297,13 +386,13 @@ ALTER TABLE `pago`
 -- AUTO_INCREMENT for table `propietario`
 --
 ALTER TABLE `propietario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tipo_inmueble`
 --
 ALTER TABLE `tipo_inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `usuario`
@@ -315,7 +404,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `zona`
 --
 ALTER TABLE `zona`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

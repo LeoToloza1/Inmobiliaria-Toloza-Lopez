@@ -18,8 +18,11 @@ metodo para obtener todos los inquilinos
         var inquilinos = new List<Inquilino>();
         using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
         {
-       //     var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
-            var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.borrado)} = 0;";
+            //     var sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)} FROM inquilino WHERE {nameof(Inquilino.estado)} = 1;";
+            string sql = @$"SELECT {nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)}";
+            sql += " FROM inquilino ";
+            sql += @$"WHERE {nameof(Inquilino.borrado)} = 0";
+            sql += @$" ORDER BY {nameof(Inquilino.nombre)} ASC;";
             using (var command = new MySqlCommand(sql, connection))
             {
                 connection.Open();
@@ -83,7 +86,6 @@ metodo para traer un inquilino
         }
         return inquilino;
     }
-
     /**
 metodo para guardar un nuevo inquilino en la base de datos
 */
@@ -151,5 +153,82 @@ metodo para guardar un nuevo inquilino en la base de datos
         }
         return respuesta;
     }
-
+    public string FindInquilinos(string busqueda)
+    {
+        string inquilinos = "";
+        using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
+        {
+            // string sql ="SELECT obtener_inquilinos_json('"+value+"') AS inquilinos_json;";
+            string sql = "";
+            sql += " SELECT ";
+            sql += " CONCAT('[', ";
+            sql += " GROUP_CONCAT( ";
+            sql += " JSON_OBJECT( ";
+            sql += " 'id', id, 'nombre', nombre, 'apellido', apellido, 'dni', dni, 'telefono', telefono, 'email', email ) ";
+            sql += " ORDER BY nombre ASC ";
+            sql += " SEPARATOR ','  ), ']') ";
+            sql += " AS result ";
+            sql +="  FROM inquilino ";
+            sql += " WHERE borrado = 0 ";
+            sql += " AND (nombre LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR apellido LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR email LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR telefono LIKE CONCAT('%', @busqueda, '%') ";
+            sql += " OR dni LIKE CONCAT('%', @busqueda, '%'));";
+            Console.WriteLine(sql);
+            using (var command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@busqueda", busqueda);
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        inquilinos = reader.IsDBNull(reader.GetOrdinal("result")) ? string.Empty : reader.GetString(reader.GetOrdinal("result"));
+                    }
+                }
+                connection.Close();
+            }
+        }
+        return inquilinos;
+    }
+    // public string FindInquilinos2(string value)
+    // {
+    //     var inquilinos = new List<Inquilino>();
+    //     using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
+    //     {
+    //         // JSON_OBJECT AS json_data
+    //         string sql = @$"SELECT JSON_OBJECT({nameof(Inquilino.id)},{nameof(Inquilino.nombre)},{nameof(Inquilino.apellido)},{nameof(Inquilino.dni)},{nameof(Inquilino.telefono)},{nameof(Inquilino.email)}) ";
+    //         sql += " FROM inquilino ";
+    //         sql += @$"WHERE {nameof(Inquilino.borrado)} = 0";
+    //         sql += @$" AND( {nameof(Inquilino.nombre)} LIKE '%@value%' ";
+    //         sql += @$" OR {nameof(Inquilino.apellido)} LIKE '%@value%' ";
+    //         sql += @$" OR {nameof(Inquilino.email)} LIKE '%@value%' ";
+    //         sql += @$" OR {nameof(Inquilino.dni)} LIKE '%@value%' )";
+    //         sql += @$" ORDER BY {nameof(Inquilino.nombre)} ASC;";
+    //         Console.WriteLine(sql);
+    //         using (var command = new MySqlCommand(sql, connection))
+    //         {
+    //             command.Parameters.AddWithValue("@value", value);
+    //             connection.Open();
+    //             using (var reader = command.ExecuteReader())
+    //             {
+    //                 while (reader.Read())
+    //                 {
+    //                     inquilinos.Add(new Inquilino
+    //                     {
+    //                         id = reader.GetInt32(nameof(Inquilino.id)),
+    //                         nombre = reader.GetString(nameof(Inquilino.nombre)),
+    //                         apellido = reader.GetString(nameof(Inquilino.apellido)),
+    //                         dni = reader.GetString(nameof(Inquilino.dni)),
+    //                         telefono = reader.GetString(nameof(Inquilino.telefono)),
+    //                         email = reader.GetString(nameof(Inquilino.email)),
+    //                     });
+    //                 }
+    //             }
+    //             connection.Close();
+    //         }
+    //     }
+    //     return inquilinos;
+    // }
 }

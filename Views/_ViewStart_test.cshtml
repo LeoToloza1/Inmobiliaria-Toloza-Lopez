@@ -1,0 +1,9 @@
+﻿@{
+    var path = Context.Request.Path;
+    string layout = "~/Views/Shared/_Layout.cshtml";
+    if (path.StartsWithSegments("/login"))
+    {
+        layout = "~/Views/Shared/_Layout2.cshtml";// layout para LOGIN
+    }
+    Layout = layout;
+}
