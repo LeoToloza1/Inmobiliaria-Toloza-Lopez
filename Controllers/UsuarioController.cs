@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace inmobiliaria_Toloza_Lopez.Controllers
 {
@@ -15,6 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             repositorioUsuario = _repositorioUsuario;
             hostingEnvironment = _hostingEnvironment;
         }
+        [Authorize]
 
         public IActionResult Perfil()
         {
@@ -23,7 +25,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
 
             return View("Perfil", user);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update(int id, Usuario usuario, IFormFile avatarFile)
         {
@@ -55,6 +57,12 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 }
             }
             return View("Perfil", usuario);
+        }
+
+        public IActionResult Admin()
+        {
+            return View("Index");
+
         }
     }
 }
