@@ -1,6 +1,8 @@
 @model inmobiliaria_Toloza_Lopez.Models.Usuario
 @{
     ViewData["Title"] = "Mi Perfil";
+    var userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
 
@@ -14,25 +16,52 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Campos de edición -->
                         <div class="col-md-6">
                             <form method="POST" asp-controller="Usuario" asp-action="Update" asp-route-id="@Model.id"
                                 enctype="multipart/form-data">
-                                @foreach (var property in new[] { ("nombre", Model.nombre), ("apellido",
-                                Model.apellido),
-                                ("dni",Model.dni) })
+                                @if (userRol == "administrador")
                                 {
+                                    @foreach (var property in new[] { ("nombre", Model.nombre), ("apellido",
+                                Model.apellido),("dni",Model.dni),("email",Model.email),("rol",Model.rol) })
+                                    {
+                                        <div class="form-group">
+                                            <label for="@property.Item1">@property.Item1:</label>
+                                            <input type="text" id="@property.Item1" name="@property.Item1" class="form-control"
+                                                value="@property.Item2" disabled>
+                                        </div>
+                                    }
                                     <div class="form-group">
-                                        <label for="@property.Item1">@property.Item1:</label>
-                                        <input type="text" id="@property.Item1" name="@property.Item1" class="form-control"
-                                            value="@property.Item2" disabled>
+                                        <label for="@Model.borrado">Activo:</label>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="borrado" name="borrado"
+                                                value="true" @(Model.borrado == false ? "checked" : "") />
+                                            <label class="custom-control-label" for="borrado"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">Imagen de perfil:</label>
+                                        <input type="file" id="image" name="avatarFile" class="form-control"
+                                            accept="image/*" disabled>
                                     </div>
                                 }
-                                <div class="form-group">
-                                    <label for="image">Imagen de perfil:</label>
-                                    <input type="file" id="image" name="avatarFile" class="form-control"
-                                        accept="image/*" disabled>
-                                </div>
+                                else
+                                {
+                                    @foreach (var property in new[] { ("nombre", Model.nombre), ("apellido",
+                                Model.apellido),
+                                ("dni",Model.dni) })
+                                    {
+                                        <div class="form-group">
+                                            <label for="@property.Item1">@property.Item1:</label>
+                                            <input type="text" id="@property.Item1" name="@property.Item1" class="form-control"
+                                                value="@property.Item2" disabled>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <label for="image">Imagen de perfil:</label>
+                                        <input type="file" id="image" name="avatarFile" class="form-control"
+                                            accept="image/*" disabled>
+                                    </div>
+                                }
                                 <button id="btnEditar" class="btn btn-primary mt-3"
                                     onclick="toggleEdicion(event)">Editar
                                     Perfil</button>
@@ -40,7 +69,6 @@
                                     style="display: none;">Guardar Cambios</button>
                             </form>
                         </div>
-                        <!-- Imagen del avatar -->
                         <div class="col-md-6">
                             <div class="card mt-4">
                                 <div class="card-header text-center">

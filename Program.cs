@@ -17,14 +17,19 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.Cookie.Name = "inmobiliariaTolozaLopez"; //nombre de la cookie
         options.LoginPath = "/Login/Login";
-        options.LogoutPath = "/Login/Logout";
+        options.LogoutPath = "/Usuario/Logout";
         options.AccessDeniedPath = "/Login/Denegado"; //ruta para avisar que no tiene permisos
         options.ExpireTimeSpan = TimeSpan.FromDays(1); //la cookie expirara despues de 1 dia
         options.Cookie.HttpOnly = true; // no permite que la cookie sea accesible desde el lado del cliente.
         options.SlidingExpiration = true; // cada vez que se solicita un recurso, la cookie se vuelve a emitir con una nueva fecha de vencimiento.
 
     });
-
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Configura el tiempo de inactividad de la sesión
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,11 +40,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 app.MapControllerRoute(
 name: "default",

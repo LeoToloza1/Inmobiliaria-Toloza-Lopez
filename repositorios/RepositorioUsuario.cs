@@ -22,8 +22,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
 #pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"INSERT INTO usuario (`nombre`, `apellido`, `dni`, `email`, `password`) 
-                VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario.dni)}, @{nameof(Usuario.email)}, @pass ,@{nameof(Usuario.rol)},@{nameof(Usuario.avatarUrl)});";
+                var sql = @$"INSERT INTO usuario (`nombre`, `apellido`, `dni`, `email`, `password`, `rol`, `avatarUrl`,`borrado`) 
+VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario.dni)}, @{nameof(Usuario.email)}, @pass ,@{nameof(Usuario.rol)},@{nameof(Usuario.avatarUrl)},0)";
                 using var command = new MySqlCommand(sql, connection);
                 connection.Open();
                 command.Parameters.AddWithValue($"@{nameof(Usuario.nombre)}", usuario.nombre);
@@ -144,9 +144,40 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
         }
 
+        public IList<Usuario> ObtenerUsuarios()
+        {
+            IList<Usuario> usuarios = new List<Usuario>();
+            string sql = "listarUsuarios";
+            using (var connection = new MySqlConnection(conexion))
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var usuario = new Usuario
+                            {
+                                id = reader.GetInt32("id"),
+                                nombre = reader.GetString("nombre"),
+                                apellido = reader.GetString("apellido"),
+                                dni = reader.GetString("dni"),
+                                email = reader.GetString("email"),
+                                rol = reader.GetString("rol"),
+                                avatarUrl = reader.GetString("avatarUrl"),
+                                borrado = reader.GetBoolean("borrado")
+                            };
+                            usuarios.Add(usuario);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return usuarios;
 
-
+        }
     }
-
 
 }

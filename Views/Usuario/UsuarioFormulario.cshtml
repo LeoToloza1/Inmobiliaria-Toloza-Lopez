@@ -1,0 +1,110 @@
+@model inmobiliaria_Toloza_Lopez.Models.Usuario
+
+@{
+    ViewData["Title"] = "Agregar Usuario";
+}
+
+<div class="container w-75 m-5">
+    <div class="text-center">
+        <h1 class="display-3">@ViewData["Title"]</h1>
+    </div>
+    <form method="POST" id="formularioUsuario" asp-action="Create" asp-controller="Usuario"
+        enctype="multipart/form-data">
+        <div class="w-100 m-5">
+            <div class="w-75 m-5">
+                <label for="nombre-usuario" class="">Nombre</label>
+                <input type="text" class="form-control" id="nombre-usuario" placeholder="Ingrese nombre" name="nombre"
+                    required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="apellido-usuario" class="">Apellido</label>
+                <input type="text" class="form-control" id="apellido-usuario" placeholder="Ingrese apellido"
+                    name="apellido" required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="email-usuario" class="">Email</label>
+                <input type="email" class="form-control" id="email-usuario" placeholder="Ingrese email" name="email"
+                    required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="dni-usuario" class="">DNI</label>
+                <input type="text" class="form-control" id="dni-usuario" placeholder="Ingrese DNI" name="dni" required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="rol-usuario" class="">Rol</label>
+                <select class="form-select" id="rol-usuario" name="rol" required>
+                    <option value="">Seleccione el rol</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="usuario">Usuario</option>
+                </select>
+            </div>
+            <div class="w-75 m-5">
+                <label for="password" class="">Contraseña</label>
+                <input type="password" class="form-control" id="password" placeholder="Ingrese contraseña"
+                    name="password" required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="passConfirm" class="">Repita su contraseña</label>
+                <input type="password" class="form-control" id="passConfirm" placeholder="Ingrese contraseña"
+                    name="passwordConfirm" required>
+            </div>
+            <div class="w-75 m-5">
+                <label for="image">Imagen de perfil:</label>
+                <input type="file" id="image" name="avatarFile" class="form-control" accept="image/*">
+            </div>
+            <div class="d-flex flex-column justify-content-end align-items-end">
+                <button id="btnEnviar" type="submit" class="btn btn-primary" onclick="alerta()" disabled>Crear
+                    Usuario</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/propietario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function alerta() {
+            Swal.fire({
+                title: 'Atención!',
+                text: 'Está por crear un nuevo usuario',
+                icon: 'question',
+                showCloseButton: true,
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Creando", "", "success");
+                }
+            });
+        }
+    </script>
+    <script>
+        const formulario = document.getElementById("formularioUsuario");
+        const pass = document.getElementById("password");
+        const passConfirm = document.getElementById("passConfirm");
+        const btnEnviar = document.getElementById("btnEnviar");
+        btnEnviar.disabled = true;
+        formulario.addEventListener('input', function () {
+            if (formulario.checkValidity()) {
+                btnEnviar.disabled = false;
+            } else {
+                btnEnviar.disabled = true;
+            }
+        });
+        formulario.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (pass.value !== passConfirm.value) {
+                Swal.fire({
+                    title: 'Atención!',
+                    text: 'las contraseñas no coinciden',
+                    icon: 'question',
+                    showCloseButton: true,
+                    showCancelButton: true
+                });
+            } else {
+                formulario.submit();
+            }
+        });
+    </script>
+}
