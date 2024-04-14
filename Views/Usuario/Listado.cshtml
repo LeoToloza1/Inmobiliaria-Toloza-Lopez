@@ -1,0 +1,72 @@
+@model IEnumerable<Usuario>
+
+@{
+    ViewData["Title"] = "Administracion";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead >
+                    <tr>
+                        <th colspan="7" class="text-right">
+    <a asp-controller="Usuario" asp-action="Create" class="btn btn-success"><i class="fa fa-user-plus"></i>Agregar Usuario</a>
+</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellido</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">DNI</th>
+                        <th class="text-center">Rol</th>
+                        <th class="text-center">Activo</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var usuario in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@usuario.nombre</td>
+                            <td class="text-center">@usuario.apellido</td>
+                            <td class="text-center">@usuario.email</td>
+                            <td class="text-center">@usuario.dni</td>
+                            <td class="text-center">@usuario.rol</td>
+                            <td class="text-center">
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input usuario-switch" id="borrado-@usuario.id"
+                                            name="borrado" value="true" @(usuario.borrado == false ? "checked" : "") />
+                                        <label class="custom-control-label" for="borrado-@usuario.id">@(usuario.borrado ==
+                                        false ? "Activo" : "Inactivo")</label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <a href="/Usuario/Perfil/@usuario.id" class="btn btn-primary"
+                                    aria-label="Editar usuario @usuario.nombre">Editar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.usuario-switch').change(function () {
+                if (this.checked) {
+                    $(this).next('label').text('Activo');
+                } else {
+                    $(this).next('label').text('Inactivo');
+                }
+            });
+        });
+    </script>
+}

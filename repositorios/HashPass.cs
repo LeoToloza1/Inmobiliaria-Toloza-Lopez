@@ -6,7 +6,7 @@ public class HashPass
     public static string HashearPass(string password)
     {
         string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-
+        Console.WriteLine("CONTRASEÑA HASHEADA -->" + hashedPassword);
         return hashedPassword;
     }
 

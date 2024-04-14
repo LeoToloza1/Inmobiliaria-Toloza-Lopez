@@ -33,9 +33,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 return View();
             }
             Console.WriteLine("Login: " + email + " " + password);
-            bool loginSuccessful = true;
-
-            // repositorioUsuario.CompararPassword(password, email);
+            bool loginSuccessful = repositorioUsuario.CompararPassword(password, email);
             Console.WriteLine("ACCEDIO -->" + loginSuccessful);
             if (loginSuccessful)
             {
