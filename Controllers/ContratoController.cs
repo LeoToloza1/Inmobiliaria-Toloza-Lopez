@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
+using Google.Protobuf;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class ContratoController : Controller
@@ -47,7 +48,8 @@ public class ContratoController : Controller
         contrato.id_inmueble = idInmueble;
         contrato.fecha_inicio = fechaInicio;
         contrato.fecha_fin = fechaFin;
-        contrato.fecha_efectiva = fechaEfectiva;
+      //  contrato.fecha_efectiva = fechaEfectiva;
+        contrato.monto = decimal.Parse(montoMes);
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Console.WriteLine(contrato.ToString());
         repositorioContrato.Create(contrato);

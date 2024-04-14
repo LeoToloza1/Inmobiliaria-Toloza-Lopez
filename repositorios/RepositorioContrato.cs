@@ -96,6 +96,7 @@ metodo para obtener todos los Contratos
         /*validar datos*/
         using (var connection = new MySqlConnection(conexion))
         {
+            Console.WriteLine("cmontocontrato" + contrato.monto);
             //fecha.ToString("yyyy-MM-dd");
             string sql = @$" INSERT INTO `contrato`
                     (`id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`, `monto`) 

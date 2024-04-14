@@ -40,10 +40,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-app.MapControllerRoute(
-name: "default",
-pattern: "{controller=Login}/{action=Login}/{id?}");
+// app.UseAuthorization();
+// app.MapControllerRoute(
+// name: "default",
+// pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.MapControllerRoute(
     name: "Home",
