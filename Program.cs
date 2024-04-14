@@ -53,9 +53,4 @@ app.MapControllerRoute(
     name: "Home",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// app.MapControllerRoute(
-//     name: "Usuario",
-//     pattern: "{controller=Usuario}/{action=Perfil}/{id?}");
-
-
 app.Run();

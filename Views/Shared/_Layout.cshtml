@@ -1,6 +1,6 @@
 ﻿@{
     var userName = User?.Identity?.Name;
-    var avatarUrl = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value;
+    var avatarUrl = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl").Value;
     var
     userRol =
     ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
@@ -37,11 +37,12 @@
                             if (!string.IsNullOrEmpty(avatarUrl))
                             {
                                 <img src="@Url.Content("~/uploads/" + avatarUrl)" class="img-circle elevation-2"
-                                    alt="User Image">
+                                    alt="avatar-de-usuario">
                             }
                             else
                             {
-                                <img src="@Url.Content("~/img/avatar.png")" class="img-circle elevation-2" alt="User Image">
+                                <img src="@Url.Content("~/img/avatar.png")" class="img-circle elevation-2"
+                                    alt="avatar-generico">
                             }
                         }
                     </div>
@@ -51,8 +52,7 @@
                 </div>
 
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">
                         @if (userRol == "administrador")
                         {
                             <li class="nav-item">

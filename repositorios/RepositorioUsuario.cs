@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Security.Policy;
+using inmobiliaria_Toloza_Lopez.Servicios;
 using MySql.Data.MySqlClient;
 namespace inmobiliaria_Toloza_Lopez.Models
 {
@@ -15,11 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public bool GuardarUsuario(Usuario? usuario)
         {
             bool respuesta = false;
-#pragma warning disable CS8602 // Desreferencia de una referencia posiblemente NULL.
-#pragma warning disable CS8604 // Posible argumento de referencia nulo
             string pass = HashPass.HashearPass(usuario.password);
-#pragma warning restore CS8604 // Posible argumento de referencia nulo
-#pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
             using (var connection = new MySqlConnection(conexion))
             {
                 var sql = @$"INSERT INTO usuario (`nombre`, `apellido`, `dni`, `email`, `password`, `rol`, `avatarUrl`,`borrado`) 
@@ -77,14 +74,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
         public bool CompararPassword(string password, string email)
         {
             Usuario? usuario = GetUsuarioPorEmail(email);
-            // Console.WriteLine("EL USUARIO ES: -->" + usuario.nombre);
-            // Console.WriteLine("LA CONTRASEÑA ES: -->" + usuario.password);
-#pragma warning disable CS8602 // Desreferencia de una referencia posiblemente NULL.
-#pragma warning disable CS8604 // Posible argumento de referencia nulo
             bool respuesta = HashPass.VerificarPassword(password, usuario.password);
-            // Console.WriteLine("LA CONTRASEÑA INGRESADA ES: -->" + password);
-#pragma warning restore CS8604 // Posible argumento de referencia nulo
-#pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
             return respuesta;
         }
         public Usuario? GetUsuarioPorEmail(string email)
@@ -178,6 +168,10 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             return usuarios;
 
         }
+
+
+
+
     }
 
 }
