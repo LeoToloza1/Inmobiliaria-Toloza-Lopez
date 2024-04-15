@@ -1,0 +1,31 @@
+@model dynamic
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Recuperación de contraseña</title>
+    <style>
+        .code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #2c3e50;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body style="padding: 20px; font-family: Arial, sans-serif;">
+    <h2 style="text-align: center;">Hola, @Model.Nombre</h2>
+    <p>Recibimos una solicitud para restablecer tu contraseña en Inmobiliaria T&L. Si no hiciste esta solicitud, puedes
+        ignorar este correo electrónico.</p>
+    <p>Se ha reestablecido tu contraseña, la nueva es:</p>
+    <p class="code">@Model.Codigo</p>
+    <p>Gracias,</p>
+    <p>El equipo de Inmobiliaria T&L</p>
+</body>
+
+</html>

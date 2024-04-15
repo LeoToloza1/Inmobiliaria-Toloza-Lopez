@@ -1,4 +1,5 @@
 using inmobiliaria_Toloza_Lopez.Models;
+using inmobiliaria_Toloza_Lopez.Servicios;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddScoped<RepositorioZona>();
 builder.Services.AddScoped<RepositorioPropietario>();
 builder.Services.AddScoped<RepositorioUsuario>();
 builder.Services.AddScoped<RepositorioInquilino>();
+builder.Services.AddScoped<EmailSender>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -52,10 +54,5 @@ pattern: "{controller=Login}/{action=Login}/{id?}");
 app.MapControllerRoute(
     name: "Home",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// app.MapControllerRoute(
-//     name: "Usuario",
-//     pattern: "{controller=Usuario}/{action=Perfil}/{id?}");
-
 
 app.Run();

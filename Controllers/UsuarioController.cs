@@ -91,14 +91,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         public async Task<IActionResult> Create(Usuario usuario, IFormFile avatarFile)
         {
             string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
-            Console.WriteLine("nombre: " + usuario.nombre);
-            Console.WriteLine("apellido: " + usuario.apellido);
-            Console.WriteLine("rol: " + usuario.rol);
-            Console.WriteLine("dni: " + usuario.dni);
-            Console.WriteLine("email: " + usuario.email);
-            Console.WriteLine("password: " + usuario.password);
-            Console.WriteLine("avatarURL: " + usuario.avatarUrl);
-            Console.WriteLine("avatarFILE: " + avatarFile.FileName);
+
             if (ModelState.IsValid)
             {
                 if (!Directory.Exists(folderPath))
