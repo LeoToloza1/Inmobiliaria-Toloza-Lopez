@@ -21,9 +21,9 @@ public class EmailSender : ISender
             mail.Body = mensajeHtml;
             mail.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient("smtp-leotoloza.alwaysdata.net", 143); //Aquí debes sustituir tu servidor SMTP y el puerto
+            SmtpClient client = new SmtpClient("smtp-leotoloza.alwaysdata.net", 25);
             client.Credentials = new NetworkCredential(from, _password);
-            client.EnableSsl = true; // Habilita SSL para mayor seguridad
+            client.EnableSsl = false;
 
             client.Send(mail);
             return true;
