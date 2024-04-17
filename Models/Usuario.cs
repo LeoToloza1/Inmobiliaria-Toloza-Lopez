@@ -18,5 +18,6 @@ public class Usuario
     public string? rol { get; set; }
     public string? avatarUrl { get; set; }
     public IFormFile? avatarFile { get; set; }
+    public bool borrado { get; set; }
 
 }

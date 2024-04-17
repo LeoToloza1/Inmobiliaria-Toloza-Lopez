@@ -1,19 +1,78 @@
 @{
     var userName = User?.Identity?.Name;
-    var userRol
-    = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
-    ViewData["Title"] = "Administracion del sistema";
+    var userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    ViewData["Title"] = "Panel de Administración";
 }
+
 <h1>@ViewData["Title"]</h1>
-<div class="container mt-5">
+
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header text-center">
-                    <h2>@ViewData["Title"]</h2>
+                    <h2>@ViewData["Title"] de: @userName </h2>
+                    <p></p>
                 </div>
                 <div class="card-body">
                     <p>Panel de control:</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">Usuarios</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Usuario"
+                                        asp-action="Listado">Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-warning text-white mb-4">
+                                <div class="card-body">Inmuebles</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Inmueble"
+                                        asp-action="Index">Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white mb-4">
+                                <div class="card-body">Propietarios</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="Propietario"
+                                        asp-action="Index">Ver
+                                        detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-danger text-white mb-4">
+                                <div class="card-body">Pagos</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/admin/pagos">Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-info text-white mb-4">
+                                <div class="card-body">Contratos</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/admin/contratos">Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Reportes</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="/admin/reportes">Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
