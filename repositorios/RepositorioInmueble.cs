@@ -8,7 +8,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
     {
         private readonly string conexion;
         public RepositorioInmueble()
-        { //esto llama a la misma conexion 
+        {
+            //esto llama a la misma conexion 
             this.conexion = Conexion.GetConnectionString();
             // this.conexion = Conexion.GetConnectionStringRemota();
         }
@@ -37,17 +38,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
                 if (precioInmueble != "") { sql += " AND i.precio <= @precioInmueble "; }
                 if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
-
-
-                // sql += usoInmueble != null ? " WHERE  i.uso = :@usoInmueble " : "";
-                // sql += precioInmueble != null ? " AND i.precio = :@precioInmueble " : "";
-                // sql += tipoInmueble != null ? " AND i.id_tipo = :@tipoInmueble " : "";
-                // sql += ciudadInmueble != null ? " AND i.id_ciudad = :@ciudadInmueble " : "";
-                // sql += zonaInmueble != null ? " AND i.id_zona = :@zonaInmueble " : "";
                 sql += "LIMIT @PageSize OFFSET @Offset ";
                 sql += ";";
-                Console.WriteLine(sql);
-
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     int offset = (page - 1) * pageSize;

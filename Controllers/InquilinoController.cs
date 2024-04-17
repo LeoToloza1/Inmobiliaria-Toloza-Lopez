@@ -63,11 +63,9 @@ public class InquilinoController : Controller
         // return View("index", lista);
     }
     public IActionResult FindInquilinos(string value)
-    {
-        Console.WriteLine(value);
+    {        
         RepositorioInquilino rp = new RepositorioInquilino();
-        string listaInquilinos = rp.FindInquilinos(value);
-       //return Content(listaInquilinos, "application/text");
-        return Content(listaInquilinos, "application/json");
+        var listaInquilinos = rp.FindInquilinos(value);
+        return Json(listaInquilinos);
     }
 }

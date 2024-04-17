@@ -9,8 +9,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         public IEnumerable<Ciudad> CargarCiudades()
         {
             RepositorioCiudad rp = new RepositorioCiudad();
-            var ciudades = rp.ObtenerCiudades();
-            Console.WriteLine(ciudades.ToString());
+            var ciudades = rp.ObtenerCiudades();         
             return ciudades;
         }
     }

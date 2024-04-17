@@ -3,7 +3,6 @@
 
 @{
     ViewData["Title"] = "Inicio"; 
-    //Console.WriteLine( ViewBag.tipoForm);
     int id=0;
     var nombre="";
     var apellido="";
@@ -12,13 +11,6 @@
     var telefono="";
     var verbo="save";
     if(ViewBag.tipoForm == "Editando Inquilino"){
-        @* Console.WriteLine(ViewData["Inquilino"]);
-        Console.WriteLine(Model.id);
-        Console.WriteLine(Model.nombre);
-        Console.WriteLine(Model.apellido);
-        Console.WriteLine(Model.telefono);
-        Console.WriteLine(Model.dni);
-        Console.WriteLine(Model.email); *@
         id=Model.id;
         nombre=Model.nombre;
         apellido=Model.apellido;

@@ -28,6 +28,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public static string GetConnectionString()
         {
             return sqlString;
+            return sqlStringLocal;
         }
         public static string GetConnectionStringLocal()
         {
