@@ -19,7 +19,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                if (fechaInicioPedida !="" && fechaFinPedida!="" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida)){
+                if (fechaInicioPedida != "" && fechaFinPedida != "" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida))
+                {
                     var sql = @$"                              
                     SELECT DISTINCT
                         i.id,
@@ -56,9 +57,15 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 OR
                                     cont.fecha_fin <= @fechaInicioPedida
                             )
+                        LEFT JOIN contrato AS cont2 ON i.id = cont2.id_inmueble 
                     WHERE
                         i.borrado = 0
-                        AND cont.id_inmueble IS NOT NULL ";
+                        AND (
+                                    cont.id_inmueble IS NOT NULL
+                                OR 
+                                    cont2.id_inmueble IS NULL -- IMPORATNTE SIN ESTONO MUETSRA LOS QUE NO TIEN CONTRTO
+                            ) "; 
+
                     if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
                     if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
                     if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
