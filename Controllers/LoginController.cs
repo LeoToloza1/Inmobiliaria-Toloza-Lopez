@@ -148,5 +148,10 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         //     return Guid.NewGuid().ToString();
         // }
 
+        public IActionResult Denegado()
+        {
+            return View("AccesoDenegado");
+        }
+
     }
 }
