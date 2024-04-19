@@ -34,7 +34,7 @@
                                         <label for="@Model.borrado">Activo:</label>
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="borrado" name="borrado"
-                                                value="true" @(Model.borrado == false ? "checked" : "") />
+                                                value="true" @(Model.borrado == false ? "checked" : "") disabled />
                                             <label class="custom-control-label" for="borrado"></label>
                                         </div>
                                     </div>
@@ -95,6 +95,7 @@
         const apellidoInput = document.getElementById("apellido");
         const dniInput = document.getElementById("dni");
         const btnEditar = document.getElementById("btnEditar");
+        const switchActivo = document.getElementById("borrado");
         const btnGuardar = document.getElementById("btnGuardar");
         function toggleEdicion(event) {
             event.preventDefault();
@@ -103,6 +104,7 @@
             dniInput.disabled = !dniInput.disabled;
             var imageInput = document.getElementById("image");
             imageInput.disabled = !imageInput.disabled;
+            switchActivo.disabled = !switchActivo.disabled;
 
             if (nombreInput.disabled) {
                 btnEditar.textContent = "Editar Perfil";
