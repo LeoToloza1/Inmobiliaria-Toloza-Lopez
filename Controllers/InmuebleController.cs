@@ -24,29 +24,18 @@ public class InmuebleController : Controller
     _repositorioCiudad = repositorioCiudad;
     _repositorioZona = repositorioZona;
   }
-  // public IActionResult Index()
-  // {
-  //   ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
-  //   ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
-  //   ViewBag.zonas = _repositorioZona.ListarZonas();
-  //   var lista = _repositorioInmueble.GetInmuebles();
-  //   return View(lista);
-  // }
-  [HttpGet]
-  public IActionResult Index(int page = 1, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "")
-  //int page, int pageSize, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = ""
-  {
 
-    ViewBag.query = "usoinmueble " + usoInmueble + ", precioinmueble " + precioInmueble + ", tipoinmueble " + tipoInmueble + ", ciudadinmueble " + ciudadInmueble + ", zonainmueble " + zonaInmueble;
+  [HttpGet]
+  public IActionResult Index(int page = 1, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "", string fechaInicioPedida = "", string fechaFinPedida = "")
+  {
+    ViewBag.query = "usoinmueble " + usoInmueble + ", precioinmueble " + precioInmueble + ", tipoinmueble " + tipoInmueble + ", ciudadinmueble " + ciudadInmueble + ", zonainmueble " + zonaInmueble + "fechaInicioPedida" + fechaInicioPedida + "fechaFinPedida" + fechaFinPedida;
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
     ViewBag.zonas = _repositorioZona.ListarZonas();
     int pageSize = 10; // Elementos por pagina
     var totalItems = _repositorioInmueble.GetTotalInmuebles(usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble); // Obtener el total de elementos
     var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize); // Calcular el total de páginas
-//    var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize); // Obtener los inmuebles para la página actual
-     var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize,usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble); // Obtener los inmuebles para la página actual aplicando filtros
-    //ViewBag.CurrentPage = page;
+    var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize, usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble, fechaInicioPedida, fechaFinPedida); // Obtener los inmuebles para la página actual aplicando filtros
     ViewBag.paginaActual = page;
     ViewBag.TotalPages = totalPages;
     return View(inmuebles);

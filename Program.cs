@@ -1,3 +1,4 @@
+using System.Globalization;
 using inmobiliaria_Toloza_Lopez.Models;
 using inmobiliaria_Toloza_Lopez.Servicios;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,6 +33,12 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+// cultura esp. aceptar PUNTO como separador deciaml 
+var cultureInfo = new CultureInfo("es-ES");
+cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
