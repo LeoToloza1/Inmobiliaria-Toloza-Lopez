@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
 using Google.Protobuf;
+using Microsoft.AspNetCore.Authorization;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class ContratoController : Controller
@@ -16,17 +17,19 @@ public class ContratoController : Controller
         _repositorioInmueble = repositorioInmueble;
         _logger = logger;
     }
-
+    [Authorize]
     public IActionResult Index()
     {
         //TODO devuelve index        
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         var contratos = repositorioContrato.GetContratos(null);
-        foreach(var cont in contratos){
+        foreach (var cont in contratos)
+        {
             Console.WriteLine(cont.ToString());
         }
         return View(contratos);
     }
+    [Authorize]
     public IActionResult Create(int id)
     {
         ViewBag.tipoForm = "Nuevo Contrato...";
@@ -37,18 +40,18 @@ public class ContratoController : Controller
         return View("ContratoFormulario");
     }
 
-
+    [Authorize]
     [HttpPost]
     //public IActionResult Save(IFormCollection form)
-    public IActionResult Save(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin,DateOnly fechaEfectiva, string montoMes)
+    public IActionResult Save(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, DateOnly fechaEfectiva, string montoMes)
     {
-        
-        Contrato contrato = new Contrato();        
+
+        Contrato contrato = new Contrato();
         contrato.id_inquilino = idInquilino;
         contrato.id_inmueble = idInmueble;
         contrato.fecha_inicio = fechaInicio;
         contrato.fecha_fin = fechaFin;
-      //  contrato.fecha_efectiva = fechaEfectiva;
+        //  contrato.fecha_efectiva = fechaEfectiva;
         contrato.monto = decimal.Parse(montoMes);
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Console.WriteLine(contrato.ToString());
@@ -56,9 +59,9 @@ public class ContratoController : Controller
         return Redirect("/contrato");
     }
 
-
+    [Authorize]
     public IActionResult List(int id)
-    {       
+    {
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         var contratos = repositorioContrato.GetContratos(id);
         //return RedirectToAction("Index", contratos);
