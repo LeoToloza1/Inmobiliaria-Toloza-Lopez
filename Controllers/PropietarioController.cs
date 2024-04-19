@@ -32,7 +32,6 @@ public class PropietarioController : Controller
     [HttpPost]
     public IActionResult Nuevo(Propietario propietario)
     {
-        Console.WriteLine(propietario.ToString());
         RepositorioPropietario rp = new RepositorioPropietario();
         if (ModelState.IsValid)
         {

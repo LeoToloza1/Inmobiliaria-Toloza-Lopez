@@ -11,7 +11,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
             var tiposInmuebles = rp.GetTipoInmuebles();
-            Console.WriteLine(tiposInmuebles);
             return tiposInmuebles;
         }
     }

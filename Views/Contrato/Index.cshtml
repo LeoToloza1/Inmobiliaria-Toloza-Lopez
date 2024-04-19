@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Contrato>
 @{
     ViewData["Title"] = "Inicio";
+    Console.WriteLine(Model.Count());
  }
 <div class="text-center">
     <h1 class="display-4">Listado de Contratos</h1>
@@ -29,33 +30,33 @@
         </thead>
         <tbody>
 
-            @foreach (var contrato in Model)
+            @foreach (var contratos in Model)
             {
                 <tr>
                     <td class="text-center">
-                        @contrato.fecha_inicio
+                        @contratos.fecha_inicio
                     </td>
                     <td class="text-center">
-                        @contrato.fecha_fin
+                        @contratos.fecha_fin
                     </td>
                     <td class="text-center">
-                        $ @contrato.monto
+                        $ @contratos.monto
                     </td>
                     <td class="text-center">
-                        @contrato.inquilino.apellido, @contrato.inquilino.nombre
+                        @contratos.inquilino.apellido, @contratos.inquilino.nombre
                     </td>
                     <td class="text-center">
-                        @contrato.inmueble.propietario.apellido, @contrato.inmueble.propietario.nombre
+                        @contratos.inmueble.propietario.apellido, @contratos.inmueble.propietario.nombre
                     </td>
                     <td colspan="4" class="text-center">
-                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="send"
-                            asp-route-id="@contrato.id"><i class="fas fa-at mx-2"></i> Enviar por email
+                        <a class="btn btn-secondary mx-2" asp-controller="contratos" asp-action="send"
+                            asp-route-id="@contratos.id"><i class="fas fa-at mx-2"></i> Enviar por email
                         </a>
-                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="view"
-                            asp-route-id="@contrato.id"><i class="fas fa-info-circle mx-2"></i> Ver Detalle
+                        <a class="btn btn-secondary mx-2" asp-controller="contratos" asp-action="view"
+                            asp-route-id="@contratos.id"><i class="fas fa-info-circle mx-2"></i> Ver Detalle
                         </a>
-                        <a class="btn btn-danger mx-2" asp-controller="contrato" asp-action="print"
-                            asp-route-id="@contrato.id" title="Imprimir Contrato"><i class="fas fa-solid fa-print mx-2"></i> Imprimir
+                        <a class="btn btn-danger mx-2" asp-controller="contratos" asp-action="print"
+                            asp-route-id="@contratos.id" title="Imprimir contratos"><i class="fas fa-solid fa-print mx-2"></i> Imprimir
                         </a>
                     </td>
                 </tr>
