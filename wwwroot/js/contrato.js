@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     inputValor.addEventListener('input', () => {
         selectInquilino.innerHTML = '';
         const valor = inputValor.value.trim();
-        console.log(valor);
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
@@ -44,8 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.length === 0) {
-                    alerta('Inquilino', "No se econtro inquilino debe crearlo antes")
-                    //   inputValor.value="";
+                    alert2('Inquilinos', "No se econtro Cree uno","error")
                 }
                 data.forEach(item => {
                     const option = document.createElement('option');
@@ -78,17 +76,17 @@ document.addEventListener('DOMContentLoaded', function () {
             contratoEtapa2.classList.add("d-none");
         }
     }
-    function alerta(titulo, msg) {
-        Swal.fire({
-            title: `<h1>${titulo}</h1>`,
-            icon: 'question',
-            html: ` <b>${msg}</b>`,
-            showConfirmButton: false,
-            //     showCloseButton: true,
-            showCancelButton: true,
-            focusCancel: true,
-            cancelButtonText: `<i class="fas fa-thumbs-down"></i> Cerrar`,
-            cancelButtonAriaLabel: "Thumbs down"
-        })
-    }
+    // function alerta(titulo, msg) {
+    //     Swal.fire({
+    //         title: `<h1>${titulo}</h1>`,
+    //         icon: 'question',
+    //         html: ` <b>${msg}</b>`,
+    //         showConfirmButton: false,
+    //         //     showCloseButton: true,
+    //         showCancelButton: true,
+    //         focusCancel: true,
+    //         cancelButtonText: `<i class="fas fa-thumbs-down"></i> Cerrar`,
+    //         cancelButtonAriaLabel: "Thumbs down"
+    //     })
+    // }
 });

@@ -19,8 +19,8 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                if (fechaInicioPedida != "" && fechaFinPedida != "" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida))
-                {
+                // if (fechaInicioPedida != "" && fechaFinPedida != "" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida))
+                // {
                     var sql = @$"                              
                     SELECT DISTINCT
                         i.id,
@@ -47,24 +47,19 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         z.zona
                     FROM
                         inmueble AS i
-                        INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
-                        INNER JOIN propietario AS p ON i.id_propietario = p.id
-                        JOIN ciudad AS c ON c.id = i.id_ciudad
-                        JOIN zona AS z ON z.id = i.id_zona
-                        LEFT JOIN contrato AS cont ON i.id = cont.id_inmueble
-                            AND (
-                                    cont.fecha_inicio >= @fechaFinPedida
-                                OR
-                                    cont.fecha_fin <= @fechaInicioPedida
-                            )
-                        LEFT JOIN contrato AS cont2 ON i.id = cont2.id_inmueble 
-                    WHERE
-                        i.borrado = 0
-                        AND (
-                                    cont.id_inmueble IS NOT NULL
-                                OR 
-                                    cont2.id_inmueble IS NULL -- IMPORATNTE SIN ESTONO MUETSRA LOS QUE NO TIEN CONTRTO
-                            ) "; 
+                        INNER JOIN tipo_inmueble AS t 
+                            ON i.id_tipo = t.id
+                        INNER JOIN propietario AS p 
+                            ON i.id_propietario = p.id
+                        JOIN ciudad AS c
+                            ON c.id = i.id_ciudad
+                        JOIN zona AS z 
+                            ON z.id = i.id_zona                        
+                    WHERE i.id NOT in (
+									SELECT con.id_inmueble from contrato as con where con.fecha_inicio < @fechaFinPedida
+                                    AND 
+                                    con.fecha_fin > @fechaInicioPedida) 
+                    ";
 
                     if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
                     if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
@@ -142,7 +137,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             }
                             connection.Close();
                         }
-                    }
+                    // }
                 }
             }
 
