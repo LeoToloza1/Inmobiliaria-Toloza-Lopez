@@ -19,7 +19,8 @@
                                 <div class="input-group" id="show_hide_password">
                                     <input type="password" class="form-control" id="password" name="password" />
                                     <div class="input-group-addon">
-                                        <button type="button" id="btnPass" class="btn btn-dark"><i id="pass-status" class="fa fa-eye"></i></button>
+                                        <button type="button" id="btnPass" class="btn btn-dark"><i id="pass-status"
+                                                class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +29,8 @@
                                     <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                                 </div>
                                 <div class="col-sm-6 text-right">
-                                   <a asp-controller="Login" asp-action="recuperarPass"  type="button" class="btn btn-secondary">recuperar Contraseña </a>  
+                                    <a asp-controller="Login" asp-action="enviarMail" type="button"
+                                        class="btn btn-secondary">recuperar Contraseña </a>
                                 </div>
                             </div>
                         </form>
@@ -36,14 +38,17 @@
                 </div>
             </div>
         </div>
-        @if (!ViewData.ModelState.IsValid || (ViewData["ErrorMessage"] != null && ViewData["ErrorMessage"].Equals("El email y la contraseña son requeridos.")))
-
+        @if (!ViewData.ModelState.IsValid || ViewData["ErrorMessage"] != null)
         {
             <div class="alert alert-danger" role="alert">
-                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                @if (!ViewData.ModelState.IsValid)
                 {
-                    <span>@error.ErrorMessage</span>
-
+                    <span>Error en los datos ingresados.</span>
+                    <br />
+                }
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <span>@ViewData["ErrorMessage"]</span>
                     <br />
                 }
             </div>
@@ -54,17 +59,17 @@
 
 @section Scripts {
     <script>
-        document.getElementById("btnPass").addEventListener("click", function(e) {
+        document.getElementById("btnPass").addEventListener("click", function (e) {
             e.preventDefault();
             var passwordInput = document.getElementById("password");
             var passStatus = document.getElementById("pass-status");
-            
-            if (passwordInput.type == "password"){
-                passwordInput.type='text';
-                passStatus.className='fa fa-eye-slash';
+
+            if (passwordInput.type == "password") {
+                passwordInput.type = 'text';
+                passStatus.className = 'fa fa-eye-slash';
             } else {
-                passwordInput.type='password';
-                passStatus.className='fa fa-eye';
+                passwordInput.type = 'password';
+                passStatus.className = 'fa fa-eye';
             }
         });
     </script>

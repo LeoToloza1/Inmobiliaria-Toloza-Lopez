@@ -1,6 +1,7 @@
 ﻿@{
     var userName = User?.Identity?.Name;
-    var avatarUrl = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl").Value;
+    var avatarUrl = User.Identity.IsAuthenticated ?
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
     var
     userRol =
     ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
