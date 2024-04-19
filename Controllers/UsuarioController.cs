@@ -68,25 +68,25 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return RedirectToAction("Login", "login");
         } //andaaaaa
 
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         public IActionResult Admin()
         {
             return View("Index");
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         public IActionResult Listado()
         {
             return View("Listado", repositorioUsuario.ObtenerUsuarios());
         }
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         public IActionResult Create()
         {
 
             return View("UsuarioFormulario");
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         [HttpPost]
         public async Task<IActionResult> Create(Usuario usuario, IFormFile avatarFile)
         {

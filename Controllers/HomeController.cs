@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
@@ -12,7 +13,7 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+    [Authorize]
     public IActionResult Index()
     {
         return View();

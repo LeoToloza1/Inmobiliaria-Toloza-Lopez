@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class InmuebleController : Controller
@@ -24,7 +25,7 @@ public class InmuebleController : Controller
     _repositorioCiudad = repositorioCiudad;
     _repositorioZona = repositorioZona;
   }
-
+  [Authorize]
   [HttpGet]
   public IActionResult Index(int page = 1, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "", string fechaInicioPedida = "", string fechaFinPedida = "")
   {
@@ -40,6 +41,7 @@ public class InmuebleController : Controller
     ViewBag.TotalPages = totalPages;
     return View(inmuebles);
   }
+  [Authorize]
   [HttpGet]
   public IActionResult Create()
   {
@@ -51,6 +53,7 @@ public class InmuebleController : Controller
     ViewBag.verboForm = "Nuevo";
     return View("InmuebleFormulario");
   }
+  [Authorize]
   [HttpGet]
   public IActionResult Edit(int id)
   {
@@ -63,6 +66,7 @@ public class InmuebleController : Controller
     ViewBag.verboForm = "Update";
     return View("InmuebleFormulario", inmueble);
   }
+  [Authorize]
   [HttpPost]
   public IActionResult Nuevo(Inmueble inmueble)
   {
@@ -74,6 +78,7 @@ public class InmuebleController : Controller
     }
     return View(inmueble);
   }
+  [Authorize]
   [HttpPost]
   public IActionResult Update(Inmueble inmueble)
   {
@@ -81,14 +86,14 @@ public class InmuebleController : Controller
     rp.ActualizarInmueble(inmueble);
     return RedirectToAction("Index");
   }
-
+  [Authorize(Roles = "administrador")]
   public IActionResult Delete(int id)
   {
     var rp = _repositorioInmueble;
     rp.EliminarInmueble(id);
     return RedirectToAction("Index");
   }
-
+[Authorize]
   public IActionResult InmueblesPorPropietario(int id_propietario)
   {
     var lista = _repositorioInmueble.GetInmuebles(id_propietario);
