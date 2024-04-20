@@ -30,6 +30,7 @@ inputsRadio.forEach((inputRadio) => {
             console.log(param);
         });
     })
-
-
 })
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('fechaInicio').value = new Date().toISOString().split('T')[0];
+});

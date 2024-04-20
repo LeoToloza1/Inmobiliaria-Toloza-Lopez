@@ -59,6 +59,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
 									SELECT con.id_inmueble from contrato as con where con.fecha_inicio < @fechaFinPedida
                                     AND 
                                     con.fecha_fin > @fechaInicioPedida) 
+                    AND i.borrado = 0
                     ";
 
                     if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
@@ -68,11 +69,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                     if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
                     sql += "LIMIT @PageSize OFFSET @Offset ";
                     sql += ";";
-                    Console.WriteLine("consulta->" + sql);
-                    Console.WriteLine(".............................................................................");
-                    Console.WriteLine(fechaInicioPedida + "....." + fechaFinPedida);
-                    Console.WriteLine(".............................................................................");
-
                     using (var command = new MySqlCommand(sql, connection))
                     {
                         int offset = (page - 1) * pageSize;
@@ -143,6 +139,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
             return inmuebles;
         }
+
         public IList<Inmueble> GetInmuebles(int page, int pageSize)// solo paginado
         {
             var inmuebles = new List<Inmueble>();

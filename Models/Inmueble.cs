@@ -71,7 +71,7 @@ public class Inmueble
     public Zona zona { set; get; }
     [Display(Name = "Mapa")]
     public string mapa => $"https://www.google.com/maps?q={coordenadas}";
-    //public string mapa  { get; set; }
+    
 public override string ToString()
 {
     return $"{direccion}  |  {uso} |  Ambientes: {ambientes} | $ {precio} | Des. {descripcion} ";

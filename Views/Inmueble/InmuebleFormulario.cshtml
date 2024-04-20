@@ -33,20 +33,21 @@
         descripcion = Model.descripcion;
         verbo = ViewBag.verboForm;
     }
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
-<div class="container w-75 m-5">
-    <div class="text-center">
-        <h1 class="display-3">@ViewBag.tipoForm</h1>
+<div class="container w-100 mx-5">
+    <div class="text-center w-100 mx-5">
+        <h1 class="display-5">@ViewBag.tipoForm</h1>
     </div>
    <form asp-action="@verbo" asp-controller="inmueble" asp-route-id="@(((int)id != 0) ? (int)id : "")">
-        <div class="w-100 m-5">
-            <div class="w-75 m-5">
+        <div class="w-100 mx-5">
+            <div class="w-100 mx-5">
                 <label for="direccion-inmueble" class="">Dirección</label>
                 <input type="text" class="form-control" id="direccion-inmueble" placeholder="Ingrese dirección"
                     name="direccion" required verfy="text" value="@direccion">
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="uso-inmueble" class="">Uso</label>
                 <div>
                     <div class="form-check form-check-inline">
@@ -64,11 +65,11 @@
                     </div>
                 </div>
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="id-tipo-inmueble" class="">Tipo de Inmueble</label>
                 <select class="form-select" id="id-tipo-inmueble" name="id_tipo" required>
                     <option value="">Seleccione el tipo de inmueble</option>
-                       @if (ViewBag.tipoInmuebles != null)
+                        @if (ViewBag.tipoInmuebles != null)
                             {
                                 foreach (var tipo in ViewBag.tipoInmuebles)
                                 {
@@ -77,23 +78,23 @@
                             }
                 </select>
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="ambientes-inmueble" class="">Ambientes</label>
                 <input type="number" class="form-control" id="ambientes-inmueble"
                     placeholder="Ingrese cantidad de ambientes" name="ambientes" required verfy="number"
                     value="@ambientes">
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="coordenadas-inmueble" class="">Coordenadas</label>
                 <input type="text" class="form-control" id="coordenadas-inmueble" placeholder="Ingrese coordenadas"
                     name="coordenadas" required verfy="text" value="@coordenadas">
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="precio-inmueble" class="">Precio</label>
                 <input type="number" step ="0.01" class="form-control" id="precio-inmueble" placeholder="Ingrese precio"
                     name="precio" required verfy="number" value="@precio">
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="id-propietario-inmueble" class="">Propietario del Inmueble</label>
                 <select class="form-select" id="id_propietario" name="id_propietario" required>
                 <option value="">Seleccione El propietario</option>
@@ -106,7 +107,7 @@
                 }
             </select>
             </div>
-        <div class="w-75 m-5">
+        <div class="w-100 mx-5">
             <label for="estado-inmueble">Estado</label>
             <select class="form-select" name="estado" id="estado">
                 @if(estado == "Alquilado")
@@ -130,7 +131,7 @@
                 }
             </select>
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="id-ciudad-inmueble" class="">Ciudad</label>
                  <select class="form-select" id="id-ciudad" name="id_ciudad" required>
                 <option value="">Seleccione la ciudad</option>
@@ -143,7 +144,7 @@
                 }
             </select>
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="id-zona-inmueble" class="">Zona</label>
             <select class="form-select" id="id_zona" name="id_zona" required>
                 <option value="">Seleccione la Zona</option>
@@ -156,18 +157,20 @@
                 }
             </select>
             </div>
-            <div class="w-75 m-5">
+            <div class="w-100 mx-5">
                 <label for="descripcion-inmueble" class="">Descripción</label>
-                <textarea class="form-control" id="descripcion-inmueble" rows="3" placeholder="Ingrese descripción"
+                <textarea class="form-control" id="descripcion-inmueble" rows="2" placeholder="Ingrese descripción"
                     name="descripcion" required verfy="text">@descripcion</textarea>
             </div>
         </div>
-        <div class="modal-footer  justify-content-around">
+        <div class="modal-footer  justify-content-around mx-5 w-100">
             <a href="/inmueble" class="btn btn-secondary">
-                Cerrar
+                Cancelar edicion
             </a>
+            @if (userRol == "administrador"){
             <button type="reset" class="btn btn-warning" onclick="alerta()">Borrar</button>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            }
+            <button type="submit" class="btn btn-primary">Guardar edicion</button>
         </div>
     </form>
 </div>
@@ -187,6 +190,6 @@
                     Swal.fire("Limpiando", "", "success");
                 }
             });
-        }
+        }        
     </script>
 }
