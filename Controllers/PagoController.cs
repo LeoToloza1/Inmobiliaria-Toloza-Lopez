@@ -35,6 +35,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return View("Index", pagos);
         }
         [Authorize]
+        [HttpGet]
         public IActionResult VistaAsignarPago()
         {
             ViewBag.Contratos = repositorioContrato.GetContratos();
@@ -42,10 +43,28 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         }
         [Authorize]
         [HttpPost]
-        public IActionResult AsignarPago(int id_contrato)
+        public IActionResult AsignarPago(Pago pago)
         {
-            ViewBag.mensaje = "";
-            return RedirectToAction("VistaAsignarPago");
+            if (!ModelState.IsValid)
+            {
+                TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
+                return RedirectToAction("VistaAsignarPago");
+            }
+
+            Pago? pagoGuardado = repositorioPago.GuardarPago(pago);
+
+            if (pagoGuardado != null)
+            {
+                TempData["mensaje"] = "Se ha guardado el pago con éxito";
+            }
+            else
+            {
+                TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
+            }
+
+            return RedirectToAction("listarPagos", "Pago");
         }
+
+
     }
 }

@@ -45,12 +45,11 @@ namespace inmobiliaria_Toloza_Lopez.Models
             {
                 using (var connection = new MySqlConnection(conexion))
                 {
-                    var sql = @$"INSERT INTO pago (`{nameof(Pago.id_contrato)}`, `{nameof(Pago.fecha_pago)}`, `{nameof(Pago.importe)}`,`{nameof(Pago.estado)}`, `{nameof(Pago.numero_pago)}`, `{nameof(Pago.detalle)}`)
-                    VALUES (@id_contrato, @fecha_pago, @importe, @estado, @numero_pago, @detalle)";
+                    var sql = @$"INSERT INTO pago (`{nameof(Pago.id_contrato)}`, `{nameof(Pago.importe)}`,`{nameof(Pago.estado)}`, `{nameof(Pago.numero_pago)}`, `{nameof(Pago.detalle)}`)
+                    VALUES (@id_contrato, @importe, @estado, @numero_pago, @detalle)";
                     using (var command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@id_contrato", pago.id_contrato);
-                        command.Parameters.AddWithValue("@fecha_pago", pago.fecha_pago.ToString("yyyy-MM-dd"));
                         command.Parameters.AddWithValue("@importe", pago.importe);
                         command.Parameters.AddWithValue("@estado", pago.estado);
                         command.Parameters.AddWithValue("@numero_pago", pago.numero_pago);
@@ -61,7 +60,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 }
                 return pago;
             }
-            catch (MySqlException ex) when (ex.Number == 1062) // Código de error para violación de restricción de unicidad
+            catch (MySqlException ex) when (ex.Number == 1062)
             {
                 Console.WriteLine("Error: Ya existe un pago con los mismos valores únicos -->" + ex.Message);
                 throw new Exception("Error: Ya existe un pago con los mismos valores únicos  " + ex.Message);
@@ -72,6 +71,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 return null;
             }
         }
+
 
         public IList<Pago> listarPagosPorContrato(int id_contrato)
         {
