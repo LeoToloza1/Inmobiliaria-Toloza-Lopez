@@ -74,9 +74,14 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
         public bool CompararPassword(string password, string email)
         {
             Usuario? usuario = GetUsuarioPorEmail(email);
+            if (usuario == null)
+            {
+                return false;
+            }
             bool respuesta = HashPass.VerificarPassword(password, usuario.password);
             return respuesta;
         }
+
         public Usuario? GetUsuarioPorEmail(string email)
         {
             Usuario? usuario = null;
@@ -169,7 +174,77 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
 
         }
 
+        public bool EliminarUsuario(int id)
+        {
+            bool respuesta = false;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = @"UPDATE usuario SET borrado = 1 WHERE id = @id;";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    int columnas = command.ExecuteNonQuery();
+                    respuesta = columnas > 0;
+                }
+                connection.Close();
+            }
+            return respuesta;
+        }
 
+        public bool CambiarPassword(string email, string password)
+        {
+            bool respuesta = false;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = @"UPDATE usuario SET password = @pass WHERE email = @email;";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@pass", password);
+                    command.Parameters.AddWithValue("@email", email);
+                    int columnas = command.ExecuteNonQuery();
+                    respuesta = columnas > 0;
+                }
+                connection.Close();
+            }
+            return respuesta;
+        }
+
+//busca un usuario segun la contraseña
+        public Usuario? BuscarUsuarioPorPassword(string password)
+        {
+            Usuario? usuario = null;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = @"SELECT * FROM usuario WHERE password = @password;";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@password", password);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            usuario = new Usuario
+                            {
+                                id = Convert.ToInt32(reader["id"]),
+                                nombre = Convert.ToString(reader["nombre"]),
+                                apellido = Convert.ToString(reader["apellido"]),
+                                dni = Convert.ToString(reader["dni"]),
+                                email = Convert.ToString(reader["email"]),
+                                password = Convert.ToString(reader["password"]),
+                                rol = Convert.ToString(reader["rol"]),
+                                avatarUrl = Convert.ToString(reader["avatarUrl"]),
+                                borrado = Convert.ToBoolean(reader["borrado"])
+                            };
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return usuario;
+        }
 
 
     }

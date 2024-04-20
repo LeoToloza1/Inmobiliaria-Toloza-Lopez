@@ -9,17 +9,18 @@
             <div class="col-md-6">
                 <div class="card mt-5">
                     <div class="card-header">
-                        <h2 class="text-center">Recuperar contraseña</h2>
+                        <h2 class="text-center">Cambiar contraseña</h2>
                     </div>
                     <div class="card-body">
-                        <form method="post" asp-controller="Login" asp-action="EnviarMail" id="passwordForm">
-                            <div class="form-group">
-                                <label for="email">Correo electrónico:</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Ingrese su correo" required>
+                        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["ErrorMessage"]
                             </div>
+                        }
+                        <form method="post" asp-controller="Login" asp-action="recovery" id="passwordForm">
                             <div class="form-group">
-                                <label for="password">Contraseña</label>
+                                <label for="newPassword">Nueva Contraseña:</label>
                                 <input type="password" class="form-control" id="password" name="password" required />
                             </div>
                             <div class="form-group">
@@ -38,9 +39,8 @@
             </div>
         </div>
     </div>
-    @* Me falta comprobar si no existe el uysuario y mostrarle el mensaje de error
-tambien me falta actualizarla en base de datos*@
 }
+
 @section Scripts {
     <script>
         document.getElementById("btnPass").addEventListener("click", function (e) {
