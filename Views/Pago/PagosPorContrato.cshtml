@@ -1,0 +1,48 @@
+@model IEnumerable<Pago>
+@{
+    ViewData["Title"] = "Listado de Pagos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Listado de Pagos</h1>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Número de Contrato</th>
+                <th>Número de Pago</th>
+                <th>Fecha de Pago</th>
+                <th>Importe</th>
+                <th>Detalle</th>
+                <th>Dirección del Inmueble</th>
+                <th>Fecha de Inicio del Contrato</th>
+                <th>Fecha de Fin del Contrato</th>
+                <th>Propietario</th>
+                <th>Abono Mensual</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pago in Model)
+            {
+                <tr>
+                    <td>@pago.id_contrato</td>
+                    <td>@pago.numero_pago</td>
+                    <td>@pago.fecha_pago.ToString("dd/MM/yyyy")</td>
+                    <td>@pago.importe</td>
+                    <td>@pago.detalle</td>
+                    <td>@(pago.Contrato != null ? pago.Contrato.inmueble.direccion : "")</td>
+                    <td>@(pago.Contrato != null ? pago.Contrato.fecha_inicio.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@(pago.Contrato != null ? pago.Contrato.fecha_fin.ToString("dd/MM/yyyy") : "")</td>
+                    <td>@(pago.Contrato != null ? pago.Contrato.inmueble.propietario.nombre : "")</td>
+                    <td>@(pago.Contrato != null ? pago.Contrato.monto.ToString() : "")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/inquilino.js"></script> *@
+}
