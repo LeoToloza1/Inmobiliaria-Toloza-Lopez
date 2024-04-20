@@ -1,0 +1,51 @@
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Envío de mail";
+}
+
+@section EnviarMail {
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h2 class="text-center">Envío de mail</h2>
+                    </div>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["ErrorMessage"]
+                            </div>
+                        }
+                        <form method="post" asp-controller="Login" asp-action="EnviarMail" id="mailForm">
+                            <div class="form-group">
+                                <label for="email">Correo electrónico:</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Ingrese su correo">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.getElementById("mailForm").addEventListener("submit", function (e) {
+            var email = document.getElementById("email").value;
+            if (!email) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ups...',
+                    text: 'Por favor, ingrese una dirección de correo electrónico.',
+                });
+                return;
+            }
+            return true;
+    </script>
+}

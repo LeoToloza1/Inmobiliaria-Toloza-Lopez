@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.Razor;
+using System.Web;
 
 namespace inmobiliaria_Toloza_Lopez.Controllers
 {
@@ -39,35 +40,41 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string email, string password)
         {
+            // Verificar si el correo electrónico y la contraseña están presentes
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-
                 ViewData["ErrorMessage"] = "El email y la contraseña son requeridos.";
                 return View();
             }
-            Console.WriteLine("Login: " + email + " " + password);
+
+            // Obtener el usuario por su correo electrónico
+            Usuario? user = repositorioUsuario.GetUsuarioPorEmail(email);
+
+            // Verificar si se encontró un usuario con el correo electrónico proporcionado
+            if (user == null)
+            {
+                ViewData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
+                return View();
+            }
+
+            // Verificar si la contraseña es correcta
             bool loginSuccessful = repositorioUsuario.CompararPassword(password, email);
-            Console.WriteLine("ACCEDIO -->" + loginSuccessful);
             if (loginSuccessful)
             {
-                // Crea las claims para el usuario
-                Usuario? user = repositorioUsuario.GetUsuarioPorEmail(email);
-
-#pragma warning disable CS8602 // Desreferencia de una referencia posiblemente NULL.
+                // Crear las claims para el usuario
 #pragma warning disable CS8604 // Posible argumento de referencia nulo
                 var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.nombre),
-                    new Claim(ClaimTypes.Role, user.rol),
-                    new Claim(ClaimTypes.Email, user.email),
-                    new Claim("AvatarUrl", user.avatarUrl),
-                    // Puedes agregar más claims aquí si los necesitas.
-                };
+        {
+            new(ClaimTypes.Name, user.nombre),
+            new(ClaimTypes.Role, user.rol),
+            new(ClaimTypes.Email, user.email),
+            new("AvatarUrl", user.avatarUrl),
+        };
 #pragma warning restore CS8604 // Posible argumento de referencia nulo
-#pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
 
-                // Crea la identidad del usuario y añade las claims
+                // Crear la identidad del usuario y añadir las claims
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                // Iniciar sesión del usuario
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
                 return RedirectToAction("Index", "Home");
             }
@@ -80,34 +87,30 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult recuperarPass()
+        public ActionResult enviarMail()
         {
             return View();
         }
         // Este método se invoca cuando se realiza una petición POST a la ruta correspondiente.
         [HttpPost]
-        public async Task<ActionResult> EnviarMail(string email, string password)
+        public async Task<ActionResult> EnviarMail(string email)
         {
-            // Busca al usuario en el repositorio por su correo electrónico.
+            // Buscar al usuario en el repositorio por su correo electrónico.
             Usuario? usuario = repositorioUsuario.GetUsuarioPorEmail(email);
-
-            // Si no se encuentra al usuario, se muestra un mensaje de error y se retorna la vista.
+            // Si no se encuentra al usuario, mostrar un mensaje de error y volver a la vista de recuperación de contraseña.
             if (usuario == null)
             {
-                ViewData["ErrorMessage"] = "No se encontró un usuario con ese correo electrónico.";
-                return View();
+                ViewData["ErrorMessage"] = "Ocurrió un error al intentar cambiar la contraseña. Por favor, inténtalo de nuevo.";
+                return View("enviarMail");
             }
-
-            // Se crea un modelo con el nombre del usuario y el código (en este caso, la contraseña).
-            var modelo = new { Nombre = usuario.nombre, Codigo = password };
-
-            // Se renderiza la vista "TemplateEmail" como una cadena de texto con el modelo creado.
+            var recoveryUrl = Url.Action("recovery", "Login", new { id = usuario.password }, Request.Scheme);
+            // Crear un modelo anonimo con el nombre del usuario y la nueva contraseña.
+            var modelo = new { Nombre = usuario.nombre, RecoveryUrl = recoveryUrl };
+            // Renderizar la vista "TemplateEmail" como una cadena de texto con el modelo creado.
             var mensajeHtml = await RenderizarVistaComoCadenaAsync("TemplateEmail", modelo);
-
-            // Se envía el correo electrónico con el asunto "Restablecer contraseña" y el mensaje renderizado.
             emailSender.SendEmail(email, "Restablecer contraseña", mensajeHtml);
 
-            // Se redirige al usuario a la página de inicio de sesión.
+            // Redirigir al usuario a la página de inicio de sesión.
             return RedirectToAction("Login", "Login");
         }
 
@@ -140,18 +143,31 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return escritor.ToString();
         }
 
-        //dejarlo para una proxima iteracion - generar un codiog de un solo uso
-        //implica crear un nuevo campo en la base de datos y guardar el codigo 
-        // private string GenerarCodigoRecuperacion()
-        // {
-        //     Console.WriteLine("CODIGO: " + Guid.NewGuid().ToString());
-        //     return Guid.NewGuid().ToString();
-        // }
-
         public IActionResult Denegado()
         {
             return View("AccesoDenegado");
         }
+
+        public IActionResult recovery(string id, string password)
+        {
+            // Decodificar el hash de la contraseña
+            string decodedHash = HttpUtility.UrlDecode(id);
+            Usuario? usuario = repositorioUsuario.BuscarUsuarioPorPassword(decodedHash);
+            if (usuario == null)
+            {
+                ViewData["ErrorMessage"] = "Lo sentimos, ocurrió un error. Por favor, intenta de nuevo.";
+                return View("AccesoDenegado");
+            }
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                string nuevaPassHasheada = HashPass.HashearPass(password);
+                repositorioUsuario.CambiarPassword(usuario.email, nuevaPassHasheada);
+                return RedirectToAction("Login", "Login");
+            }
+            return View("recuperarPass");
+        }
+
 
     }
 }

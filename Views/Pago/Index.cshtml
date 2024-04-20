@@ -1,0 +1,58 @@
+@model IEnumerable<Pago>
+@{
+    ViewData["Title"] = "Listado de Pagos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Listado de Pagos</h1>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <caption>Tabla de Pagos</caption>
+        <thead>
+            <tr>
+                <th>Número de Contrato</th>
+                <th>Número de Pago</th>
+                <th>Fecha de Pago</th>
+                <th>Importe</th>
+                <th>Detalle</th>
+                <th>+Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pago in Model)
+            {
+                <tr>
+                    <td>@pago.id_contrato</td>
+                    <td>@pago.numero_pago</td>
+                    <td>@pago.fecha_pago.ToString("dd/MM/yyyy")</td>
+                    <td>@pago.importe</td>
+                    <td>@(pago.detalle != null ? pago.detalle : "Sin detalle")</td>
+                    <td>
+                        <a asp-controller="Pago" asp-action="listarPagosPorContrato"
+                            asp-route-id_contrato="@pago.id_contrato" class="btn btn-dark btnInfo"
+                            data-index="@pago.id_contrato">Ver Info</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnInfos = document.querySelectorAll(".btnInfo");
+            btnInfos.forEach(function (btnInfo) {
+                btnInfo.addEventListener("click", function () {
+                    const dataIndex = btnInfo.getAttribute("data-index");
+                });
+            });
+            function verInfo(id) {
+            }
+        });
+    </script>
+}

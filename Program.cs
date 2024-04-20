@@ -13,6 +13,8 @@ builder.Services.AddScoped<RepositorioZona>();
 builder.Services.AddScoped<RepositorioPropietario>();
 builder.Services.AddScoped<RepositorioUsuario>();
 builder.Services.AddScoped<RepositorioInquilino>();
+builder.Services.AddScoped<RepositorioContrato>();
+builder.Services.AddScoped<RepositorioPago>();
 builder.Services.AddScoped<EmailSender>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
