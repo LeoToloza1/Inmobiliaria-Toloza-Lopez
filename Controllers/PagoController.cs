@@ -36,9 +36,12 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         }
         [Authorize]
         [HttpGet]
-        public IActionResult VistaAsignarPago()
+        public IActionResult Registrar(int id)
         {
-            ViewBag.Contratos = repositorioContrato.GetContratos();
+            Console.WriteLine(id);
+            var contratos = repositorioContrato.GetContratos(id);
+            var contrato = contratos[0];
+            ViewData["contrato"] = contrato;
             return View("AsignarPago");
         }
         [Authorize]
