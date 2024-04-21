@@ -59,8 +59,7 @@ public class ContratoController : Controller
     {
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         var contratos = repositorioContrato.GetContratosInmueble(id);
-        ViewBag.inmueble = id;       
-        //return RedirectToAction("Index", contratos);
+        ViewBag.inmueble = id;
         return View("index", contratos);
     }
     /* listado contratos para un propietario*/
@@ -68,8 +67,7 @@ public class ContratoController : Controller
     {
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         var contratos = repositorioContrato.GetContratosPropietario(id);
-        ViewBag.inmueble = id;       
-        //return RedirectToAction("Index", contratos);
+        ViewBag.propietario = id;
         return View("index", contratos);
     }
     public IActionResult Privacy()

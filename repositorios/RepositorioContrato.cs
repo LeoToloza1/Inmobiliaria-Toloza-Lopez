@@ -80,7 +80,6 @@ metodo para obtener todos los Contratos
                     return contratos;
                 }
             }
-
         }
         catch (Exception e)
         {
@@ -108,12 +107,12 @@ metodo para obtener todos los Contratos
                 string dataOnInmueble = " ON p.id = c.id_inmueble ";
                 string dataJoinPropietario = " JOIN propietario AS pro ";
                 string dataOnPropietario = " ON pro.id = p.id_propietario ";
-                string dataWhere = " WHERE c.id_inmueble =@Id" ;
+                string dataWhere = " WHERE c.id_inmueble =@Id";
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
                 sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
                 using (var command = new MySqlCommand(sql, connection))
                 {
-                    command.Parameters.AddWithValue("@Id",id);
+                    command.Parameters.AddWithValue("@Id", id);
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
@@ -130,7 +129,7 @@ metodo para obtener todos los Contratos
                                 fecha_fin = !reader.IsDBNull(reader.GetOrdinal("fechaFin")) ?
                                     new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) :
                                     new DateOnly(0001, 01, 01),
-                                dias_to_fin = diasToFin,    
+                                dias_to_fin = diasToFin,
 
                                 inquilino = new Inquilino
                                 {
@@ -161,15 +160,84 @@ metodo para obtener todos los Contratos
         }
         return contratos;
     }
-public IList<Contrato> GetContratosPropietario(int id){
-    IList<Contrato> contratos = new List<Contrato>();
-    return contratos;
-}
+    public IList<Contrato> GetContratosPropietario(int id)
+    {
+        IList<Contrato> contratos = new List<Contrato>();
+
+        try
+        {
+            using (var connection = new MySqlConnection(conexion))
+            {
+                string dataAccion = "SELECT ";
+                string dataContrato = @$"c.{nameof(Contrato.id_inquilino)}  AS idInquilino,  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin,";
+                string dataInquilino = @$"  i.{nameof(Inquilino.nombre)} AS inquilinoNombre, i.{nameof(Inquilino.apellido)} AS inquilinoApellido, ";
+                string dataInmueble = @$" p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, ";
+                string dataPropietario = @$" pro.{nameof(Propietario.nombre)} AS propietarioNombre , pro.{nameof(Propietario.apellido)} AS propietarioApellido ";
+                string dataFrom = " FROM `contrato` AS c ";
+                string dataJoinInquilino = " JOIN inquilino AS i ";
+                string dataOnInquilino = " ON c.id_inquilino = i.id AND c.fecha_efectiva IS NULL ";
+                string dataJoinInmueble = " JOIN inmueble AS p ";
+                string dataOnInmueble = " ON p.id = c.id_inmueble ";
+                string dataJoinPropietario = " JOIN propietario AS pro ";
+                string dataOnPropietario = " ON pro.id = p.id_propietario ";
+                string dataWhere = " WHERE p.id_propietario =@Id";
+                string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
+                sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int? diasToFin = Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false);
+                            contratos.Add(new Contrato
+                            {
+                                id = reader.GetInt32("idContrato"),
+                                id_inquilino = reader.GetInt32("idInquilino"),
+                                monto = reader.GetDecimal("montoContrato"),
+                                fecha_inicio = new DateOnly(reader.GetDateTime("fechaInicio").Year, reader.GetDateTime("fechaInicio").Month, reader.GetDateTime("fechaInicio").Day),
+                                //       fecha_fin = new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day),
+                                fecha_fin = !reader.IsDBNull(reader.GetOrdinal("fechaFin")) ?
+                                    new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) :
+                                    new DateOnly(0001, 01, 01),
+                                dias_to_fin = diasToFin,
+
+                                inquilino = new Inquilino
+                                {
+                                    nombre = reader.GetString("inquilinoNombre"),
+                                    apellido = reader.GetString("inquilinoApellido").ToUpper()
+                                },
+                                inmueble = new Inmueble
+                                {
+                                    direccion = reader.GetString("inmuebleDireccion"),
+                                    propietario = new Propietario
+                                    {
+                                        nombre = reader.GetString("propietarioNombre"),
+                                        apellido = reader.GetString("propietarioApellido").ToUpper()
+                                    },
+                                }
+                            });
+                        }
+                    }
+                    connection.Close();
+                    return contratos;
+                }
+            }
+
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Error al obtener contratos: " + e.Message);
+        }
+        return contratos;
+    }
     public Contrato Create(Contrato contrato)
     {
         /*validar datos*/
         using (var connection = new MySqlConnection(conexion))
-        {         
+        {
             //fecha.ToString("yyyy-MM-dd");
             string sql = @$" INSERT INTO `contrato`
                     (`id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`, `monto`) 
