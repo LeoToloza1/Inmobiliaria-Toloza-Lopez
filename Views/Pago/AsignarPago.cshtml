@@ -50,32 +50,23 @@
 
 @section Scripts {
     <script>
-        document.getElementById("btnSubmit").addEventListener("click", function () {
-            var importe = document.getElementById("importe").value;
-            var numeroPago = document.getElementById("numero_pago").value;
-
-            if (importe === "" || numeroPago === "") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ups...',
-                    text: 'Por favor, complete todos los campos requeridos.',
-                });
-                return;
-            }
-            document.getElementById("formPago").submit();
-        });
-    </script>
-    <script>
-        document.getElementById("numero_pago").addEventListener("input", function () {
-            var numeroPago = document.getElementById("numero_pago").value;
-            if (numeroPago < 0 || numeroPago > 15) {
-                document.getElementById("numero_pago").value = 15;
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Ups...',
-                    text: 'El número de pago debe ser un número entero entre 1 y 15.',
-                });
-            }
+        document.getElementById("btnSubmit").addEventListener("click", function (event) {
+            event.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'Estás por realizar una acción importante. ¿Deseas continuar?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("formPago").submit();
+                }
+            });
         });
     </script>
 }

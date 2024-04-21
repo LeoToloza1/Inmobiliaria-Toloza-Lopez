@@ -151,7 +151,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return pagos;
         }
-
         public int obtenerUltimoPago(int id_contrato)
         {
             int ultimoPago = 0;
@@ -177,6 +176,74 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 }
             }
             return ultimoPago;
+        }
+        public IList<Pago> ObtenerHistoricoPagos()
+        {
+            List<Pago> pagos = new List<Pago>();
+            var sql = @"SELECT  
+                    i.nombre AS nombre_inquilino,
+                    i.apellido AS apellido_inquilino,
+                    pro.nombre AS nombre_propietario,
+                    pro.apellido AS apellido_propietario,
+                    p.id_contrato,
+                    p.numero_pago,
+                    p.fecha_pago, 
+                    p.detalle,         
+                    alquiler.direccion AS direccion_inmueble,      
+                    c.fecha_inicio AS fecha_inicio_contrato, 
+                    c.fecha_fin AS fecha_fin_contrato,         
+                    c.monto AS monto_contrato,
+                    c.id AS id_contrato
+                FROM pago p
+                INNER JOIN contrato c ON p.id_contrato = c.id
+                INNER JOIN inquilino i ON c.id_inquilino = i.id
+                INNER JOIN inmueble AS alquiler ON c.id_inmueble = alquiler.id
+                INNER JOIN propietario AS pro ON alquiler.id_propietario = pro.id";
+            using (var connection = new MySqlConnection(conexion))
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var contrato = new Contrato
+                            {
+                                id = reader.GetInt32("id_contrato"),
+                                fecha_inicio = new DateOnly(reader.GetDateTime("fecha_inicio_contrato").Year, reader.GetDateTime("fecha_inicio_contrato").Month, reader.GetDateTime("fecha_inicio_contrato").Day),
+                                fecha_fin = new DateOnly(reader.GetDateTime("fecha_fin_contrato").Year, reader.GetDateTime("fecha_fin_contrato").Month, reader.GetDateTime("fecha_fin_contrato").Day),
+                                monto = reader.GetDecimal("monto_contrato"),
+                                inquilino = new Inquilino
+                                {
+                                    nombre = reader.GetString("nombre_inquilino"),
+                                    apellido = reader.GetString("apellido_inquilino")
+                                },
+                                inmueble = new Inmueble
+                                {
+                                    direccion = reader.GetString("direccion_inmueble"),
+                                    propietario = new Propietario
+                                    {
+                                        nombre = reader.GetString("nombre_propietario"),
+                                        apellido = reader.GetString("apellido_propietario")
+                                    }
+                                }
+                            };
+                            var pago = new Pago
+                            {
+                                fecha_pago = new DateOnly(reader.GetDateTime("fecha_pago").Year, reader.GetDateTime("fecha_pago").Month, reader.GetDateTime("fecha_pago").Day),
+                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle"),
+                                numero_pago = reader.GetInt32("numero_pago"),
+                                id_contrato = reader.GetInt32("id_contrato"),
+                                Contrato = contrato,
+                                // id_contrato = contrato.id
+                            };
+                            pagos.Add(pago);
+                        }
+                    }
+                }
+            }
+            return pagos;
         }
 
 

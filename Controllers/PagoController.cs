@@ -30,10 +30,11 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             IList<Pago> pagos = repositorioPago.listarPagosPorContrato(id);
             return View("PagosPorContrato", pagos);
         }
-        [Authorize]
+
+        [Authorize(Roles = "administrador")]
         public IActionResult listarPagos()
         {
-            IList<Pago> pagos = repositorioPago.ObtenerPagos();
+            IList<Pago> pagos = repositorioPago.ObtenerHistoricoPagos();
             return View("Index", pagos);
         }
         [Authorize]
