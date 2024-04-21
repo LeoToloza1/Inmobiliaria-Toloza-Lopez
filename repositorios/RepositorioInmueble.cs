@@ -19,8 +19,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                // if (fechaInicioPedida != "" && fechaFinPedida != "" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida))
-                // {
                     var sql = @$"                              
                     SELECT DISTINCT
                         i.id,
@@ -127,13 +125,11 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                         id = reader.GetInt32("id_zona"),
                                         zona = reader.GetString("zona")
                                     }
-
-
                                 });
                             }
                             connection.Close();
                         }
-                    // }
+                    
                 }
             }
 

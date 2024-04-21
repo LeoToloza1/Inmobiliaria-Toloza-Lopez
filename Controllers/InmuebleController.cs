@@ -53,6 +53,16 @@ public class InmuebleController : Controller
     ViewBag.verboForm = "Nuevo";
     return View("InmuebleFormulario");
   }
+    public IActionResult Nuevo(int id)
+  {
+    ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+    ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+    ViewBag.zonas = _repositorioZona.ListarZonas();
+    ViewBag.propietarios = repositorioPropietario.getPropietario(id);
+    ViewBag.tipoForm = "Nuevo Inmueble";
+    ViewBag.verboForm = "Nuevo";
+    return View("InmuebleFormulario");
+  }
   [Authorize]
   [HttpGet]
   public IActionResult Edit(int id)
