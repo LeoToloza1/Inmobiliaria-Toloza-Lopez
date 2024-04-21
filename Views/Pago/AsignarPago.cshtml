@@ -14,7 +14,7 @@
             <form id="formPago" method="post" action="@Url.Action("AsignarPago", "Pago")">
                 <div class="form-group">
                     <label for="contrato">Seleccionar Contrato:</label>
-                    <input type="text" class="form-control" disabled value="@ViewBag.Contrato.id">
+                    <input type="text" class="form-control" disabled value="@ViewBag.Contrato.ToStringPago()">
                 </div>
                 <div class="form-group">
                     <label for="importe">Importe:</label>

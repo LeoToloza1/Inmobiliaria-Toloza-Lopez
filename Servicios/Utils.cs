@@ -29,7 +29,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             {
                 fechaFinDate = DateTime.ParseExact(fechaFin, "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
             }
-            TimeSpan diferencia = fechaFinDate - fechaInicioDate;
+            TimeSpan diferencia = fechaInicioDate - fechaFinDate;
             int diasDiferencia = (abs) ? Math.Abs(diferencia.Days) : diferencia.Days;
             return diasDiferencia;
         }
