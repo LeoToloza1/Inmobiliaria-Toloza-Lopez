@@ -71,8 +71,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 return null;
             }
         }
-
-
         public IList<Pago> listarPagosPorContrato(int id_contrato)
         {
             List<Pago> pagos = new List<Pago>();
@@ -102,7 +100,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             ON c.id_inmueble = alquiler.id
             INNER JOIN propietario AS pro
             ON  alquiler.id_propietario = pro.id
-            WHERE p.id_contrato = @id_contrato;";
+            WHERE p.id_contrato = @id_contrato";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id_contrato", id_contrato);
@@ -152,6 +150,33 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 }
             }
             return pagos;
+        }
+
+        public int obtenerUltimoPago(int id_contrato)
+        {
+            int ultimoPago = 0;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                var sql = @"SELECT MAX(numero_pago) AS ultimo_pago
+                    FROM pago
+                    WHERE id_contrato = @id_contrato";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id_contrato", id_contrato);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal("ultimo_pago")))
+                            {
+                                ultimoPago = reader.GetInt32("ultimo_pago");
+                            }
+                        }
+                    }
+                }
+            }
+            return ultimoPago;
         }
 
 

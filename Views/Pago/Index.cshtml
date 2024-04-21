@@ -30,8 +30,7 @@
                     <td>@pago.importe</td>
                     <td>@(pago.detalle != null ? pago.detalle : "Sin detalle")</td>
                     <td>
-                        <a asp-controller="Pago" asp-action="listarPagosPorContrato"
-                            asp-route-id_contrato="@pago.id_contrato" class="btn btn-dark btnInfo"
+                        <a asp-controller="Pago" asp-action="listarPagosPorContrato" class="btn btn-dark btnInfo"
                             data-index="@pago.id_contrato">Ver Info</a>
                     </td>
 
