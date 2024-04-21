@@ -1,38 +1,19 @@
 @model inmobiliaria_Toloza_Lopez.Models.Inmueble
-
 @{
-    ViewData["Title"] = "Inmuebles";
-    @* Console.WriteLine(ViewBag.tipoForm); *@
+    ViewData["Title"] = "Inmueble Nuevo";
     int id = 0;
     var direccion = "";
-    var uso = "Residencial";
+    var uso = "";
     var id_tipo = 0;
     var ambientes = 0;
     var coordenadas = "";
     var precio = (Decimal)0.00;
-    var id_propietario = ViewBag.id_propietario;
-    var estado = "Disponible";
+    var propietario = ViewBag.propietario;
+    var estado = "";
     var id_ciudad = 0;
     var id_zona = 0;
     var descripcion = "";
-    var verbo = "Nuevo";
-    if (ViewBag.tipoForm == "Editando Inmueble")
-    {
-        Console.WriteLine(ViewBag.verboForm);
-        id = Model.id;
-        direccion = Model.direccion;
-        uso = Model.uso.ToString();
-        id_tipo = Model.id_tipo;
-        ambientes = Model.ambientes;
-        coordenadas = Model.coordenadas;
-        precio = Model.precio;
-        id_propietario = Model.id_propietario;
-        estado = Model.estado.ToString();
-        id_ciudad = Model.id_ciudad;
-        id_zona = Model.id_zona;
-        descripcion = Model.descripcion;
-        verbo = ViewBag.verboForm;
-    }
+    var verbo = "create";
     var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
@@ -50,18 +31,11 @@
             <div class="w-100 mx-5">
                 <label for="uso-inmueble" class="mb-0 mt-1">Uso</label>
                 <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="uso" id="comercial" value="Comercial" @if (uso
-                            == "Comercial")
-                        {
-                            <text>checked</text>
-                        }>
-                        <label class="form-check-label" for="comercial">Comercial</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="uso" id="residencial" value="Residencial"
-                        @if (uso == "Residencial"){<text>checked</text>}>
-                        <label class="form-check-label" for="residencial">Residencial</label>
+                    <div class=" form-control form-check-inline ">
+                        <input class="form-check-input ml-3" type="radio" name="uso" id="residencial" value="Residencial" checked>
+                        <label class="form-check-label mr-3" for="residencial">Residencial</label>
+                        <input class="form-check-input ml-3" type="radio" name="uso" id="comercial" value="Comercial" >
+                        <label class="form-check-label mr-3" for="comercial">Comercial</label>                        
                     </div>
                 </div>
             </div>
@@ -73,7 +47,7 @@
                             {
                                 foreach (var tipo in ViewBag.tipoInmuebles)
                                 {
-                                    <option value="@tipo.id" selected="@(tipo.id == id_tipo)">@tipo.tipo</option>
+                                    <option value="@tipo.id" >@tipo.tipo</option>
                                 }
                             }
                 </select>
@@ -96,31 +70,14 @@
             </div>
             <div class="w-100 mx-5">
                 <label for="id-propietario-inmueble" class="mb-0 mt-1">Propietario del Inmueble</label>
-                <select class="form-select" id="id_propietario" name="id_propietario" required>
-                <option value="">Seleccione El propietario</option>
-                @if (ViewBag.propietarios != null)
-                {
-                    foreach (var prop in ViewBag.propietarios)
-                    {
-                        <option value="@prop.id" selected="@(prop.id == id_propietario)">@prop.nombre @prop.apellido  dni: @prop.dni</option>
-                    }
-                }
-            </select>
+                <input type="text" class="d-none" id="id_propietario" name="id_propietario" value="@propietario.id">             
+                <input type="text" class="form-control" id="propietario" name="propietario" readonly value="@propietario.ToStringWeb()">             
             </div>
         <div class="w-100 mx-5">
             <label for="estado-inmueble">Estado</label>
             <select class="form-select" name="estado" id="estado">
-                @if(estado == "Disponible")
-                {
                     <option value="Disponible" selected>Disponible</option>
-                    <option value="Retirado">Retirado</option>
-                }
-                else
-                {
-                    <option value="" >Seleccione Estado</option>
-                    <option value="Disponible">Disponible</option>
-                    <option value="Retirado" selected>Retirado</option>
-                }
+                    <option value="Retirado">Retirado</option>             
             </select>
             </div>
             <div class="w-100 mx-5">
@@ -131,7 +88,7 @@
                 {
                     foreach (var ciudad in ViewBag.ciudades)
                     {
-                        <option value="@ciudad.id" selected="@(ciudad.id == id_ciudad)">@ciudad.ciudad</option>
+                        <option value="@ciudad.id" >@ciudad.ciudad</option>
                     }
                 }
             </select>
@@ -144,7 +101,7 @@
                 {
                     foreach (var zona in ViewBag.zonas)
                     {
-                        <option value="@zona.id" selected="@(zona.id == id_zona)">@zona.zona</option>
+                        <option value="@zona.id" >@zona.zona</option>
                     }
                 }
             </select>
@@ -155,15 +112,12 @@
                     name="descripcion" required verfy="text">@descripcion</textarea>
             </div>
         </div>
-        <div class="d-flex  justify-content-end m-5 w-100">      
+        <div class="d-flex  justify-content-end m-3 w-100">      
             <a href="/inmueble" class="btn btn-secondary mx-5">
-                Cancelar
+                Cancelar Inmueble
             </a>
-            @if (userRol == "administrador"){
-            <button type="reset" class="btn btn-warning mx-5" onclick="alerta()">Borrar</button>
-            }
             <button type="submit" class="btn btn-primary mx-5">
-                Guardar
+                Guardar Inmueble
             </button>
         </div>
     </form>

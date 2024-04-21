@@ -19,46 +19,49 @@
         telefono = Model.telefono;
         verbo = ViewBag.verboForm;
     }
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
-<div class="container w-75 m-5">
-    <div class="text-center">
-        <h1 class="display-3">@ViewBag.tipoForm</h1>
+<div class="container w-100 mx-5">
+    <div class="text-center w-100 mx-5">
+        <h1 class="display-5">@ViewBag.tipoForm</h1>
     </div>
     <form asp-action="@verbo" asp-controller="propietario" asp-route-id="@(((int)id != 0) ? (int)id : "")">
         <div class="w-100 m-5">
-            <div class="w-75 m-5">
-                <label for="nombre-propietario" class="">Nombre Propietario</label>
+            <div class="w-100 mx-5">
+                <label for="nombre-propietario" class="mb-0 mt-1">Nombre Propietario</label>
                 <input type="text" class="form-control" id="nombre-propietario" placeholder="Ingrese nombre"
                     name="nombre" required verfy="text" value="@nombre">
             </div>
-            <div class="w-75 m-5">
-                <label for="apellido-propietario" class="">Apellido Propietario</label>
+            <div class="w-100 mx-5">
+                <label for="apellido-propietario" class="mb-0 mt-1">Apellido Propietario</label>
                 <input type="text" class="form-control" id="apellido-propietario" placeholder="Ingrese apellido"
                     name="apellido" required verfy="text" value="@apellido">
             </div>
-            <div class="w-75 m-5">
-                <label for="dni-propietario" class="">Documento Propietario</label>
+            <div class="w-100 mx-5">
+                <label for="dni-propietario" class="mb-0 mt-1">Documento Propietario</label>
                 <input type="text" class="form-control" id="dni-propietario" placeholder="Ingrese DNI" name="dni"
                     required title="Ingrese un dni valido" verfy="number" value="@dni">
             </div>
-            <div class="w-75 m-5">
-                <label for="email-propietario" class="">Email Propietario</label>
+            <div class="w-100 mx-5">
+                <label for="email-propietario" class="mb-0 mt-1">Email Propietario</label>
                 <input type="email" class="form-control" id="email-propietario" placeholder="Ingrese Email" name="email"
                     title="Ingrese un email valido" required verfy="email" value="@email">
             </div>
-            <div class="w-75 m-5">
-                <label for="telefono-propietario" class="">Celular</label>
+            <div class="w-100 mx-5">
+                <label for="telefono-propietario" class="mb-0 mt-1">Celular</label>
                 <input type="number" class="form-control" id="telefono-propietario" placeholder="Ingrese un telefono"
                     name="telefono" required verfy="number" value="@telefono" min="0" max="999999999999">
             </div>
         </div>
-        <div class="modal-footer  justify-content-around">
-            <a href="/propietario" class="btn btn-secondary">
-                Cerrar
+        <div class="d-flex  justify-content-end m-5 w-100">      
+            <a href="/propietario" class="btn btn-secondary mx-5">
+                Cancelar Edicion
             </a>
-            <button type="reset" class="btn btn-warning">Borrar</button>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            @if (userRol == "administrador"){
+                <button type="reset" class="btn btn-warning mx-5" onclick="alerta()">Borrar</button>
+            }           
+            <button type="submit" class="btn btn-primary mx-5 ">Guardar Edicio</button>
         </div>
     </form>
 </div>

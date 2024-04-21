@@ -43,7 +43,17 @@ public class InmuebleController : Controller
   }
   [Authorize]
   [HttpGet]
-  public IActionResult Create()
+  // public IActionResult Create()
+  // {
+  //   ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
+  //   ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
+  //   ViewBag.zonas = _repositorioZona.ListarZonas();
+  //   ViewBag.propietarios = repositorioPropietario.getPropietarios();
+  //   ViewBag.tipoForm = "Nuevo Inmueble";
+  //   ViewBag.verboForm = "Nuevo";
+  //   return View("InmuebleFormulario");
+  // }
+  public IActionResult Create(int id)
   {
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
@@ -51,6 +61,7 @@ public class InmuebleController : Controller
     ViewBag.propietarios = repositorioPropietario.getPropietarios();
     ViewBag.tipoForm = "Nuevo Inmueble";
     ViewBag.verboForm = "Nuevo";
+    ViewBag.id_propietario = id;
     return View("InmuebleFormulario");
   }
   [Authorize]
@@ -70,7 +81,7 @@ public class InmuebleController : Controller
   [HttpPost]
   public IActionResult Nuevo(Inmueble inmueble)
   {
-    var rp = _repositorioInmueble;
+    var rp = _repositorioInmueble;    
     if (ModelState.IsValid)
     {
       rp.GuardarInmueble(inmueble);

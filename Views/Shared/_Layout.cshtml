@@ -2,9 +2,7 @@
     var userName = User?.Identity?.Name;
     var avatarUrl = User.Identity.IsAuthenticated ?
     ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
-    var
-    userRol =
-    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
 <!DOCTYPE html>
@@ -64,7 +62,7 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a href="/inmueble?q=1" class="nav-link">
+                            <a href="/inmueble" class="nav-link">
                                 @* <i class="nav-icon fas fa-th"></i> *@
                                 <i class="nav-icon fas fa-city"></i>
                                 <p>

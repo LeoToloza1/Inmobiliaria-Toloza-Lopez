@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Contrato>
 @{
     ViewData["Title"] = "Inicio";
-    Console.WriteLine(Model.Count());
+    foreach(var Mod in Model) Console.WriteLine(Mod.ToString());
+    
  }
 <div class="text-center">
     <h1 class="display-4">Listado de Contratos</h1>
