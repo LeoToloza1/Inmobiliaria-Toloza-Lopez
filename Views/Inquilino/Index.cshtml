@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Inquilino>
 @{
     ViewData["Title"] = "Inicio";
+      var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 <div class="text-center">
     <h1 class="display-4">Listado de Inquilinos</h1>
@@ -34,21 +35,16 @@
                     <td class="text-center">@inquilino.email</td>
                     <td colspan="2" class="text-center">
                         <a class="btn btn-secondary mx-2" asp-controller="inquilino" asp-action="update" asp-route-id="@inquilino.id">
-                            <i class="fas fa-user-edit"></i> 
-                                Editar
-                        </a>
-                        <a class="btn btn-danger mx-2" asp-controller="inquilino" asp-action="delete" asp-route-id="@inquilino.id">
-                            <i class="fas fa-user-times"></i>
-                                Borrar
+                            <i class="fas fa-user-edit"> Editar</i> 
                         </a>
                         <a class="btn btn-primary mx-2" asp-controller="contrato" asp-action="list" asp-route-id="@inquilino.id" target="_blank">
-                            <i class="fas fa-solid fa-file-contract"></i>
-                                Ver Contratos
+                            <i class="fas fa-solid fa-file-contract"> Ver Contratos</i>
+                        </a>                                       
+                        @if (userRol == "administrador"){
+                        <a class="btn btn-danger mx-2" asp-controller="inquilino" asp-action="delete" asp-route-id="@inquilino.id">
+                            <i class="fas fa-user-times"> Borrar</i>
                         </a>
-                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="crear" asp-route-id="@inquilino.id" target="_blank">
-                            <i class="fas fa-solid fa-file-contract"></i>
-                                Nuevo Contrato
-                        </a>                        
+                        }
                     </td>
                 </tr>
             }
