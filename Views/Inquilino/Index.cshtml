@@ -1,20 +1,26 @@
 ﻿@model IEnumerable<Inquilino>
 @{
     ViewData["Title"] = "Inicio";
-      var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 <div class="text-center">
     <h1 class="display-4">Listado de Inquilinos</h1>
 </div>
+<div class="container-fluid p-0">
+        <label class="form-check-label fs-4" for="formInquilino">Busqueda Inquilino</label>
+        <div class="border-top border-bottom mb-1 ">            
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">                
+                <form id= "formInquilino" method="get" action="/inquilino" name="form-iquilino" class="d-flex justify-content-evenly w-100">
+                </form>
+                    <a href="/inquilino/create" class="btn btn-primary p-2 mx-2">
+                        <i class="fa fa-user-plus"> Inquilino</i>
+                    </a>
+            </div>
+           
+        </div>
 <div>
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th colspan="6">Cantidad: @Model.Count()</th>
-                <th>
-                    <a href="/inquilino/create" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo inquilino</a>
-                </th>
-            </tr>
             <tr>             
                 <th class="text-center">Nombre</th>
                 <th class="text-center">Apellido</th>
@@ -34,14 +40,14 @@
                     <td class="text-center">@inquilino.telefono</td>
                     <td class="text-center">@inquilino.email</td>
                     <td colspan="2" class="text-center">
-                        <a class="btn btn-secondary mx-2" asp-controller="inquilino" asp-action="update" asp-route-id="@inquilino.id">
+                        <a class="btn btn-secondary p-1 mx-2" asp-controller="inquilino" asp-action="update" asp-route-id="@inquilino.id">
                             <i class="fas fa-user-edit"> Editar</i> 
                         </a>
-                        <a class="btn btn-primary mx-2" asp-controller="contrato" asp-action="list" asp-route-id="@inquilino.id" target="_blank">
+                        <a class="btn btn-secondary p-1 mx-2" asp-controller="contrato" asp-action="list" asp-route-id="@inquilino.id" target="_blank">
                             <i class="fas fa-solid fa-file-contract"> Ver Contratos</i>
                         </a>                                       
                         @if (userRol == "administrador"){
-                        <a class="btn btn-danger mx-2" asp-controller="inquilino" asp-action="delete" asp-route-id="@inquilino.id">
+                        <a class="btn btn-danger p-1 mx-2" asp-controller="inquilino" asp-action="delete" asp-route-id="@inquilino.id">
                             <i class="fas fa-user-times"> Borrar</i>
                         </a>
                         }
