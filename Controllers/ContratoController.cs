@@ -4,7 +4,6 @@ using inmobiliaria_Toloza_Lopez.Models;
 using Google.Protobuf;
 using Microsoft.AspNetCore.Authorization;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
-
 public class ContratoController : Controller
 {
     private readonly ILogger<ContratoController> _logger;
@@ -25,7 +24,7 @@ public class ContratoController : Controller
         var contratos = repositorioContrato.GetContratos(null);
         foreach (var cont in contratos)
         {
-            Console.WriteLine(cont.ToString());
+//            Console.WriteLine(cont.ToString());
         }
         return View(contratos);
     }
@@ -63,7 +62,12 @@ public class ContratoController : Controller
     public IActionResult List(int id)
     {
         RepositorioContrato repositorioContrato = new RepositorioContrato();
-        var contratos = repositorioContrato.GetContratos(id);
+        var contratos = repositorioContrato.GetContratosInmueble(id);
+        ViewBag.inmueble = id;
+        foreach (var cont in contratos)
+        {
+        //    Console.WriteLine(cont.ToString());
+        }
         //return RedirectToAction("Index", contratos);
         return View("index", contratos);
     }

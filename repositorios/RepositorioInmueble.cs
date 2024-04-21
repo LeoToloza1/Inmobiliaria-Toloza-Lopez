@@ -19,8 +19,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                // if (fechaInicioPedida != "" && fechaFinPedida != "" && ValidaData.Fecha1MayorFecha2(fechaFinPedida, fechaInicioPedida))
-                // {
                     var sql = @$"                              
                     SELECT DISTINCT
                         i.id,
@@ -28,9 +26,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         i.uso,
                         i.id_tipo,
                         i.ambientes,
-                        i.coordenadas,
-                        i.latitud,
-                        i.longitud,
+                        i.coordenadas,                        
                         i.precio,
                         i.id_propietario,
                         i.estado,
@@ -59,6 +55,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
 									SELECT con.id_inmueble from contrato as con where con.fecha_inicio < @fechaFinPedida
                                     AND 
                                     con.fecha_fin > @fechaInicioPedida) 
+                    AND i.borrado = 0
                     ";
 
                     if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
@@ -68,11 +65,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                     if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
                     sql += "LIMIT @PageSize OFFSET @Offset ";
                     sql += ";";
-                    Console.WriteLine("consulta->" + sql);
-                    Console.WriteLine(".............................................................................");
-                    Console.WriteLine(fechaInicioPedida + "....." + fechaFinPedida);
-                    Console.WriteLine(".............................................................................");
-
                     using (var command = new MySqlCommand(sql, connection))
                     {
                         int offset = (page - 1) * pageSize;
@@ -102,8 +94,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                     id_tipo = reader.GetInt32("id_tipo"),
                                     ambientes = reader.GetInt32("ambientes"),
                                     coordenadas = reader.GetString("coordenadas"),
-                                    latitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.latitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.latitud)),
-                                    longitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.longitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.longitud)),
                                     precio = reader.GetDecimal("precio"),
                                     id_propietario = reader.GetInt32("id_propietario"),
                                     id_ciudad = reader.GetInt32("id_ciudad"),
@@ -131,24 +121,23 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                         id = reader.GetInt32("id_zona"),
                                         zona = reader.GetString("zona")
                                     }
-
-
                                 });
                             }
                             connection.Close();
                         }
-                    // }
+                    
                 }
             }
 
             return inmuebles;
         }
+
         public IList<Inmueble> GetInmuebles(int page, int pageSize)// solo paginado
         {
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.latitud, i.longitud, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
+                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
                 sql += " t.id AS t_id_tipo , t.tipo AS tipo_inmueble, ";
                 sql += " p.id AS p_id, p.nombre AS nombre_propietario, p.apellido AS apellido_propietario, ";
                 sql += " c.ciudad , z.zona ";
@@ -183,9 +172,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
                                 id_tipo = reader.GetInt32("id_tipo"),
                                 ambientes = reader.GetInt32("ambientes"),
-                                coordenadas = reader.GetString("coordenadas"),
-                                latitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.latitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.latitud)),
-                                longitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.longitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.longitud)),
+                                coordenadas = reader.GetString("coordenadas"),                                
                                 precio = reader.GetDecimal("precio"),
                                 id_propietario = reader.GetInt32("id_propietario"),
                                 id_ciudad = reader.GetInt32("id_ciudad"),
@@ -229,7 +216,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.latitud, i.longitud, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
+                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
                 sql += " t.id AS t_id_tipo , t.tipo AS tipo_inmueble, ";
                 sql += " p.id AS p_id, p.nombre AS nombre_propietario, p.apellido AS apellido_propietario, ";
                 sql += " c.ciudad , z.zona ";
@@ -259,9 +246,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
                                 id_tipo = reader.GetInt32("id_tipo"),
                                 ambientes = reader.GetInt32("ambientes"),
-                                coordenadas = reader.GetString("coordenadas"),
-                                latitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.latitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.latitud)),
-                                longitud = reader.IsDBNull(reader.GetOrdinal(nameof(Inmueble.longitud))) ? 0 : reader.GetDecimal(nameof(Inmueble.longitud)),
+                                coordenadas = reader.GetString("coordenadas"),                        
                                 precio = reader.GetDecimal("precio"),
                                 id_propietario = reader.GetInt32("id_propietario"),
                                 id_ciudad = reader.GetInt32("id_ciudad"),
@@ -336,7 +321,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             Inmueble? inmueble = null;
             using (var connection = new MySqlConnection(conexion))
             {
-                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.latitud, i.longitud, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
+                string sql = "SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, ";
                 sql += " t.id AS t_id_tipo, t.tipo AS tipo_inmueble, ";
                 sql += " p.id AS p_id, p.nombre AS nombre_propietario, p.apellido AS apellido_propietario ";
                 sql += "FROM inmueble AS i ";
@@ -364,8 +349,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 id_tipo = reader.GetInt32("id_tipo"),
                                 ambientes = reader.GetInt32("ambientes"),
                                 coordenadas = reader.GetString("coordenadas"),
-                                // latitud = reader.GetDecimal("latitud"),
-                                // longitud = reader.GetDecimal("longitud"),
                                 precio = reader.GetDecimal("precio"),
                                 id_propietario = reader.GetInt32("id_propietario"),
                                 id_ciudad = reader.GetInt32("id_ciudad"),

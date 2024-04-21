@@ -5,24 +5,17 @@
     string urlActual = request.Path + request.QueryString;
     string? tipoInmuebleForm = request.Query["tipoInmueble"];
     string? ciudadInmuebleForm = request.Query["ciudadInmueble"];
-    string? fechaInicioPedida = request.Query["fechaInicioPedida"];
+//    string? fechaInicioPedida = request.Query["fechaInicioPedida"];
+    string? fechaInicioPedida = string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) ? DateTime.Today.ToString("yyyy-MM-dd") : request.Query["fechaInicioPedida"];
+
     string? fechaFinPedida = request.Query["fechaFinPedida"];
     string? zonaInmuebleForm = request.Query["zonaInmueble"];
     string? paginaActualForm = request.Query["page"];
-
-    Console.WriteLine("ACA LLEGA LA URL -->" + urlActual);
-    Console.WriteLine(request.Query["precio"]);
-
-    int? paginaActual = string.IsNullOrEmpty(paginaActualForm) ? null : (int.TryParse(paginaActualForm, out int
-    parsedPaginaActual) ? parsedPaginaActual : (int)0);
+    int? paginaActual = string.IsNullOrEmpty(paginaActualForm) ? null : (int.TryParse(paginaActualForm, out int  parsedPaginaActual) ? parsedPaginaActual : (int)0);
     string? usoInmuebleValor = string.IsNullOrEmpty(request.Query["usoInmueble"]) ? "" : request.Query["usoInmueble"];
-    string? precioInmuebleValor = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" :
-    request.Query["precioInmueble"];
-    int? tipoInmuebleValor = string.IsNullOrEmpty(tipoInmuebleForm) ? null : (int.TryParse(tipoInmuebleForm, out int
-    parsedTipoInmueble) ? parsedTipoInmueble : (int?)null);
-
-    int? ciudadInmuebleValor = string.IsNullOrEmpty(ciudadInmuebleForm) ? null : (int.TryParse(ciudadInmuebleForm, out int
-    parsedCiudadInmueble) ? parsedCiudadInmueble : (int?)null);
+    string? precioInmuebleValor = string.IsNullOrEmpty(request.Query["precioInmueble"]) ? "" : request.Query["precioInmueble"];
+    int? tipoInmuebleValor = string.IsNullOrEmpty(tipoInmuebleForm) ? null : (int.TryParse(tipoInmuebleForm, out int  parsedTipoInmueble) ? parsedTipoInmueble : (int?)null);
+    int? ciudadInmuebleValor = string.IsNullOrEmpty(ciudadInmuebleForm) ? null : (int.TryParse(ciudadInmuebleForm, out int  parsedCiudadInmueble) ? parsedCiudadInmueble : (int?)null);
     string? fechaInicioValor = fechaInicioPedida;
     string? fechaFinValor = fechaFinPedida;
     int? zonaInmuebleValor = string.IsNullOrEmpty(zonaInmuebleForm) ? null : (int.TryParse(zonaInmuebleForm, out int
@@ -35,56 +28,56 @@
         tipoInmueble = tipoInmuebleValor,
         ciudadInmueble = ciudadInmuebleValor,
     });
-
+var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 <div class="text-center">
-    <h1 class="display-4">Listado de Inmuebles @ViewBag.paginaActual de @ViewBag.TotalPages</h1>
+    <h1 class="display-4">Listado de Inmuebles</h1>
 </div>
 <div>
     <div class="container-fluid p-0">
-        <div class="border-top border-bottom mb-1 mt-5">
-            <div class="d-flex justify-content-between align-items-center px-3 py-2">
-                <form method="get" action="/inmueble?page" name="form-inmueble"
-                    class="d-flex justify-content-evenly w-100">
+        <label class="form-check-label fs-4" for="formInmueble">Busqueda inmuebles</label>
+        <div class="border-top border-bottom mb-1 ">            
+            <div class="d-flex justify-content-between align-items-center px-3 py-2">                
+                <form id= "formInmueble" method="get" action="/inmueble?page" name="form-inmueble" class="d-flex justify-content-evenly w-100">
                     <input hidden type="text" name="page" value=1>
-                    <div class="d-flex justify-content-evenly w-100">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value=""
-                            @(usoInmuebleValor == "" ? "checked" : "")>
-                            <label class="form-check-label" for="todosRadio">
-                                Todos
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="usoInmueble" id="comercialRadio"
-                                value="comercial" @(usoInmuebleValor == "comercial" ? "checked" : "")>
-                            <label class="form-check-label" for="comercialRadio">
-                                Comercial
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="usoInmueble" id="residencialRadio"
-                                value="residencial" @(usoInmuebleValor == "residencial" ? "checked" : "")>
-                            <label class="form-check-label" for="residencialRadio">
-                                Residencial
-                            </label>
+                    <div class="d-flex justify-content-evenly w-100  align-items-center ">
+                        <div class="d-flex flex-column">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="usoInmueble" id="todosRadio" value=""
+                                    @(usoInmuebleValor == "" ? "checked" : "")>
+                                <label class="form-check-label" for="todosRadio">Todos</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="usoInmueble" id="comercialRadio" value="comercial"
+                                    @(usoInmuebleValor == "comercial" ? "checked" : "")>
+                                <label class="form-check-label" for="comercialRadio">Comercial</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="usoInmueble" id="residencialRadio" value="residencial"
+                                    @(usoInmuebleValor == "residencial" ? "checked" : "")>
+                                <label class="form-check-label" for="residencialRadio">Residencial</label>
+                            </div>
                         </div>
                         <div class="flex-item">
-                            <input name="fechaInicioPedida" class="form-control form-control-sm" type="date"
+                            <label class="form-check-label" for="fechaInicioPedida">Fecha inicio</label>
+                            <input id="fechaInicioPedida" name="fechaInicioPedida" class="form-control form-control-sm" type="date"
                                 placeholder="Fecha Inicio" aria-label="fecha-inicio-pedida" value="@fechaInicioPedida">
                         </div>
                         <div class="flex-item">
-                            <input name="fechaFinPedida" class="form-control form-control-sm" type="date"
+                            <label class="form-check-label" for="fechaFinPedida">Fecha fin</label>
+                            <input id="fechaFinPedida" name="fechaFinPedida" class="form-control form-control-sm" type="date"
                                 placeholder="Fecha Fin" aria-label="fecha-fin-pedida" value="@fechaFinPedida">
                         </div>
 
                         <div class="flex-item">
-                            <input name="precioInmueble" class="form-control form-control-sm" type="number"
+                            <label class="form-check-label" for="precioInmueble">Precio maximo</label>
+                            <input id=="precioInmueble" name="precioInmueble" class="form-control form-control-sm" type="number"
                                 placeholder="Precio" aria-label="tipo-inmueble" value="@precioInmuebleValor">
                         </div>
                         <div class="flex-item">
-                            <select name="tipoInmueble" class="form-select " aria-label="Select tipo">
-                                <option value="">Filtrar tipo de inmueble</option>
+                            <label class="form-check-label" for="tipoInmueble">Filtro tipo inmueble</label>
+                            <select id="tipoInmueble" name="tipoInmueble" class="form-select py-1 mr-4 " aria-label="Select tipo">
+                                <option value="">Todos tipo inmueble</option>
                                 @if (ViewBag.tipoInmuebles != null)
                                 {
                                     foreach (var tipo in ViewBag.tipoInmuebles)
@@ -95,8 +88,9 @@
                             </select>
                         </div>
                         <div class="flex-item">
-                            <select name="ciudadInmueble" class="form-select " aria-label="Select Ciudad">
-                                <option value="">Filtrar por ciudad</option>
+                            <label class="form-check-label" for="ciudadInmueble">Filtro ciudad inmueble</label>
+                            <select id="ciudadInmueble" name="ciudadInmueble" class="form-select py-1 mr-4 " aria-label="Select Ciudad">
+                                <option value="">Todas las ciudades</option>
                                 @if (ViewBag.ciudades != null)
                                 {
                                     foreach (var ciudad in ViewBag.ciudades)
@@ -108,7 +102,8 @@
                             </select>
                         </div>
                         <div class="flex-item">
-                            <select name="zonaInmueble" class="form-select " aria-label="Select Zona">
+                            <label class="form-check-label" for="zonaInmueble">Filtro zona inmueble</label>
+                            <select id="zonaInmueble" name="zonaInmueble" class="form-select py-1 mr-4" aria-label="Select Zona">
                                 <option value="">Filtrar por zona</option>
                                 @if (ViewBag.zonas != null)
                                 {
@@ -121,86 +116,11 @@
                             </select>
                         </div>
                         <div class="flex-item">
-                            <button type="submit" class="btn btn-primary py-1">Buscar</button>
+                            <button type="submit" class="btn btn-primary py-3 mr-2">Buscar</button>
+                            <a href="/inmueble"  class="btn btn-success py-3" >Reset</a>
                         </div>
                     </div>
-                </form>
-                @* ---- Paginacion---- *@
-                @if (ViewBag.TotalPages > 1)
-                {
-                    <div class="mt-2">
-                        <ul class="pagination">
-                            <li class="page-item @(ViewBag.paginaActual == 1 ? "disabled" : "")">
-                                <a class="page-link" href="@urlLimpia&page=@(ViewBag.paginaActual - 1)"
-                                    aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Anterior</span>
-                                </a>
-                            </li>
-
-                            @* -- seccion de paginacion truncada --- *@
-                            @* //TODO EN PROCESO *@
-
-                            @for (int? i = 1; i <= ViewBag.TotalPages && paginaActual >= 1; i += 3)
-                            {
-                                if (ViewBag.TotalPages <= 4)
-                                {
-                                    <li class="page-item @(i == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
-                                    </li>
-                                }
-                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 3 <= ViewBag.TotalPages)
-                                {
-                                    <li class="page-item @(i == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
-                                    </li>
-                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@(i+1)">@(i + 1) </a>
-                                    </li>
-                                    <li class="page-item @((i+2) == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@(i+2)">@(i + 2) </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <span class="page-link">...</span>
-                                    </li>
-                                }
-                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 2 <= ViewBag.TotalPages)
-                                {
-                                    <li class="page-item @(i == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
-                                    </li>
-                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@(i+1)">@(i + 1) </a>
-                                    </li>
-                                    <li class="page-item @((i+2) == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@(i+2)">@(i + 2) </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <span class="page-link">...</span>
-                                    </li>
-                                }
-                                else if (paginaActual <= i + 2 && paginaActual > i - 1 && i + 1 <= ViewBag.TotalPages)
-                                {
-                                    <li class="page-item">
-                                        <span class="page-link">...</span>
-                                    </li>
-                                    <li class="page-item @(i == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia&page=@i">@i </a>
-                                    </li>
-                                    <li class="page-item @((i+1) == paginaActual ? "active" : "")">
-                                        <a class="page-link" href="@urlLimpia?&page=@(i+1)">@(i + 1) </a>
-                                    </li>
-                                }
-                            }
-                            <li class="page-item @(ViewBag.paginaActual == ViewBag.TotalPages ? "disabled" : "")">
-                                <a class="page-link" href="@urlLimpia&page=@(ViewBag.paginaActual + 1)" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Siguiente</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                }
+                </form>                
             </div>
         </div>
     </div>
@@ -217,17 +137,17 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="text-center">Tipo</th>
-                    <th class="text-center">Uso</th>
-                    <th class="text-center">Ambientes</th>
-                    <th class="text-center">Mapa</th>
-                    <th class="text-center">Precio</th>
-                    <th class="text-center">Propietario</th>
-                    <th class="text-center">Estado</th>
-                    <th class="text-center">Ciudad</th>
-                    <th class="text-center">Zona</th>
-                    <th class="text-center">Descripcion</th>
-                    <th colspan="5" class="text-center">Adminstracion</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.tipoInmueble.tipo)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.uso)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.ambientes)</th>
+                    @* <th class="text-center">@Html.DisplayNameFor(model => model.mapa)</th> *@
+                    <th class="text-center">@Html.DisplayNameFor(model => model.precio)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.propietario)</th>
+                    @* <th class="text-center">@Html.DisplayNameFor(model => model.estado)</th> *@
+                    <th class="text-center">@Html.DisplayNameFor(model => model.ciudad)</th>
+                    <th class="text-center">@Html.DisplayNameFor(model => model.zona)</th>                
+                    <th class="text-center">@Html.DisplayNameFor(model => model.descripcion)</th>
+                    <th colspan="7" class="text-center">AdminIstración</th>
                 </tr>
             </thead>
             <tbody>
@@ -237,28 +157,38 @@
                         <td class="text-center">@inmuebles.tipoInmueble?.tipo</td>
                         <td class="text-center">@inmuebles.uso</td>
                         <td class="text-center">@inmuebles.ambientes</td>
-                        <td class="text-center"><a class="btn btn-secondary mx-2"
-                                href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank"><i
-                                    class="fas fa-map-marked-alt mx-2"></i>Mapa</a></td>
+                        @* <td class="text-center">
+                            <a class="btn btn-secondary py-1 mx-2" href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank">
+                                <i class="fas fa-map-marked-alt mx-2"> Mapa</i>
+                            </a>
+                        </td> *@
                         <td class="text-center">@inmuebles.precio</td>
                         <td class="text-center">@inmuebles.propietario?.apellido, @inmuebles.propietario?.nombre </td>
-                        <td class="text-center">@inmuebles.estado</td>
+                        @* <td class="text-center">@inmuebles.estado</td> *@
                         <td class="text-center">@inmuebles.ciudad?.ciudad</td>
                         <td class="text-center">@inmuebles.zona?.zona</td>
                         @* <td class="text-center">@inmuebles.descripcion</td> *@
-                        <td class="text-center"> @((inmuebles.descripcion.Length > 30) ? inmuebles.descripcion.Substring(0, 30)
+                        <td class="text-center"> @((inmuebles.descripcion.Length > 40) ? inmuebles.descripcion.Substring(0, 30)
                     + "..." : inmuebles.descripcion)</td>
-                        <td colspan="5" class="text-center">
-                            <a class="btn btn-secondary mx-2" asp-controller="inmueble" asp-action="Edit"
-                                asp-route-id="@inmuebles.id">
-                                <i class="fas fa-user-edit"></i>
-                                Editar
+                        <td colspan="7" class="text-center">                           
+                            <a class="btn btn-info py-1 mx-1" href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank">
+                                <i class="fas fa-map-marked-alt mx-2"> Mapa</i>
+                            </a> 
+                            <a class="btn btn-secondary py-1 mx-1" asp-controller="inmueble" asp-action="edit" asp-route-id="@inmuebles.id">
+                                <i class="fas fa-building"> Editar</i>                                
                             </a>
-                            <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="create"
+                            <a class="btn btn-secondary py-1 mx-1" asp-controller="contrato" asp-action="create"
                                 asp-route-id="@inmuebles.id">
-                                <i class="fas fa-file-signature"></i>
-                                Crea Contrato
+                                <i class="fas fa-file-contract"> Crea Contrato</i>                                
                             </a>
+                            @if (userRol == "administrador"){
+                                <a class="btn btn-secondary py-1 mx-1" asp-controller="contrato" asp-action="list" asp-route-id="@inmuebles.id">
+                                   <i class="fas fa-folder-open"> Contratos</i>                                
+                                </a>                            
+                                <a class="btn btn-danger py-1 mx-1" asp-controller="inmueble" asp-action="delete"  asp-route-id="@inmuebles.id">
+                                    <i class="fas fa-trash-alt"> Borrar</i>                                
+                                </a>
+                            }
                         </td>
                     </tr>
                 }
@@ -269,5 +199,5 @@
 
 </div>
 @section Scripts {
-    <script src="~/js/inmueble.js"></script>
+    <script src="~/js/inmueble.js" asp-append-version="true"></script>
 }

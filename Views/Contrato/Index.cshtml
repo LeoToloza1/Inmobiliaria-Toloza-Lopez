@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Contrato>
 @{
     ViewData["Title"] = "Inicio";
-    Console.WriteLine(Model.Count());
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
  }
 <div class="text-center">
     <h1 class="display-4">Listado de Contratos</h1>
@@ -49,15 +49,17 @@
                         @contratos.inmueble.propietario.apellido, @contratos.inmueble.propietario.nombre
                     </td>
                     <td colspan="4" class="text-center">
-                        <a class="btn btn-secondary mx-2" asp-controller="contratos" asp-action="send"
-                            asp-route-id="@contratos.id"><i class="fas fa-at mx-2"></i> Enviar por email
+                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="edit"
+                            asp-route-id="@contratos.id"><i class="fas fa-file-signature mx-2"> Editar</i> 
                         </a>
-                        <a class="btn btn-secondary mx-2" asp-controller="contratos" asp-action="view"
-                            asp-route-id="@contratos.id"><i class="fas fa-info-circle mx-2"></i> Ver Detalle
+                        <a class="btn btn-secondary mx-2" asp-controller="pago" asp-action="AsignarPago"
+                            asp-route-id="@contratos.id"><i class="fas fa-file-invoice-dollar p-1 mx-2"> Asignar Pago</i> 
                         </a>
+                          @if (userRol == "administrador"){
                         <a class="btn btn-danger mx-2" asp-controller="contratos" asp-action="print"
-                            asp-route-id="@contratos.id" title="Imprimir contratos"><i class="fas fa-solid fa-print mx-2"></i> Imprimir
+                            asp-route-id="@contratos.id" title="Imprimir contratos"><i class="fas fa-trash-alt mx-2"></i> Borrar
                         </a>
+                        }
                     </td>
                 </tr>
             }
