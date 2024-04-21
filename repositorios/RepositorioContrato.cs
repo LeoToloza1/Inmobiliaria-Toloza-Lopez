@@ -161,7 +161,10 @@ metodo para obtener todos los Contratos
         }
         return contratos;
     }
-
+public IList<Contrato> GetContratosPropietario(int id){
+    IList<Contrato> contratos = new List<Contrato>();
+    return contratos;
+}
     public Contrato Create(Contrato contrato)
     {
         /*validar datos*/

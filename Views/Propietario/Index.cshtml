@@ -76,7 +76,7 @@
                         </a>
                         @if (userRol == "administrador")
                         {
-                        <a class="btn btn-secondary py-1 mx-1" asp-controller="propietario" asp-action="contratoList" asp-route-id="@propietario.id">
+                        <a class="btn btn-secondary py-1 mx-1" asp-controller="contrato" asp-action="propietario" asp-route-id="@propietario.id">
                             <i class="fas fa-solid fa-file-contract mx-2 "> Contratos</i>
                         </a>
                         <a class="btn btn-secondary py-1 mx-1" asp-controller="propietario" asp-action="inmueblesList" asp-route-id="@propietario.id">
