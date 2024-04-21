@@ -13,8 +13,8 @@ public class Propietario
 {
     return $"id: {id}, nombre: {nombre}, apellido: {apellido}, dni: {dni}, email: {email}, telefono: {telefono}, borrado: {borrado}";
 }
-public string propietarioDatos(){
-    return $" {apellido} , {nombre}";
+public string ToStringWeb(){
+    return $" {apellido} , {nombre} dni: {dni} ";
 }
 
 }
