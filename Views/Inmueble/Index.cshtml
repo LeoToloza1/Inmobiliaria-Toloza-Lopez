@@ -147,7 +147,7 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                     <th class="text-center">@Html.DisplayNameFor(model => model.ciudad)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.zona)</th>                
                     <th class="text-center">@Html.DisplayNameFor(model => model.descripcion)</th>
-                    <th colspan="6" class="text-center">AdminIstración</th>
+                    <th colspan="7" class="text-center">AdminIstración</th>
                 </tr>
             </thead>
             <tbody>
@@ -168,9 +168,9 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                         <td class="text-center">@inmuebles.ciudad?.ciudad</td>
                         <td class="text-center">@inmuebles.zona?.zona</td>
                         @* <td class="text-center">@inmuebles.descripcion</td> *@
-                        <td class="text-center"> @((inmuebles.descripcion.Length > 50) ? inmuebles.descripcion.Substring(0, 30)
+                        <td class="text-center"> @((inmuebles.descripcion.Length > 40) ? inmuebles.descripcion.Substring(0, 30)
                     + "..." : inmuebles.descripcion)</td>
-                        <td colspan="5" class="text-center">                           
+                        <td colspan="7" class="text-center">                           
                             <a class="btn btn-info py-1 mx-1" href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank">
                                 <i class="fas fa-map-marked-alt mx-2"> Mapa</i>
                             </a> 
