@@ -5,13 +5,13 @@
     @* Console.WriteLine(ViewBag.tipoForm); *@
     int id = 0;
     var direccion = "";
-    var uso = "";
+    var uso = "Residencial";
     var id_tipo = 0;
     var ambientes = 0;
     var coordenadas = "";
     var precio = (Decimal)0.00;
     var id_propietario = ViewBag.id_propietario;
-    var estado = "";
+    var estado = "Disponible";
     var id_ciudad = 0;
     var id_zona = 0;
     var descripcion = "";
@@ -110,22 +110,14 @@
         <div class="w-100 mx-5">
             <label for="estado-inmueble">Estado</label>
             <select class="form-select" name="estado" id="estado">
-                @if(estado == "Alquilado")
+                @if(estado == "Disponible")
                 {
-                    <option value="Alquilado" selected>Alquilado</option>
-                    <option value="Disponible">Disponible</option>
-                    <option value="Retirado">Retirado</option>
-                }
-                else if(estado == "Disponible")
-                {
-                    <option value="Alquilado">Alquilado</option>
                     <option value="Disponible" selected>Disponible</option>
                     <option value="Retirado">Retirado</option>
                 }
                 else
                 {
                     <option value="" >Seleccione Estado</option>
-                    <option value="Alquilado">Alquilado</option>
                     <option value="Disponible">Disponible</option>
                     <option value="Retirado" selected>Retirado</option>
                 }

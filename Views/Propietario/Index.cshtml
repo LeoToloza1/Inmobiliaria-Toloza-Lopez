@@ -71,7 +71,7 @@
                         <a class="btn btn-secondary py-1 mx-1" asp-controller="propietario" asp-action="edit" asp-route-id="@propietario.id">
                             <i class="fas fa-user-edit"> Editar</i>
                         </a>
-                        <a class="btn btn-secondary py-1 mx-1" asp-controller="inmueble" asp-action="nuevo" asp-route-id="@propietario.id">
+                        <a class="btn btn-secondary py-1 mx-1" asp-controller="inmueble" asp-action="create" asp-route-id="@propietario.id">
                             <i class="fas fa-plus-square mx-2 "> Nuevo Inmueble </i>
                         </a>
                         @if (userRol == "administrador")

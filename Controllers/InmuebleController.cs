@@ -64,16 +64,6 @@ public class InmuebleController : Controller
     ViewBag.id_propietario = id;
     return View("InmuebleFormulario");
   }
-    public IActionResult Nuevo(int id)
-  {
-    ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
-    ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
-    ViewBag.zonas = _repositorioZona.ListarZonas();
-    ViewBag.propietarios = repositorioPropietario.getPropietario(id);
-    ViewBag.tipoForm = "Nuevo Inmueble";
-    ViewBag.verboForm = "Nuevo";
-    return View("InmuebleFormulario");
-  }
   [Authorize]
   [HttpGet]
   public IActionResult Edit(int id)
@@ -91,7 +81,7 @@ public class InmuebleController : Controller
   [HttpPost]
   public IActionResult Nuevo(Inmueble inmueble)
   {
-    var rp = _repositorioInmueble;
+    var rp = _repositorioInmueble;    
     if (ModelState.IsValid)
     {
       rp.GuardarInmueble(inmueble);
