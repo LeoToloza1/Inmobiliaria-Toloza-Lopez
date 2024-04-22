@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
 
 public class InmuebleController : Controller
@@ -105,9 +106,12 @@ public class InmuebleController : Controller
     return RedirectToAction("Index");
   }
 [Authorize]
-  public IActionResult InmueblesPorPropietario(int id_propietario)
+[ActionName("propietario")]
+  public IActionResult InmueblesPorPropietario(int id)
   {
-    var lista = _repositorioInmueble.GetInmuebles(id_propietario);
-    return View("Index", lista);
+
+  // int pageSize = 10; // Elementos por pagina
+    var listaInmuebles = _repositorioInmueble.GetInmuebleByPropietario(id);
+    return View("listadoPorPropietario", listaInmuebles);
   }
 }

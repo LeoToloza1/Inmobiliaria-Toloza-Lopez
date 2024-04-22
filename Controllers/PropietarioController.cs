@@ -58,5 +58,4 @@ public class PropietarioController : Controller
         return RedirectToAction("Index");
 
     }
-
 }
