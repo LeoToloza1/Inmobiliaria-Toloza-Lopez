@@ -8,6 +8,8 @@ public class Contrato
     public DateOnly fecha_fin { get; set; }
     public DateOnly? fecha_efectiva { get; set; }
     public int? dias_to_fin { get; set; }
+    public int? meses_to_fin { get; set; }
+    public int? meses_contrato { get; set; }
     public decimal monto { get; set; }
     public string? estado { get; set; }
     public Inquilino? inquilino { get; set; }
@@ -26,6 +28,22 @@ public class Contrato
         return @$"Inquilino: {inquilino.apellido}, {inquilino.nombre}.
         Direccion del Inmueble: {inmueble.direccion} 
         Finaliza en {dias_to_fin} dias ";
+    }
+        public decimal CalculoMulta(){
+        //calculo de multa
+        double? mediaContrato = (double?)(meses_contrato)/2;
+        decimal multa = 0;
+        if(meses_to_fin > mediaContrato){
+            multa = monto * 3;             
+        }else if (meses_to_fin < mediaContrato && meses_to_fin > 0){
+            multa = monto * 2;
+        }
+        return multa;
+    }
+    public void fechaCancelar(string fechaCancela){
+        DateOnly fecha1 = (DateOnly.Parse(fechaCancela).AddMonths(1));
+        string fecha1_str = $"{fecha1.Year}-{fecha1.Month:00}-01";
+        fecha_efectiva = DateOnly.Parse(fecha1_str);
     }
 
 }
