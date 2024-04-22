@@ -19,7 +19,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                    var sql = @$"                              
+                var sql = @$"                              
                     SELECT DISTINCT
                         i.id,
                         i.direccion,
@@ -58,74 +58,74 @@ namespace inmobiliaria_Toloza_Lopez.Models
                     AND i.borrado = 0
                     ";
 
-                    if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
-                    if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
-                    if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
-                    if (precioInmueble != "") { sql += " AND i.precio <= @precioInmueble "; }
-                    if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
-                    sql += "LIMIT @PageSize OFFSET @Offset ";
-                    sql += ";";
-                    using (var command = new MySqlCommand(sql, connection))
+                if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
+                if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
+                if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
+                if (precioInmueble != "") { sql += " AND i.precio <= @precioInmueble "; }
+                if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
+                sql += "LIMIT @PageSize OFFSET @Offset ";
+                sql += ";";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    int offset = (page - 1) * pageSize;
+                    command.Parameters.AddWithValue("@PageSize", pageSize);
+                    command.Parameters.AddWithValue("@Offset", offset);
+                    command.Parameters.AddWithValue("@fechaInicioPedida", fechaInicioPedida);
+                    command.Parameters.AddWithValue("@fechaFinPedida", fechaFinPedida);
+                    if (usoInmueble != null) { command.Parameters.AddWithValue("@usoInmueble", usoInmueble); }
+                    if (precioInmueble != null) { command.Parameters.AddWithValue("@precioInmueble", precioInmueble); }
+                    if (tipoInmueble != null) { command.Parameters.AddWithValue("@tipoInmueble", tipoInmueble); }
+                    if (ciudadInmueble != null) { command.Parameters.AddWithValue("@ciudadInmueble", ciudadInmueble); }
+                    if (zonaInmueble != null) { command.Parameters.AddWithValue("@zonaInmueble", zonaInmueble); }
+
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
                     {
-                        int offset = (page - 1) * pageSize;
-                        command.Parameters.AddWithValue("@PageSize", pageSize);
-                        command.Parameters.AddWithValue("@Offset", offset);
-                        command.Parameters.AddWithValue("@fechaInicioPedida", fechaInicioPedida);
-                        command.Parameters.AddWithValue("@fechaFinPedida", fechaFinPedida);
-                        if (usoInmueble != null) { command.Parameters.AddWithValue("@usoInmueble", usoInmueble); }
-                        if (precioInmueble != null) { command.Parameters.AddWithValue("@precioInmueble", precioInmueble); }
-                        if (tipoInmueble != null) { command.Parameters.AddWithValue("@tipoInmueble", tipoInmueble); }
-                        if (ciudadInmueble != null) { command.Parameters.AddWithValue("@ciudadInmueble", ciudadInmueble); }
-                        if (zonaInmueble != null) { command.Parameters.AddWithValue("@zonaInmueble", zonaInmueble); }
-
-                        connection.Open();
-                        using (var reader = command.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            inmuebles.Add(new Inmueble
                             {
-                                inmuebles.Add(new Inmueble
-                                {
 
-                                    id = reader.GetInt32("id"),
-                                    direccion = reader.GetString("direccion"),
-                                    uso = Enum.TryParse<UsoDeInmueble>(reader.GetString("uso"), out UsoDeInmueble usoEnum) ? usoEnum : UsoDeInmueble.Residencial,
-                                    estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
-                                    //estado = reader.GetString("estado"),
-                                    id_tipo = reader.GetInt32("id_tipo"),
-                                    ambientes = reader.GetInt32("ambientes"),
-                                    coordenadas = reader.GetString("coordenadas"),
-                                    precio = reader.GetDecimal("precio"),
-                                    id_propietario = reader.GetInt32("id_propietario"),
-                                    id_ciudad = reader.GetInt32("id_ciudad"),
-                                    id_zona = reader.GetInt32("id_zona"),
-                                    borrado = reader.GetBoolean("borrado"),
-                                    descripcion = reader.GetString("descripcion"),
-                                    tipoInmueble = new TipoInmueble
-                                    {
-                                        id = reader.GetInt32("t_id_tipo"),
-                                        tipo = reader.GetString("tipo_inmueble")
-                                    },
-                                    propietario = new Propietario
-                                    {
-                                        id = reader.GetInt32("p_id"),
-                                        nombre = reader.GetString("nombre_propietario"),
-                                        apellido = reader.GetString("apellido_propietario")
-                                    },
-                                    ciudad = new Ciudad
-                                    {
-                                        id = reader.GetInt32("id_ciudad"),
-                                        ciudad = reader.GetString("ciudad")
-                                    },
-                                    zona = new Zona
-                                    {
-                                        id = reader.GetInt32("id_zona"),
-                                        zona = reader.GetString("zona")
-                                    }
-                                });
-                            }
-                            connection.Close();
+                                id = reader.GetInt32("id"),
+                                direccion = reader.GetString("direccion"),
+                                uso = Enum.TryParse<UsoDeInmueble>(reader.GetString("uso"), out UsoDeInmueble usoEnum) ? usoEnum : UsoDeInmueble.Residencial,
+                                estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
+                                //estado = reader.GetString("estado"),
+                                id_tipo = reader.GetInt32("id_tipo"),
+                                ambientes = reader.GetInt32("ambientes"),
+                                coordenadas = reader.GetString("coordenadas"),
+                                precio = reader.GetDecimal("precio"),
+                                id_propietario = reader.GetInt32("id_propietario"),
+                                id_ciudad = reader.GetInt32("id_ciudad"),
+                                id_zona = reader.GetInt32("id_zona"),
+                                borrado = reader.GetBoolean("borrado"),
+                                descripcion = reader.GetString("descripcion"),
+                                tipoInmueble = new TipoInmueble
+                                {
+                                    id = reader.GetInt32("t_id_tipo"),
+                                    tipo = reader.GetString("tipo_inmueble")
+                                },
+                                propietario = new Propietario
+                                {
+                                    id = reader.GetInt32("p_id"),
+                                    nombre = reader.GetString("nombre_propietario"),
+                                    apellido = reader.GetString("apellido_propietario")
+                                },
+                                ciudad = new Ciudad
+                                {
+                                    id = reader.GetInt32("id_ciudad"),
+                                    ciudad = reader.GetString("ciudad")
+                                },
+                                zona = new Zona
+                                {
+                                    id = reader.GetInt32("id_zona"),
+                                    zona = reader.GetString("zona")
+                                }
+                            });
                         }
-                    
+                        connection.Close();
+                    }
+
                 }
             }
 
@@ -172,7 +172,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
                                 id_tipo = reader.GetInt32("id_tipo"),
                                 ambientes = reader.GetInt32("ambientes"),
-                                coordenadas = reader.GetString("coordenadas"),                                
+                                coordenadas = reader.GetString("coordenadas"),
                                 precio = reader.GetDecimal("precio"),
                                 id_propietario = reader.GetInt32("id_propietario"),
                                 id_ciudad = reader.GetInt32("id_ciudad"),
@@ -246,7 +246,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                 estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
                                 id_tipo = reader.GetInt32("id_tipo"),
                                 ambientes = reader.GetInt32("ambientes"),
-                                coordenadas = reader.GetString("coordenadas"),                        
+                                coordenadas = reader.GetString("coordenadas"),
                                 precio = reader.GetDecimal("precio"),
                                 id_propietario = reader.GetInt32("id_propietario"),
                                 id_ciudad = reader.GetInt32("id_ciudad"),
@@ -376,58 +376,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return inmueble;
         }
 
-        public Inmueble? GetInmuebleByPropietario(int id_propietario)
-        {
-
-            Inmueble? inmueble = null;
-            using (var connection = new MySqlConnection(conexion))
-            {
-                string sql = "SELECT * FROM inmueble WHERE id_propietario = @id_propietario";
-                using (var command = new MySqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@id_propietario", id_propietario);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            inmueble = new Inmueble
-                            {
-                                id = reader.GetInt32("id"),
-                                direccion = reader.GetString("direccion"),
-                                uso = Enum.TryParse<UsoDeInmueble>(reader.GetString("uso"), out UsoDeInmueble usoEnum) ? usoEnum : UsoDeInmueble.Residencial,
-                                estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
-                                id_tipo = reader.GetInt32("id_tipo"),
-                                ambientes = reader.GetInt32("ambientes"),
-                                coordenadas = reader.GetString("coordenadas"),
-                                precio = reader.GetDecimal("precio"),
-                                id_propietario = reader.GetInt32("id_propietario"),
-                                id_ciudad = reader.GetInt32("id_ciudad"),
-                                id_zona = reader.GetInt32("id_zona"),
-                                borrado = reader.GetBoolean("borrado"),
-                                descripcion = reader.GetString("descripcion"),
-                                tipoInmueble = new TipoInmueble
-                                {
-                                    id = reader.GetInt32("t_id_tipo"),
-                                    tipo = reader.GetString("tipo_inmueble")
-                                },
-                                propietario = new Propietario
-                                {
-                                    id = reader.GetInt32("p_id"),
-                                    nombre = reader.GetString("nombre_propietario"),
-                                    apellido = reader.GetString("apellido_propietario")
-                                }
-                            };
-                        }
-                        connection.Close();
-                    }
-                }
-
-            }
-            return inmueble;
-
-        }
-
         public bool GuardarInmueble(Inmueble inmueble)
         {
             bool respuesta = false;
@@ -530,6 +478,104 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return respuesta;
         }
-    }
 
+        public IList<Inmueble> GetInmuebleByPropietario(int id) //paginado + filtros
+        {
+            var inmuebles = new List<Inmueble>();
+            using (var connection = new MySqlConnection(conexion))
+            {
+                var sql = @$"                              
+                    SELECT DISTINCT
+                        i.id,
+                        i.direccion,
+                        i.uso,
+                        i.id_tipo,
+                        i.ambientes,
+                        i.coordenadas,                        
+                        i.precio,
+                        i.id_propietario,
+                        i.estado,
+                        i.id_ciudad,
+                        i.id_zona,
+                        i.borrado,
+                        i.descripcion,
+                        t.id AS t_id_tipo,
+                        t.tipo AS tipo_inmueble,
+                        p.id AS p_id,
+                        p.nombre AS nombre_propietario,
+                        p.apellido AS apellido_propietario,
+                        c.ciudad,
+                        z.zona
+                    FROM
+                        inmueble AS i
+                        INNER JOIN tipo_inmueble AS t 
+                            ON i.id_tipo = t.id
+                        INNER JOIN propietario AS p 
+                            ON i.id_propietario = p.id
+                        JOIN ciudad AS c
+                            ON c.id = i.id_ciudad
+                        JOIN zona AS z 
+                            ON z.id = i.id_zona                        
+                    WHERE i.id_propietario = @Id   AND i.borrado = 0 ;";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            inmuebles.Add(new Inmueble
+                            {
+
+                                id = reader.GetInt32("id"),
+                                direccion = reader.GetString("direccion"),
+                                uso = Enum.TryParse<UsoDeInmueble>(reader.GetString("uso"), out UsoDeInmueble usoEnum) ? usoEnum : UsoDeInmueble.Residencial,
+                                estado = Enum.TryParse<EstadoInmueble>(reader.GetString("estado"), out EstadoInmueble estadoEnum) ? estadoEnum : EstadoInmueble.Disponible,
+                                //estado = reader.GetString("estado"),
+                                id_tipo = reader.GetInt32("id_tipo"),
+                                ambientes = reader.GetInt32("ambientes"),
+                                coordenadas = reader.GetString("coordenadas"),
+                                precio = reader.GetDecimal("precio"),
+                                id_propietario = reader.GetInt32("id_propietario"),
+                                id_ciudad = reader.GetInt32("id_ciudad"),
+                                id_zona = reader.GetInt32("id_zona"),
+                                borrado = reader.GetBoolean("borrado"),
+                                descripcion = reader.GetString("descripcion"),
+                                tipoInmueble = new TipoInmueble
+                                {
+                                    id = reader.GetInt32("t_id_tipo"),
+                                    tipo = reader.GetString("tipo_inmueble")
+                                },
+                                propietario = new Propietario
+                                {
+                                    id = reader.GetInt32("p_id"),
+                                    nombre = reader.GetString("nombre_propietario"),
+                                    apellido = reader.GetString("apellido_propietario")
+                                },
+                                ciudad = new Ciudad
+                                {
+                                    id = reader.GetInt32("id_ciudad"),
+                                    ciudad = reader.GetString("ciudad")
+                                },
+                                zona = new Zona
+                                {
+                                    id = reader.GetInt32("id_zona"),
+                                    zona = reader.GetString("zona")
+                                }
+                            });
+                        }
+                        connection.Close();
+                    }
+
+                }
+            }
+            return inmuebles;
+        }
+    }
 }
+
+
+
+
+
