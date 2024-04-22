@@ -20,7 +20,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             using (var connection = new MySqlConnection(conexion))
             {
                 var sql = @$"                              
-                    SELECT DISTINCT
+                    SELECT 
                         i.id,
                         i.direccion,
                         i.uso,
@@ -54,8 +54,9 @@ namespace inmobiliaria_Toloza_Lopez.Models
                     WHERE i.id NOT in (
 									SELECT con.id_inmueble from contrato as con where con.fecha_inicio < @fechaFinPedida
                                     AND 
-                                    con.fecha_fin > @fechaInicioPedida) 
-                    AND i.borrado = 0
+                                    con.fecha_efectiva > @fechaInicioPedida) 
+                                    AND i.borrado = 0
+
                     ";
 
                 if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
@@ -63,8 +64,9 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
                 if (precioInmueble != "") { sql += " AND i.precio <= @precioInmueble "; }
                 if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
-                sql += "LIMIT @PageSize OFFSET @Offset ";
-                sql += ";";
+                sql += " ORDER BY i.id LIMIT @PageSize OFFSET @Offset ";
+                sql += " ;";
+                Console.Error.WriteLine(sql);
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     int offset = (page - 1) * pageSize;

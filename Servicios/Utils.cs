@@ -11,7 +11,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             DateTime date2 = DateTime.ParseExact(fecha2, "yyyy-MM-dd", System.Globalization.CultureInfo.CurrentCulture);
             return date1 > date2;
         }
-
+        
         public static int? CompararFecha(string fechaInicio, string? fechaFin = null, bool abs = false)
         {
 

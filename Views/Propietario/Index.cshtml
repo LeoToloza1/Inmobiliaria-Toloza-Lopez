@@ -21,10 +21,10 @@
                                 placeholder="Ingrese Nombre apellido o dni buscar" aria-label="fecha-inicio-pedida" value="">                                
                         </div>                        
                         <div class="flex-item w-75 align-items-center ">
-                            @if (!(Model != null && Model.Any()))
-                                {
-                                    <a href="/propietario"  class="btn btn-success pb-1 ml-4 mt-3 "  ><i class="fa fa-user-plus"> Nuevo</i></a>
-                                }
+                            @* @if (!(Model != null && Model.Any()))
+                                { *@
+                                    <a asp-controller="propietario" asp-action="create" class="btn btn-success pb-1 ml-4 mt-3 "  ><i class="fa fa-user-plus"> Nuevo</i></a>
+                                @* } *@
                             @* hidden-link *@
                         </div>                       
                         <div class="flex-item w-25">

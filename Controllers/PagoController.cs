@@ -97,8 +97,26 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                     TempData["mensaje"] = "No se pudo editar el pago, intente de nuevo";
                 }
             }
-
             return RedirectToAction("editarPago");
         }
+                [Authorize]
+        [HttpGet]
+        public IActionResult Cancel(int id)
+        {
+            var contrato = repositorioContrato.GetContrato(id);
+            int numero_pago = repositorioPago.obtenerUltimoPago(id);
+            string fechaHoy = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd"); 
+            contrato.monto = contrato.CalculoMulta(); 
+            contrato.fechaCancelar(fechaHoy);     
+            numero_pago += 1;
+            if (numero_pago == 0)
+            {
+                numero_pago = 1;
+            }
+            ViewData["numero"] = numero_pago;
+            ViewData["contrato"] = contrato;
+            return View("CancelarPago");
+        }
+
     }
 }
