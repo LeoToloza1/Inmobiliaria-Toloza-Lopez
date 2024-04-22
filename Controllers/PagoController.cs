@@ -78,7 +78,27 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             Pago? pagoPorId = repositorioPago.PagoPorId(id);
             return View("editarPago", pagoPorId);
         }
+        [HttpPost]
+        [Authorize(Roles = "administrador")]
+        public IActionResult EditarPago(Pago pago)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["mensaje"] = "No se pudo editar el pago, intente de nuevo";
+            }
+            else
+            {
+                if (repositorioPago.EditarPago(pago))
+                {
+                    TempData["mensaje"] = "Pago editado correctamente";
+                }
+                else
+                {
+                    TempData["mensaje"] = "No se pudo editar el pago, intente de nuevo";
+                }
+            }
 
-
+            return RedirectToAction("editarPago");
+        }
     }
 }

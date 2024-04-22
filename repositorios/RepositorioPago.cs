@@ -248,11 +248,25 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public Pago? PagoPorId(int id)
         {
             Pago? pago = null;
-
             using (var connection = new MySqlConnection(conexion))
             {
                 connection.Open();
-                var sql = "SELECT * FROM pago WHERE id = @id";
+                var sql = @$"SELECT
+                        i.nombre AS inquilino_nombre,
+                        i.apellido AS inquilino_apellido,
+                        im.direccion AS inmueble_direccion,
+                        pro.nombre AS propietario_nombre,
+                        pro.apellido AS propietario_apellido,
+                        p.importe,
+                        p.detalle,
+                        p.numero_pago
+                        FROM pago AS p
+                        JOIN contrato AS c ON p.id_contrato = c.id
+                        JOIN inquilino AS i ON c.id_inquilino = i.id
+                        JOIN inmueble AS im ON c.id_inmueble = im.id
+                        JOIN propietario AS pro ON im.id_propietario = pro.id
+                        WHERE p.id = @id";
+
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
@@ -262,20 +276,52 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         {
                             pago = new Pago
                             {
-                                id = reader.GetInt32("id"),
-                                id_contrato = reader.GetInt32("id_contrato"),
-                                fecha_pago = new DateOnly(reader.GetDateTime("fecha_pago").Year, reader.GetDateTime("fecha_pago").Month, reader.GetDateTime("fecha_pago").Day),
+                                id = id,
                                 importe = reader.GetDecimal("importe"),
-                                estado = reader.GetBoolean("estado"),
+                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle"),
                                 numero_pago = reader.GetInt32("numero_pago"),
-                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle")
+                                Contrato = new Contrato
+                                {
+                                    inquilino = new Inquilino
+                                    {
+                                        nombre = reader.GetString("inquilino_nombre"),
+                                        apellido = reader.GetString("inquilino_apellido")
+                                    },
+                                    inmueble = new Inmueble
+                                    {
+                                        direccion = reader.GetString("inmueble_direccion"),
+                                        propietario = new Propietario
+                                        {
+                                            nombre = reader.GetString("propietario_nombre"),
+                                            apellido = reader.GetString("propietario_apellido")
+                                        }
+                                    }
+                                }
                             };
                         }
                     }
                 }
             }
+
             return pago;
         }
+
+        public bool EditarPago(Pago pago)
+        {
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = "UPDATE pago SET importe = @importe, detalle = @detalle WHERE id = @id";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", pago.id);
+                    command.Parameters.AddWithValue("@importe", pago.importe);
+                    command.Parameters.AddWithValue("@detalle", pago.detalle);
+                    return command.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
 
     }
 }
