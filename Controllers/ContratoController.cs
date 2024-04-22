@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
 using Microsoft.AspNetCore.Authorization;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
+using Microsoft.AspNetCore.Http;
 public class ContratoController : Controller
 {
     private readonly ILogger<ContratoController> _logger;
@@ -18,9 +19,34 @@ public class ContratoController : Controller
     [Authorize]
     public IActionResult Index()
     {
-        //TODO devuelve index        
         RepositorioContrato repositorioContrato = new RepositorioContrato();
-        var contratos = repositorioContrato.GetContratos(null);
+
+        var request = HttpContext.Request;
+        string? fechaFinCalc=null;
+        string? fechaInicioCalc=null;
+        string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"]) ? "0" : request.Query["contratoVence"];
+        try
+        {
+
+            if (contratoVence == "30" || contratoVence == "60" || contratoVence == "90")
+            {
+                fechaInicioCalc =  DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+                fechaFinCalc = DateOnly.FromDateTime(DateTime.Now.Date.AddDays(int.Parse(contratoVence))).ToString("yyyy-MM-dd");
+            }
+            else if(!(string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) && string.IsNullOrEmpty(request.Query["fechaFinPedida"])))
+            {
+                fechaInicioCalc = DateOnly.ParseExact(request.Query["fechaInicioPedida"], "yyyy-MM-dd").ToString("yyyy-MM-dd");
+                fechaFinCalc = DateOnly.ParseExact(request.Query["fechaFinPedida"], "yyyy-MM-dd").ToString("yyyy-MM-dd");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Error al recibir peticion get: " + e.Message);
+            return View();
+        }
+        ViewBag.fechaFinCalc=fechaFinCalc;
+        ViewBag.fechaInicioCalc = fechaInicioCalc;
+        var contratos = repositorioContrato.GetContratos(fechaInicioCalc, fechaFinCalc);
         return View(contratos);
     }
     [Authorize]

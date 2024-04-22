@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.CRUD;
 namespace inmobiliaria_Toloza_Lopez.Models;
@@ -14,10 +15,10 @@ public class RepositorioContrato
     /**
 metodo para obtener todos los Contratos
 */
-    public IList<Contrato> GetContratos(int? id = null)
+    public IList<Contrato> GetContratos(string? fechaInicio,string? fechaFin)
     {
-        //TODO  hacer otro metodo para devolver todos los contratos para un propitario
-        var contratos = new List<Contrato>();
+
+       List<Contrato> contratos = new List<Contrato>();
         try
         {
             using (var connection = new MySqlConnection(conexion))
@@ -36,8 +37,9 @@ metodo para obtener todos los Contratos
                 string dataJoinPropietario = " JOIN propietario AS pro ";
                 string dataOnPropietario = " ON pro.id = p.id_propietario ";
                 string dataWhere = "";
-
-                //       if (id != null) { dataWhere = " WHERE c.id_inquilino = " + id; }
+                if(!(string.IsNullOrEmpty(fechaInicio) && string.IsNullOrEmpty(fechaFin))){
+                    dataWhere = $"WHERE c.{nameof(Contrato.fecha_inicio)} >= {fechaInicio} AND c.{nameof(Contrato.fecha_fin)} <= '{fechaFin}' ";
+                }
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
                 sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
                 using (var command = new MySqlCommand(sql, connection))
@@ -58,7 +60,7 @@ metodo para obtener todos los Contratos
                                 fecha_fin = !reader.IsDBNull(reader.GetOrdinal("fechaFin")) ?
                                     new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) :
                                     new DateOnly(0001, 01, 01), // O cualquier otro valor por defecto que desees
-                                dias_to_fin = Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false),    
+                                dias_to_fin = Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false),
                                 inquilino = new Inquilino
                                 {
                                     nombre = reader.GetString("inquilinoNombre"),

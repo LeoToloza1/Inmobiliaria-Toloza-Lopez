@@ -5,9 +5,7 @@
     string urlActual = request.Path + request.QueryString;
     string? tipoInmuebleForm = request.Query["tipoInmueble"];
     string? ciudadInmuebleForm = request.Query["ciudadInmueble"];
-//    string? fechaInicioPedida = request.Query["fechaInicioPedida"];
     string? fechaInicioPedida = string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) ? DateTime.Today.ToString("yyyy-MM-dd") : request.Query["fechaInicioPedida"];
-
     string? fechaFinPedida = request.Query["fechaFinPedida"];
     string? zonaInmuebleForm = request.Query["zonaInmueble"];
     string? paginaActualForm = request.Query["page"];
@@ -31,11 +29,11 @@
 var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 <div class="text-center">
-    <h1 class="display-4">Listado de Inmuebles</h1>
+    <h1 class="display-4">Listado de Inmuebles </h1>
 </div>
-<div>
+<div>     
     <div class="container-fluid p-0">
-        <label class="form-check-label fs-4" for="formInmueble">Busqueda inmuebles</label>
+        <label class="form-check-label fs-4" for="formInmueble">Busqueda inmuebles  </label>
         <div class="border-top border-bottom mb-1 ">            
             <div class="d-flex justify-content-between align-items-center px-3 py-2">                
                 <form id= "formInmueble" method="get" action="/inmueble?page" name="form-inmueble" class="d-flex justify-content-evenly w-100">
@@ -124,7 +122,8 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
             </div>
         </div>
     </div>
-    @* @if (Model != null && Model.Any()) *@
+    
+    
     @if (!(Model != null && Model.Any()))
     {
         <div class="alert alert-warning" role="alert">
@@ -139,53 +138,43 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                 <tr>
                     <th class="text-center">@Html.DisplayNameFor(model => model.tipoInmueble.tipo)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.uso)</th>
-                    <th class="text-center">@Html.DisplayNameFor(model => model.ambientes)</th>
-                    @* <th class="text-center">@Html.DisplayNameFor(model => model.mapa)</th> *@
+                    <th class="text-center">@Html.DisplayNameFor(model => model.ambientes)</th>                    
                     <th class="text-center">@Html.DisplayNameFor(model => model.precio)</th>
-                    <th class="text-center">@Html.DisplayNameFor(model => model.propietario)</th>
-                    @* <th class="text-center">@Html.DisplayNameFor(model => model.estado)</th> *@
+                    <th class="text-center">@Html.DisplayNameFor(model => model.propietario)</th>                    
                     <th class="text-center">@Html.DisplayNameFor(model => model.ciudad)</th>
                     <th class="text-center">@Html.DisplayNameFor(model => model.zona)</th>                
                     <th class="text-center">@Html.DisplayNameFor(model => model.descripcion)</th>
-                    <th colspan="7" class="text-center">AdminIstración</th>
+                    <th colspan="8" class="text-center">AdminIstración</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var inmuebles in Model)
+                @foreach (var inmueble in Model)
                 {
                     <tr>
-                        <td class="text-center">@inmuebles.tipoInmueble?.tipo</td>
-                        <td class="text-center">@inmuebles.uso</td>
-                        <td class="text-center">@inmuebles.ambientes</td>
-                        @* <td class="text-center">
-                            <a class="btn btn-secondary py-1 mx-2" href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank">
-                                <i class="fas fa-map-marked-alt mx-2"> Mapa</i>
-                            </a>
-                        </td> *@
-                        <td class="text-center">@inmuebles.precio</td>
-                        <td class="text-center">@inmuebles.propietario?.apellido, @inmuebles.propietario?.nombre </td>
-                        @* <td class="text-center">@inmuebles.estado</td> *@
-                        <td class="text-center">@inmuebles.ciudad?.ciudad</td>
-                        <td class="text-center">@inmuebles.zona?.zona</td>
-                        @* <td class="text-center">@inmuebles.descripcion</td> *@
-                        <td class="text-center"> @((inmuebles.descripcion.Length > 40) ? inmuebles.descripcion.Substring(0, 30)
-                    + "..." : inmuebles.descripcion)</td>
-                        <td colspan="7" class="text-center">                           
-                            <a class="btn btn-info py-1 mx-1" href="https://www.google.com/maps?q=@inmuebles.coordenadas " target="_blank">
-                                <i class="fas fa-map-marked-alt mx-2"> Mapa</i>
+                        <td class="text-center">@inmueble.tipoInmueble?.tipo</td>
+                        <td class="text-center">@inmueble.uso</td>
+                        <td class="text-center">@inmueble.ambientes</td>
+                        <td class="text-center">@inmueble.precio</td>
+                        <td class="text-center">@inmueble.propietario?.apellido, @inmueble.propietario?.nombre </td>
+                        <td class="text-center">@inmueble.ciudad?.ciudad</td>
+                        <td class="text-center">@inmueble.zona?.zona</td>
+                        <td  class="text-center"> @((inmueble.descripcion.Length > 60) ? inmueble.descripcion.Substring(0, 60) + "..." : inmueble.descripcion)</td>
+                        <td colspan="8" class="text-center">                           
+                            <a class="btn btn-info py-1 mx-1" href="https://www.google.com/maps?q=@inmueble.coordenadas " target="_blank">
+                                <i class="fas fa-map-marked-alt mr-1"> Mapa</i>
                             </a> 
-                            <a class="btn btn-secondary py-1 mx-1" asp-controller="inmueble" asp-action="edit" asp-route-id="@inmuebles.id">
+                            <a class="btn btn-secondary py-1 mr-1" asp-controller="inmueble" asp-action="edit" asp-route-id="@inmueble.id">
                                 <i class="fas fa-building"> Editar</i>                                
                             </a>
-                            <a class="btn btn-secondary py-1 mx-1" asp-controller="contrato" asp-action="create"
-                                asp-route-id="@inmuebles.id">
+                            <a class="btn btn-secondary py-1 mr-1" asp-controller="contrato" asp-action="create"
+                                asp-route-id="@inmueble.id">
                                 <i class="fas fa-file-contract"> Crea Contrato</i>                                
                             </a>
                             @if (userRol == "administrador"){
-                                <a class="btn btn-secondary py-1 mx-1" asp-controller="contrato" asp-action="list" asp-route-id="@inmuebles.id">
-                                   <i class="fas fa-folder-open"> Contratos</i>                                
+                                <a class="btn btn-secondary py-1 mr-1" asp-controller="contrato" asp-action="list" asp-route-id="@inmueble.id">
+                                    <i class="fas fa-folder-open"> Contratos</i>                                
                                 </a>                            
-                                <a class="btn btn-danger py-1 mx-1" asp-controller="inmueble" asp-action="delete"  asp-route-id="@inmuebles.id">
+                                <a class="btn btn-danger py-1 mr-1" asp-controller="inmueble" asp-action="delete"  asp-route-id="@inmueble.id">
                                     <i class="fas fa-trash-alt"> Borrar</i>                                
                                 </a>
                             }
