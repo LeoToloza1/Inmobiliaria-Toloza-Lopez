@@ -71,8 +71,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 return null;
             }
         }
-
-
         public IList<Pago> listarPagosPorContrato(int id_contrato)
         {
             List<Pago> pagos = new List<Pago>();
@@ -102,7 +100,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             ON c.id_inmueble = alquiler.id
             INNER JOIN propietario AS pro
             ON  alquiler.id_propietario = pro.id
-            WHERE p.id_contrato = @id_contrato;";
+            WHERE p.id_contrato = @id_contrato";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id_contrato", id_contrato);
@@ -153,8 +151,177 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return pagos;
         }
+        public int obtenerUltimoPago(int id_contrato)
+        {
+            int ultimoPago = 0;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                var sql = @"SELECT MAX(numero_pago) AS ultimo_pago
+                    FROM pago
+                    WHERE id_contrato = @id_contrato";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id_contrato", id_contrato);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal("ultimo_pago")))
+                            {
+                                ultimoPago = reader.GetInt32("ultimo_pago");
+                            }
+                        }
+                    }
+                }
+            }
+            return ultimoPago;
+        }
+        public IList<Pago> ObtenerHistoricoPagos()
+        {
+            List<Pago> pagos = new List<Pago>();
+            var sql = @"SELECT  
+                    i.nombre AS nombre_inquilino,
+                    i.apellido AS apellido_inquilino,
+                    pro.nombre AS nombre_propietario,
+                    pro.apellido AS apellido_propietario,
+                    p.id_contrato,
+                    p.numero_pago,
+                    p.fecha_pago, 
+                    p.detalle,         
+                    alquiler.direccion AS direccion_inmueble,      
+                    c.fecha_inicio AS fecha_inicio_contrato, 
+                    c.fecha_fin AS fecha_fin_contrato,         
+                    c.monto AS monto_contrato,
+                    c.id AS id_contrato
+                FROM pago p
+                INNER JOIN contrato c ON p.id_contrato = c.id
+                INNER JOIN inquilino i ON c.id_inquilino = i.id
+                INNER JOIN inmueble AS alquiler ON c.id_inmueble = alquiler.id
+                INNER JOIN propietario AS pro ON alquiler.id_propietario = pro.id";
+            using (var connection = new MySqlConnection(conexion))
+            {
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var contrato = new Contrato
+                            {
+                                id = reader.GetInt32("id_contrato"),
+                                fecha_inicio = new DateOnly(reader.GetDateTime("fecha_inicio_contrato").Year, reader.GetDateTime("fecha_inicio_contrato").Month, reader.GetDateTime("fecha_inicio_contrato").Day),
+                                fecha_fin = new DateOnly(reader.GetDateTime("fecha_fin_contrato").Year, reader.GetDateTime("fecha_fin_contrato").Month, reader.GetDateTime("fecha_fin_contrato").Day),
+                                monto = reader.GetDecimal("monto_contrato"),
+                                inquilino = new Inquilino
+                                {
+                                    nombre = reader.GetString("nombre_inquilino"),
+                                    apellido = reader.GetString("apellido_inquilino")
+                                },
+                                inmueble = new Inmueble
+                                {
+                                    direccion = reader.GetString("direccion_inmueble"),
+                                    propietario = new Propietario
+                                    {
+                                        nombre = reader.GetString("nombre_propietario"),
+                                        apellido = reader.GetString("apellido_propietario")
+                                    }
+                                }
+                            };
+                            var pago = new Pago
+                            {
+                                fecha_pago = new DateOnly(reader.GetDateTime("fecha_pago").Year, reader.GetDateTime("fecha_pago").Month, reader.GetDateTime("fecha_pago").Day),
+                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle"),
+                                numero_pago = reader.GetInt32("numero_pago"),
+                                id_contrato = reader.GetInt32("id_contrato"),
+                                Contrato = contrato,
+                                // id_contrato = contrato.id
+                            };
+                            pagos.Add(pago);
+                        }
+                    }
+                }
+            }
+            return pagos;
+        }
+        public Pago? PagoPorId(int id)
+        {
+            Pago? pago = null;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = @$"SELECT
+                        i.nombre AS inquilino_nombre,
+                        i.apellido AS inquilino_apellido,
+                        im.direccion AS inmueble_direccion,
+                        pro.nombre AS propietario_nombre,
+                        pro.apellido AS propietario_apellido,
+                        p.importe,
+                        p.detalle,
+                        p.numero_pago
+                        FROM pago AS p
+                        JOIN contrato AS c ON p.id_contrato = c.id
+                        JOIN inquilino AS i ON c.id_inquilino = i.id
+                        JOIN inmueble AS im ON c.id_inmueble = im.id
+                        JOIN propietario AS pro ON im.id_propietario = pro.id
+                        WHERE p.id = @id";
+
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            pago = new Pago
+                            {
+                                id = id,
+                                importe = reader.GetDecimal("importe"),
+                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle"),
+                                numero_pago = reader.GetInt32("numero_pago"),
+                                Contrato = new Contrato
+                                {
+                                    inquilino = new Inquilino
+                                    {
+                                        nombre = reader.GetString("inquilino_nombre"),
+                                        apellido = reader.GetString("inquilino_apellido")
+                                    },
+                                    inmueble = new Inmueble
+                                    {
+                                        direccion = reader.GetString("inmueble_direccion"),
+                                        propietario = new Propietario
+                                        {
+                                            nombre = reader.GetString("propietario_nombre"),
+                                            apellido = reader.GetString("propietario_apellido")
+                                        }
+                                    }
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+
+            return pago;
+        }
+
+        public bool EditarPago(Pago pago)
+        {
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = "UPDATE pago SET importe = @importe, detalle = @detalle WHERE id = @id";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", pago.id);
+                    command.Parameters.AddWithValue("@importe", pago.importe);
+                    command.Parameters.AddWithValue("@detalle", pago.detalle);
+                    return command.ExecuteNonQuery() > 0;
+                }
+            }
+        }
 
 
     }
-
 }

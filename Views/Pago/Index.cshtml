@@ -4,55 +4,48 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Listado de Pagos</h1>
+    <h1 class="display-4">Listado histórico de Pagos</h1>
 </div>
 
-<div>
+<div class="table-responsive">
     <table class="table table-striped">
-        <caption>Tabla de Pagos</caption>
-        <thead>
+        <caption>Listado histórico de Pagos</caption>
+        <thead> @* class="thead-dark" *@
             <tr>
-                <th>Número de Contrato</th>
-                <th>Número de Pago</th>
-                <th>Fecha de Pago</th>
-                <th>Importe</th>
-                <th>Detalle</th>
-                <th>+Info</th>
+                <th scope="col">Datos del Contrato</th>
+                <th scope="col">Número de Pago</th>
+                <th scope="col">Fecha de Pago</th>
+                <th scope="col">Importe</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">+Info</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var pago in Model)
             {
                 <tr>
-                    <td>@pago.id_contrato</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li>Inquilino: @(pago.Contrato.inquilino.nombre + " " + pago.Contrato.inquilino.apellido)</li>
+                            <li>Direccion del inmueble: @pago.Contrato.inmueble.direccion</li>
+                        </ul>
+                    </td>
                     <td>@pago.numero_pago</td>
                     <td>@pago.fecha_pago.ToString("dd/MM/yyyy")</td>
-                    <td>@pago.importe</td>
-                    <td>@(pago.detalle != null ? pago.detalle : "Sin detalle")</td>
+                    <td>@pago.Contrato.monto</td>
+                    <td>@(string.IsNullOrEmpty(pago.detalle) ? "Sin detalle" : pago.detalle)</td>
                     <td>
-                        <a asp-controller="Pago" asp-action="listarPagosPorContrato"
-                            asp-route-id_contrato="@pago.id_contrato" class="btn btn-dark btnInfo"
-                            data-index="@pago.id_contrato">Ver Info</a>
+                        <a class="btn btn-dark btnInfo" href="/pago/listarPagosPorContrato/@pago.id_contrato">+Ver
+                            Info</a>
                     </td>
-
                 </tr>
             }
-
         </tbody>
     </table>
 </div>
 
 @section Scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const btnInfos = document.querySelectorAll(".btnInfo");
-            btnInfos.forEach(function (btnInfo) {
-                btnInfo.addEventListener("click", function () {
-                    const dataIndex = btnInfo.getAttribute("data-index");
-                });
-            });
-            function verInfo(id) {
-            }
-        });
+
     </script>
 }
