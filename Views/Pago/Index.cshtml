@@ -35,8 +35,9 @@
                     <td>@pago.Contrato.monto</td>
                     <td>@(string.IsNullOrEmpty(pago.detalle) ? "Sin detalle" : pago.detalle)</td>
                     <td>
-                        <a class="btn btn-dark btnInfo" href="/pago/listarPagosPorContrato/@pago.id_contrato">+Ver
-                            Info</a>
+                        <a class="btn btn-dark btnInfo " href="/pago/listarPagosPorContrato/@pago.id_contrato">
+                            <i class="fas fa-pencil" aria-hidden="true"> Ver Info</i>
+                        </a>
                     </td>
                 </tr>
             }

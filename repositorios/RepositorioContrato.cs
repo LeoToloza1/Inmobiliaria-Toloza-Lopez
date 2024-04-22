@@ -15,10 +15,10 @@ public class RepositorioContrato
     /**
 metodo para obtener todos los Contratos
 */
-    public IList<Contrato> GetContratos(string? fechaInicio,string? fechaFin)
+    public IList<Contrato> GetContratos(string? fechaInicio, string? fechaFin)
     {
 
-       List<Contrato> contratos = new List<Contrato>();
+        List<Contrato> contratos = new List<Contrato>();
         try
         {
             using (var connection = new MySqlConnection(conexion))
@@ -27,17 +27,18 @@ metodo para obtener todos los Contratos
                 string dataAccion = "SELECT ";
                 string dataContrato = @$"c.{nameof(Contrato.id_inquilino)}  AS idInquilino,  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin,";
                 string dataInquilino = @$"  i.{nameof(Inquilino.nombre)} AS inquilinoNombre, i.{nameof(Inquilino.apellido)} AS inquilinoApellido, ";
-                string dataInmueble = @$" p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, ";
+                string dataInmueble = @$" p.{nameof(Inmueble.id)} AS inmuebleId, p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, ";
                 string dataPropietario = @$" pro.{nameof(Propietario.nombre)} AS propietarioNombre , pro.{nameof(Propietario.apellido)} AS propietarioApellido ";
                 string dataFrom = " FROM `contrato` AS c ";
                 string dataJoinInquilino = " JOIN inquilino AS i ";
-                string dataOnInquilino = " ON c.id_inquilino = i.id AND c.fecha_efectiva IS NULL ";
+                string dataOnInquilino = " ON c.id_inquilino = i.id AND c.fecha_efectiva > now() ";
                 string dataJoinInmueble = " JOIN inmueble AS p ";
                 string dataOnInmueble = " ON p.id = c.id_inmueble ";
                 string dataJoinPropietario = " JOIN propietario AS pro ";
                 string dataOnPropietario = " ON pro.id = p.id_propietario ";
                 string dataWhere = "";
-                if(!(string.IsNullOrEmpty(fechaInicio) && string.IsNullOrEmpty(fechaFin))){
+                if (!(string.IsNullOrEmpty(fechaInicio) && string.IsNullOrEmpty(fechaFin)))
+                {
                     dataWhere = $"WHERE c.{nameof(Contrato.fecha_inicio)} >= {fechaInicio} AND c.{nameof(Contrato.fecha_fin)} <= '{fechaFin}' ";
                 }
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
@@ -68,6 +69,7 @@ metodo para obtener todos los Contratos
                                 },
                                 inmueble = new Inmueble
                                 {
+                                    id = reader.GetInt32("inmuebleId"),
                                     direccion = reader.GetString("inmuebleDireccion"),
                                     propietario = new Propietario
                                     {
@@ -170,9 +172,9 @@ metodo para obtener todos los Contratos
             {
                 // particionaod consulta
                 string dataAccion = "SELECT ";
-                string dataContrato = @$"c.{nameof(Contrato.id_inquilino)}  AS idInquilino,  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin,";
+                string dataContrato = @$"c.{nameof(Contrato.id_inquilino)}  AS idInquilino,  c.{nameof(Contrato.id)} AS idContrato,c.{nameof(Contrato.monto)} AS montoContrato, c.{nameof(Contrato.fecha_inicio)} AS fechaInicio, c.{nameof(Contrato.fecha_fin)} AS fechaFin, c.{nameof(Contrato.id_inmueble)} AS idInmueble,";
                 string dataInquilino = @$"  i.{nameof(Inquilino.nombre)} AS inquilinoNombre, i.{nameof(Inquilino.apellido)} AS inquilinoApellido, ";
-                string dataInmueble = @$" p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, ";
+                string dataInmueble = @$"p.{nameof(Inmueble.id)} AS inmuebleId, p.{nameof(Inmueble.direccion)} AS inmuebleDireccion, p.{nameof(Inmueble.uso)} AS UsoInmueble,";
                 string dataPropietario = @$" pro.{nameof(Propietario.nombre)} AS propietarioNombre , pro.{nameof(Propietario.apellido)} AS propietarioApellido ";
                 string dataFrom = " FROM `contrato` AS c ";
                 string dataJoinInquilino = " JOIN inquilino AS i ";
@@ -196,6 +198,7 @@ metodo para obtener todos los Contratos
                             {
                                 id = reader.GetInt32("idContrato"),
                                 id_inquilino = reader.GetInt32("idInquilino"),
+                                id_inmueble = reader.GetInt32("idInmueble"),
                                 monto = reader.GetDecimal("montoContrato"),
                                 fecha_inicio = new DateOnly(reader.GetDateTime("fechaInicio").Year, reader.GetDateTime("fechaInicio").Month, reader.GetDateTime("fechaInicio").Day),
                                 //       fecha_fin = new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day),
@@ -203,6 +206,8 @@ metodo para obtener todos los Contratos
                                     new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) :
                                     new DateOnly(0001, 01, 01), // O cualquier otro valor por defecto que desees
                                 dias_to_fin = Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false),
+                                meses_to_fin = (int)Math.Abs((decimal)(Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false) / 30.473)),
+                                meses_contrato = (int)Math.Abs((decimal)(Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), reader.GetDateTime("fechaInicio").ToString("yyyy-MM-dd"), false) / 30.473)),
                                 inquilino = new Inquilino
                                 {
                                     nombre = reader.GetString("inquilinoNombre"),
@@ -210,6 +215,8 @@ metodo para obtener todos los Contratos
                                 },
                                 inmueble = new Inmueble
                                 {
+                                    id = reader.GetInt32("inmuebleId"),
+                                    uso = Enum.TryParse<UsoDeInmueble>(reader.GetString("usoInmueble"), out UsoDeInmueble usoEnum) ? usoEnum : UsoDeInmueble.Residencial,
                                     direccion = reader.GetString("inmuebleDireccion"),
                                     propietario = new Propietario
                                     {
@@ -331,5 +338,4 @@ metodo para obtener todos los Contratos
         }
         return contrato;
     }
-
 }

@@ -71,7 +71,7 @@ public class ContratoController : Controller
         contrato.id_inmueble = idInmueble;
         contrato.fecha_inicio = fechaInicio;
         contrato.fecha_fin = fechaFin;
-        //  contrato.fecha_efectiva = fechaEfectiva;
+        contrato.fecha_efectiva = fechaFin;
         contrato.monto = decimal.Parse(montoMes);
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Console.WriteLine(contrato.ToString());
@@ -96,12 +96,25 @@ public class ContratoController : Controller
         ViewBag.propietario = id;
         return View("index", contratos);
     }
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
+        public IActionResult Cancel(int id)
+    {
+        
+        RepositorioContrato repositorioContrato = new RepositorioContrato();
+        Contrato contrato = repositorioContrato.GetContrato(id); 
+        
+        Inmueble inmueble = _repositorioInmueble.GetInmueble(contrato.id_inmueble);               
+        ViewBag.inmueble = inmueble;
+        ViewBag.tipoForm = "Cancelar Contrato...";
+        ViewBag.controller = "pago";
+        ViewBag.action = "cancel";
+        
+
+        return View("ContratoCancelFormulario",contrato);
+    }
+   
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

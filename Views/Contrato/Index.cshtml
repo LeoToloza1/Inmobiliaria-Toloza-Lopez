@@ -91,7 +91,7 @@
             {
                 <tr>
                     <td class="text-center">
-                        @contrato.fecha_inicio
+                        @contrato.inmueble.id @contrato.fecha_inicio
                     </td>
                     <td class="text-center">
                         @contrato.fecha_fin
@@ -118,7 +118,7 @@
                         <a class="btn btn-secondary mx-2" asp-controller="pago" asp-action="listarPagosPorContrato"
                             asp-route-id="@contrato.id"><i class="fas fa-file-invoice-dollar p-1 mx-2"> Listar Pagos</i> 
                         </a>
-                        <a class="btn btn-danger mx-2" asp-controller="contrato" asp-action="cancel"
+                        <a class="btn btn-danger mx-2" asp-controller="pago" asp-action="cancel"
                             asp-route-id="@contrato.id" title="Cancelar contrato"><i class="fas fa-file-excel mx-2"> Cancelar</i>
                         </a>            
                     </td>
