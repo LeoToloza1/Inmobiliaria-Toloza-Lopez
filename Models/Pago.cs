@@ -9,8 +9,6 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public bool estado { get; set; }
         public int numero_pago { get; set; }
         public string? detalle { get; set; }
-
-        // Propiedad para contener un objeto Contrato
         public Contrato? Contrato { get; set; }
 
     }

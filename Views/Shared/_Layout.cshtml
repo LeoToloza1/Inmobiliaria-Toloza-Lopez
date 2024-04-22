@@ -2,7 +2,8 @@
     var userName = User?.Identity?.Name;
     var avatarUrl = User.Identity.IsAuthenticated ?
     ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
-    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    var userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
 <!DOCTYPE html>
@@ -128,9 +129,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/adminlte.js" asp-append-version="true"></script>
-    <script src="~/js/service.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/service.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
-s
