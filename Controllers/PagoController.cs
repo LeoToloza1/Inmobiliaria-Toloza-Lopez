@@ -71,6 +71,13 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return RedirectToAction("listarPagos", "Pago");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "administrador")]
+        public IActionResult editar(int id)
+        {
+            Pago? pagoPorId = repositorioPago.PagoPorId(id);
+            return View("editarPago", pagoPorId);
+        }
 
 
     }

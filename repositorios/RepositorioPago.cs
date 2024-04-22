@@ -245,8 +245,37 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return pagos;
         }
+        public Pago? PagoPorId(int id)
+        {
+            Pago? pago = null;
 
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                var sql = "SELECT * FROM pago WHERE id = @id";
+                using (var command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            pago = new Pago
+                            {
+                                id = reader.GetInt32("id"),
+                                id_contrato = reader.GetInt32("id_contrato"),
+                                fecha_pago = new DateOnly(reader.GetDateTime("fecha_pago").Year, reader.GetDateTime("fecha_pago").Month, reader.GetDateTime("fecha_pago").Day),
+                                importe = reader.GetDecimal("importe"),
+                                estado = reader.GetBoolean("estado"),
+                                numero_pago = reader.GetInt32("numero_pago"),
+                                detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle")
+                            };
+                        }
+                    }
+                }
+            }
+            return pago;
+        }
 
     }
-
 }
