@@ -178,7 +178,7 @@ metodo para obtener todos los Contratos
                 string dataPropietario = @$" pro.{nameof(Propietario.nombre)} AS propietarioNombre , pro.{nameof(Propietario.apellido)} AS propietarioApellido ";
                 string dataFrom = " FROM `contrato` AS c ";
                 string dataJoinInquilino = " JOIN inquilino AS i ";
-                string dataOnInquilino = " ON c.id_inquilino = i.id AND c.fecha_efectiva IS NULL ";
+                string dataOnInquilino = " ON c.id_inquilino = i.id AND c.fecha_efectiva > now() ";
                 string dataJoinInmueble = " JOIN inmueble AS p ";
                 string dataOnInmueble = " ON p.id = c.id_inmueble ";
                 string dataJoinPropietario = " JOIN propietario AS pro ";
@@ -186,6 +186,7 @@ metodo para obtener todos los Contratos
                 string dataWhere = " WHERE c.id = " + id;
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
                 sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
+                Console.WriteLine(sql);
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -337,5 +338,21 @@ metodo para obtener todos los Contratos
             connection.Close();
         }
         return contrato;
+    }
+    public Contrato SetFinContrato(int id, string fechaEfectiva)
+    {
+        using (var connection = new MySqlConnection(conexion))
+        {
+            string sql = @$"UPDATE `contrato` SET                
+                `fecha_efectiva` = @fechaEfectiva
+                WHERE `id` = @Id;";
+            using var command = new MySqlCommand(sql, connection);
+            command.Parameters.AddWithValue($"@fechaEfectiva", fechaEfectiva);
+            command.Parameters.AddWithValue($"@Id", id);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        return null;
     }
 }
