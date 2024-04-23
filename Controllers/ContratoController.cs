@@ -132,7 +132,7 @@ public class ContratoController : Controller
         ViewBag.action = "save";
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Contrato contrato = repositorioContrato.GetContrato(id);
-        contrato.fecha_inicio=contrato.fecha_fin;        
+        contrato.fecha_inicio=contrato.fecha_fin.AddDays(1);        
         contrato.fecha_fin=contrato.fecha_fin.AddMonths((int) contrato.meses_contrato);
         contrato.fecha_efectiva=contrato.fecha_fin;
         return View("ContratoRenovacionFormulario", contrato);

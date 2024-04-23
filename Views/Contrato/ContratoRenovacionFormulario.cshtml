@@ -10,8 +10,8 @@ Console.WriteLine(contrato.ToString());
 
     </select>
     <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
-        <input type="number" id="idInmueble" name="idInmueble" value="@contrato.id_inmueble" readonly>
-        <input type="number" id="idInquilino" name="idInquilino" value="@contrato.id_inquilino" readonly>
+        <input class="d-none" type="number" id="idInmueble" name="idInmueble" value="@contrato.id_inmueble" readonly>
+        <input class="d-none" type="number" id="idInquilino" name="idInquilino" value="@contrato.id_inquilino" readonly>
         @* <input type="date" id="fechaInicio" name="fechaInicio" value=@contrato.fecha_inicio.ToString("yyyy-MM-dd") readonly> *@
 @*
         <input type="date" id="fechaFin" name="fecha_fin" value=@contrato.fecha_fin.ToString("yyyy-MM-dd") >
