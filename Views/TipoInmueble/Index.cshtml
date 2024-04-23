@@ -1,0 +1,60 @@
+@model IEnumerable<TipoInmueble>
+@{
+    var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Editar Pago</h1>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4 shadow">
+                    <form id="formTipoInmueble" method="post" action="@Url.Action("create", "tipoInmueble")">
+                    <div class="form-group">
+                        <label for="tipoInmueble">Tipo Inmueble:</label>
+                        <input type="text" class="form-control" id="tipoInmueble" name="tipoInmueble">
+                        <button type="submit" class="btn btn-primary mt-2" id="btnSubmit">Crear tipo</button>
+                    </div>
+                    </form>    
+                <table class="table table-striped">
+                    <caption>Listado tipos inmuebles</caption>
+                    <thead>
+                        <tr>
+                        <th scope="col">Tipo</th>
+                        <th colspan="5"scope="col">Administración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tip in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @tip.tipo
+                                </td>
+                                <td>
+                                    @if (userRol == "administrador"){
+                                        <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="edit" asp-route-id="@tip.id">
+                                            <i class="fas fa-folder-open">  Editar</i>                                
+                                        </a>                            
+                                        <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="delete" asp-route-id="@tip.id">
+                                            <i class="fas fa-trash-alt"> Borrar</i>                                
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+    </script>
+}
