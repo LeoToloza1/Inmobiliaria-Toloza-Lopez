@@ -4,9 +4,7 @@
    // string? fechaInicioPedida = string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) ? DateTime.Today.ToString("yyyy-MM-dd") : request.Query["fechaInicioPedida"];
     string? fechaInicioPedida = request.Query["fechaInicioPedida"];
     string? fechaFinPedida = request.Query["fechaFinPedida"];    
-    string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"])?"" : request.Query["contratoVence"];
-
-    //string? contratoVence = request.Query["contratoVence"];
+   string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"])?"" : request.Query["contratoVence"];
     string? precioInmuebleValor=null;
     string? urlLimpia = Url.Action("", new { });
     ViewData["Title"] = "Inicio";
@@ -66,6 +64,7 @@
             </div>
         </div>
     </div>
+    @if (TempData["mensaje"] != null) @Html.Raw(TempData["mensaje"])
     @if (!(Model != null && Model.Any()))
     {
         <div class="alert alert-warning" role="alert">
@@ -150,7 +149,6 @@
         </tbody>
     </table>
     }
-
     <div class="container">
         <p>
             << paginador>>

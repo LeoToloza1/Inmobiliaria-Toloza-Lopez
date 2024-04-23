@@ -57,7 +57,7 @@ metodo para obtener todos los Contratos
                                 id_inquilino = reader.GetInt32("idInquilino"),
                                 monto = reader.GetDecimal("montoContrato"),
                                 fecha_inicio = new DateOnly(reader.GetDateTime("fechaInicio").Year, reader.GetDateTime("fechaInicio").Month, reader.GetDateTime("fechaInicio").Day),
-                                fecha_fin = !reader.IsDBNull(reader.GetOrdinal("fechaFin")) ? new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) :   new DateOnly(0001, 01, 01), // O cualquier otro valor por defecto que desees
+                                fecha_fin = !reader.IsDBNull(reader.GetOrdinal("fechaFin")) ? new DateOnly(reader.GetDateTime("fechaFin").Year, reader.GetDateTime("fechaFin").Month, reader.GetDateTime("fechaFin").Day) : new DateOnly(0001, 01, 01), // O cualquier otro valor por defecto que desees
                                 fecha_efectiva = DateOnly.FromDateTime(reader.GetDateTime("fechaEfectiva")),
                                 dias_to_fin = Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false),
                                 meses_to_fin = (int)Math.Abs((decimal)(Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), null, false) / 30.473)),
@@ -186,7 +186,7 @@ metodo para obtener todos los Contratos
                 string dataWhere = " WHERE c.id = " + id;
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
                 sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
-                Console.WriteLine(sql);
+       
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -327,7 +327,6 @@ metodo para obtener todos los Contratos
             command.Parameters.AddWithValue($"@{nameof(Contrato.fecha_fin)}", contrato.fecha_fin.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue($"@{nameof(Contrato.fecha_efectiva)}", contrato.fecha_efectiva.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue($"@{nameof(Contrato.monto)}", contrato.monto);
-            Console.WriteLine(sql);
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
@@ -350,4 +349,41 @@ metodo para obtener todos los Contratos
         }
         return null;
     }
+
+
+    public bool VerifyInmuebleContrato(string F1, string F2, int id)
+    {
+        using (var connection = new MySqlConnection(conexion))
+        {
+            try
+            {
+                connection.Open();
+                string sql = "verify_contrato";
+                using var command = new MySqlCommand(sql, connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@f_inicio", F1);
+                command.Parameters.AddWithValue("@f_fin", F2);
+                command.Parameters.AddWithValue("@id_prop", id);
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine("Error en VerifyInmuebleContrato: " + ex.Message);
+                throw;
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return true;
+        }
+    }
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2024 a las 07:18:16
+-- Tiempo de generación: 23-04-2024 a las 19:29:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,274 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `raffarraffa_inmobiliaria`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCiudades` ()   BEGIN
-    select * from ciudad;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarUsuarios` ()   BEGIN
-    SELECT id,nombre,apellido,dni,email,rol,avatarUrl,borrado FROM usuario;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listarZonas` ()   BEGIN
-    select * from zona;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles` ()   BEGIN 
-SELECT
-    i.id,
-    i.direccion,
-    i.uso,
-    i.id_tipo,
-    i.ambientes,
-    i.coordenadas,
-    i.latitud,
-    i.longitud,
-    i.precio,
-    i.id_propietario,
-    i.estado,
-    i.id_ciudad,
-    i.id_zona,
-    i.borrado,
-    i.descripcion,
-    t.id AS t_id_tipo ,
-    t.tipo AS tipo_inmueble,
-    p.id AS p_id,
-    p.nombre AS nombre_propietario,
-    p.apellido AS apellido_propietario, 
-    c.ciudad ,
-    z.zona 
-FROM inmueble AS i 
-   INNER JOIN tipo_inmueble AS t
-   ON i.id_tipo = t.id
-   INNER JOIN propietario AS p 
-   ON i.id_propietario = p.id 
-   JOIN ciudad AS c 
-   ON c.id = i.id_ciudad 
-   JOIN zona AS z ON z.id = i.id_zona 
-WHERE i.borrado = 0  ;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_2` ()   BEGIN
-SELECT
-	i.id,
-    i.direccion,
-    i.uso,
-    i.id_tipo,
-    i.ambientes,
-    i.coordenadas,
-    i.latitud,
-    i.longitud,
-    i.precio,
-    i.id_propietario,
-    i.estado,
-    i.id_ciudad,
-    i.id_zona,
-    i.borrado,
-    i.descripcion,
-    t.id AS t_id_tipo ,
-    t.tipo AS tipo_inmueble,
-    p.id AS p_id,
-    p.nombre AS nombre_propietario,
-    p.apellido AS apellido_propietario, 
-    c.ciudad ,
-    z.zona 
-FROM inmueble AS i 
-   INNER JOIN tipo_inmueble AS t
-   ON i.id_tipo = t.id
-   INNER JOIN propietario AS p 
-   ON i.id_propietario = p.id 
-   JOIN ciudad AS c 
-   ON c.id = i.id_ciudad 
-   JOIN zona AS z
-   ON z.id = i.id_zona 
-   JOIN contrato AS cont
-   ON i.id = cont.id_inmueble
-WHERE i.borrado = 0  ;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_3` ()   BEGIN
-SET @f_inicio = '2024-04-01';
-SET @f_fin = '2024-04-10';
-SELECT
-	i.id,
-    i.direccion,
-    i.uso,
-    i.id_tipo,
-    i.ambientes,
-    i.coordenadas,
-    i.latitud,
-    i.longitud,
-    i.precio,
-    i.id_propietario,
-    i.estado,
-    i.id_ciudad,
-    i.id_zona,
-    i.borrado,
-    i.descripcion,
-    t.id AS t_id_tipo ,
-    t.tipo AS tipo_inmueble,
-    p.id AS p_id,
-    p.nombre AS nombre_propietario,
-    p.apellido AS apellido_propietario, 
-    c.ciudad ,
-    z.zona 
-FROM inmueble AS i 
-   INNER JOIN tipo_inmueble AS t
-   ON i.id_tipo = t.id
-   INNER JOIN propietario AS p 
-   ON i.id_propietario = p.id 
-   JOIN ciudad AS c 
-   ON c.id = i.id_ciudad 
-   JOIN zona AS z
-   ON z.id = i.id_zona 
-   JOIN contrato AS cont
-   ON i.id = cont.id_inmueble
-WHERE i.borrado = 0   
-	AND (@f_inicio < cont.fecha_fin AND @f_fin > cont.fecha_inicio) ;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_4` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
-
-SELECT
-    i.id,
-    i.direccion,
-    i.uso,
-    i.id_tipo,
-    i.ambientes,
-    i.coordenadas,
-    i.latitud,
-    i.longitud,
-    i.precio,
-    i.id_propietario,
-    i.estado,
-    i.id_ciudad,
-    i.id_zona,
-    i.borrado,
-    i.descripcion,
-    t.id AS t_id_tipo,
-    t.tipo AS tipo_inmueble,
-    p.id AS p_id,
-    p.nombre AS nombre_propietario,
-    p.apellido AS apellido_propietario,
-    c.ciudad,
-    z.zona
-FROM
-    inmueble AS i
-    INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
-    INNER JOIN propietario AS p ON i.id_propietario = p.id
-    JOIN ciudad AS c ON c.id = i.id_ciudad
-    JOIN zona AS z ON z.id = i.id_zona
-    LEFT JOIN contrato AS cont ON i.id = cont.id_inmueble
-        AND (
-            cont.fecha_inicio <= f_fin
-            AND cont.fecha_fin >= f_inicio
-        )
-WHERE
-    i.borrado = 0
-     AND cont.id_inmueble IS NULL
-    ;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_5` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
-
-    SELECT
-        i.id,
-        i.direccion,
-        i.uso,
-        i.id_tipo,
-        i.ambientes,
-        i.coordenadas,
-        i.latitud,
-        i.longitud,
-        i.precio,
-        i.id_propietario,
-        i.estado,
-        i.id_ciudad,
-        i.id_zona,
-        i.borrado,
-        i.descripcion,
-        t.id AS t_id_tipo,
-        t.tipo AS tipo_inmueble,
-        p.id AS p_id,
-        p.nombre AS nombre_propietario,
-        p.apellido AS apellido_propietario,
-        c.ciudad,
-        z.zona
-    FROM
-        inmueble AS i
-        INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
-        INNER JOIN propietario AS p ON i.id_propietario = p.id
-        JOIN ciudad AS c ON c.id = i.id_ciudad
-        JOIN zona AS z ON z.id = i.id_zona
-        LEFT JOIN contrato AS cont 
-            ON i.id = cont.id_inmueble
-            AND (
-	                f_fin <= cont.fecha_inicio 
-                OR
-					f_inicio >= cont.fecha_fin
-            )
-    WHERE
-        i.borrado = 0
-        AND cont.id_inmueble IS NULL;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_6` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
-
-    SELECT
-        i.id,
-        i.direccion,
-        i.uso,
-        i.id_tipo,
-        i.ambientes,
-        i.coordenadas,
-        i.latitud,
-        i.longitud,
-        i.precio,
-        i.id_propietario,
-        i.estado,
-        i.id_ciudad,
-        i.id_zona,
-        i.borrado,
-        i.descripcion,
-        t.id AS t_id_tipo,
-        t.tipo AS tipo_inmueble,
-        p.id AS p_id,
-        p.nombre AS nombre_propietario,
-        p.apellido AS apellido_propietario,
-        c.ciudad,
-        z.zona
-    FROM
-        inmueble AS i
-        INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
-        INNER JOIN propietario AS p ON i.id_propietario = p.id
-        JOIN ciudad AS c ON c.id = i.id_ciudad
-        JOIN zona AS z ON z.id = i.id_zona
-        LEFT JOIN contrato AS cont 
-            ON i.id = cont.id_inmueble
-            AND (
-                (f_fin <= cont.fecha_inicio) 
-                OR (f_inicio >= cont.fecha_fin)
-            )
-        LEFT JOIN contrato AS cont2 
-            ON i.id = cont2.id_inmueble
-            AND (cont2.fecha_inicio IS NULL OR cont2.fecha_inicio <= f_fin)
-            AND (cont2.fecha_fin IS NULL OR cont2.fecha_fin >= f_inicio)
-    WHERE
-        i.borrado = 0
-        AND (cont2.id_inmueble IS NULL)
-    ;
-
-END$$
-
-DELIMITER ;
+CREATE DATABASE IF NOT EXISTS `raffarraffa_inmobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `raffarraffa_inmobiliaria`;
 
 -- --------------------------------------------------------
 
@@ -295,6 +29,7 @@ DELIMITER ;
 -- Estructura de tabla para la tabla `ciudad`
 --
 
+DROP TABLE IF EXISTS `ciudad`;
 CREATE TABLE `ciudad` (
   `id` int(11) NOT NULL,
   `ciudad` varchar(100) NOT NULL
@@ -315,6 +50,7 @@ INSERT INTO `ciudad` (`id`, `ciudad`) VALUES
 -- Estructura de tabla para la tabla `contrato`
 --
 
+DROP TABLE IF EXISTS `contrato`;
 CREATE TABLE `contrato` (
   `id` int(11) NOT NULL,
   `id_inquilino` int(11) NOT NULL,
@@ -330,21 +66,13 @@ CREATE TABLE `contrato` (
   `borrado_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `contrato`
---
-
-INSERT INTO `contrato` (`id`, `id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`, `fecha_efectiva`, `monto`, `borrado`, `creado_fecha`, `creado_usuario`, `borrado_fecha`, `borrado_usuario`) VALUES
-(1, 1, 1, '2023-04-23', '2024-04-25', '2024-04-25', 123.00, 0, '2024-04-23 01:47:34', 0, '2024-04-23 02:02:03', 0),
-(2, 3, 1, '2023-04-23', '2025-04-23', '2025-04-23', 23425.00, 0, '2024-04-23 01:49:19', 0, '2024-04-23 01:53:57', 0),
-(3, 1, 1, '2024-04-26', '2025-04-25', '2025-04-25', 2500.00, 0, '2024-04-23 02:04:46', 0, '2024-04-23 02:04:46', 0);
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `inmueble`
 --
 
+DROP TABLE IF EXISTS `inmueble`;
 CREATE TABLE `inmueble` (
   `id` int(11) NOT NULL,
   `direccion` varchar(100) NOT NULL COMMENT 'calle y altura',
@@ -382,6 +110,7 @@ INSERT INTO `inmueble` (`id`, `direccion`, `uso`, `id_tipo`, `ambientes`, `coord
 -- Estructura de tabla para la tabla `inquilino`
 --
 
+DROP TABLE IF EXISTS `inquilino`;
 CREATE TABLE `inquilino` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -408,6 +137,7 @@ INSERT INTO `inquilino` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`,
 -- Estructura de tabla para la tabla `pago`
 --
 
+DROP TABLE IF EXISTS `pago`;
 CREATE TABLE `pago` (
   `id` int(11) NOT NULL,
   `id_contrato` int(11) NOT NULL,
@@ -428,6 +158,7 @@ CREATE TABLE `pago` (
 -- Estructura de tabla para la tabla `propietario`
 --
 
+DROP TABLE IF EXISTS `propietario`;
 CREATE TABLE `propietario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -455,6 +186,7 @@ INSERT INTO `propietario` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono
 -- Estructura de tabla para la tabla `tipo_inmueble`
 --
 
+DROP TABLE IF EXISTS `tipo_inmueble`;
 CREATE TABLE `tipo_inmueble` (
   `id` int(11) NOT NULL,
   `tipo` varchar(200) NOT NULL,
@@ -479,6 +211,7 @@ INSERT INTO `tipo_inmueble` (`id`, `tipo`, `borrado`) VALUES
 -- Estructura de tabla para la tabla `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -506,6 +239,7 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `dni`, `email`, `password`, `
 -- Estructura de tabla para la tabla `zona`
 --
 
+DROP TABLE IF EXISTS `zona`;
 CREATE TABLE `zona` (
   `id` int(11) NOT NULL,
   `zona` varchar(50) NOT NULL
@@ -602,7 +336,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
