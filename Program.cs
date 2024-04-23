@@ -27,7 +27,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromDays(1); //la cookie expirara despues de 1 dia
         options.Cookie.HttpOnly = true; // no permite que la cookie sea accesible desde el lado del cliente.
         options.SlidingExpiration = true; // cada vez que se solicita un recurso, la cookie se vuelve a emitir con una nueva fecha de vencimiento.
-
     });
 builder.Services.AddSession(options =>
 {
@@ -40,9 +39,7 @@ var cultureInfo = new CultureInfo("es-ES");
 cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -50,17 +47,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-// app.MapControllerRoute(
-// name: "default",
-// pattern: "{controller=Login}/{action=Login}/{id?}");
+app.MapControllerRoute(
+name: "default",
+pattern: "{controller=Login}/{action=Login}/{id?}");
 app.MapControllerRoute(
     name: "Home",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2024 a las 19:29:30
+-- Tiempo de generación: 24-04-2024 a las 01:43:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -23,6 +23,331 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `raffarraffa_inmobiliaria` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `raffarraffa_inmobiliaria`;
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+DROP PROCEDURE IF EXISTS `listarCiudades`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarCiudades` ()   BEGIN
+    select * from ciudad;
+END$$
+
+DROP PROCEDURE IF EXISTS `listarUsuarios`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarUsuarios` ()   BEGIN
+    SELECT id,nombre,apellido,dni,email,rol,avatarUrl,borrado FROM usuario;
+END$$
+
+DROP PROCEDURE IF EXISTS `listarZonas`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarZonas` ()   BEGIN
+    select * from zona;
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles` ()   BEGIN 
+SELECT
+    i.id,
+    i.direccion,
+    i.uso,
+    i.id_tipo,
+    i.ambientes,
+    i.coordenadas,
+    i.latitud,
+    i.longitud,
+    i.precio,
+    i.id_propietario,
+    i.estado,
+    i.id_ciudad,
+    i.id_zona,
+    i.borrado,
+    i.descripcion,
+    t.id AS t_id_tipo ,
+    t.tipo AS tipo_inmueble,
+    p.id AS p_id,
+    p.nombre AS nombre_propietario,
+    p.apellido AS apellido_propietario, 
+    c.ciudad ,
+    z.zona 
+FROM inmueble AS i 
+   INNER JOIN tipo_inmueble AS t
+   ON i.id_tipo = t.id
+   INNER JOIN propietario AS p 
+   ON i.id_propietario = p.id 
+   JOIN ciudad AS c 
+   ON c.id = i.id_ciudad 
+   JOIN zona AS z ON z.id = i.id_zona 
+WHERE i.borrado = 0  ;
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles_2`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_2` ()   BEGIN
+SELECT
+	i.id,
+    i.direccion,
+    i.uso,
+    i.id_tipo,
+    i.ambientes,
+    i.coordenadas,
+    i.latitud,
+    i.longitud,
+    i.precio,
+    i.id_propietario,
+    i.estado,
+    i.id_ciudad,
+    i.id_zona,
+    i.borrado,
+    i.descripcion,
+    t.id AS t_id_tipo ,
+    t.tipo AS tipo_inmueble,
+    p.id AS p_id,
+    p.nombre AS nombre_propietario,
+    p.apellido AS apellido_propietario, 
+    c.ciudad ,
+    z.zona 
+FROM inmueble AS i 
+   INNER JOIN tipo_inmueble AS t
+   ON i.id_tipo = t.id
+   INNER JOIN propietario AS p 
+   ON i.id_propietario = p.id 
+   JOIN ciudad AS c 
+   ON c.id = i.id_ciudad 
+   JOIN zona AS z
+   ON z.id = i.id_zona 
+   JOIN contrato AS cont
+   ON i.id = cont.id_inmueble
+WHERE i.borrado = 0  ;
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles_3`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_3` ()   BEGIN
+SET @f_inicio = '2024-04-01';
+SET @f_fin = '2024-04-10';
+SELECT
+	i.id,
+    i.direccion,
+    i.uso,
+    i.id_tipo,
+    i.ambientes,
+    i.coordenadas,
+    i.latitud,
+    i.longitud,
+    i.precio,
+    i.id_propietario,
+    i.estado,
+    i.id_ciudad,
+    i.id_zona,
+    i.borrado,
+    i.descripcion,
+    t.id AS t_id_tipo ,
+    t.tipo AS tipo_inmueble,
+    p.id AS p_id,
+    p.nombre AS nombre_propietario,
+    p.apellido AS apellido_propietario, 
+    c.ciudad ,
+    z.zona 
+FROM inmueble AS i 
+   INNER JOIN tipo_inmueble AS t
+   ON i.id_tipo = t.id
+   INNER JOIN propietario AS p 
+   ON i.id_propietario = p.id 
+   JOIN ciudad AS c 
+   ON c.id = i.id_ciudad 
+   JOIN zona AS z
+   ON z.id = i.id_zona 
+   JOIN contrato AS cont
+   ON i.id = cont.id_inmueble
+WHERE i.borrado = 0   
+	AND (@f_inicio < cont.fecha_fin AND @f_fin > cont.fecha_inicio) ;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles_4`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_4` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
+
+SELECT
+    i.id,
+    i.direccion,
+    i.uso,
+    i.id_tipo,
+    i.ambientes,
+    i.coordenadas,
+    i.latitud,
+    i.longitud,
+    i.precio,
+    i.id_propietario,
+    i.estado,
+    i.id_ciudad,
+    i.id_zona,
+    i.borrado,
+    i.descripcion,
+    t.id AS t_id_tipo,
+    t.tipo AS tipo_inmueble,
+    p.id AS p_id,
+    p.nombre AS nombre_propietario,
+    p.apellido AS apellido_propietario,
+    c.ciudad,
+    z.zona
+FROM
+    inmueble AS i
+    INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
+    INNER JOIN propietario AS p ON i.id_propietario = p.id
+    JOIN ciudad AS c ON c.id = i.id_ciudad
+    JOIN zona AS z ON z.id = i.id_zona
+    LEFT JOIN contrato AS cont ON i.id = cont.id_inmueble
+        AND (
+            cont.fecha_inicio <= f_fin
+            AND cont.fecha_fin >= f_inicio
+        )
+WHERE
+    i.borrado = 0
+     AND cont.id_inmueble IS NULL
+    ;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles_5`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_5` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
+
+    SELECT
+        i.id,
+        i.direccion,
+        i.uso,
+        i.id_tipo,
+        i.ambientes,
+        i.coordenadas,
+        i.latitud,
+        i.longitud,
+        i.precio,
+        i.id_propietario,
+        i.estado,
+        i.id_ciudad,
+        i.id_zona,
+        i.borrado,
+        i.descripcion,
+        t.id AS t_id_tipo,
+        t.tipo AS tipo_inmueble,
+        p.id AS p_id,
+        p.nombre AS nombre_propietario,
+        p.apellido AS apellido_propietario,
+        c.ciudad,
+        z.zona
+    FROM
+        inmueble AS i
+        INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
+        INNER JOIN propietario AS p ON i.id_propietario = p.id
+        JOIN ciudad AS c ON c.id = i.id_ciudad
+        JOIN zona AS z ON z.id = i.id_zona
+        LEFT JOIN contrato AS cont 
+            ON i.id = cont.id_inmueble
+            AND (
+	                f_fin <= cont.fecha_inicio 
+                OR
+					f_inicio >= cont.fecha_fin
+            )
+    WHERE
+        i.borrado = 0
+        AND cont.id_inmueble IS NULL;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `listar_inmuebles_6`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_inmuebles_6` (IN `f_inicio` DATE, IN `f_fin` DATE)  SQL SECURITY INVOKER BEGIN
+
+    SELECT
+        i.id,
+        i.direccion,
+        i.uso,
+        i.id_tipo,
+        i.ambientes,
+        i.coordenadas,
+        i.latitud,
+        i.longitud,
+        i.precio,
+        i.id_propietario,
+        i.estado,
+        i.id_ciudad,
+        i.id_zona,
+        i.borrado,
+        i.descripcion,
+        t.id AS t_id_tipo,
+        t.tipo AS tipo_inmueble,
+        p.id AS p_id,
+        p.nombre AS nombre_propietario,
+        p.apellido AS apellido_propietario,
+        c.ciudad,
+        z.zona
+    FROM
+        inmueble AS i
+        INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
+        INNER JOIN propietario AS p ON i.id_propietario = p.id
+        JOIN ciudad AS c ON c.id = i.id_ciudad
+        JOIN zona AS z ON z.id = i.id_zona
+        LEFT JOIN contrato AS cont 
+            ON i.id = cont.id_inmueble
+            AND (
+                (f_fin <= cont.fecha_inicio) 
+                OR (f_inicio >= cont.fecha_fin)
+            )
+        LEFT JOIN contrato AS cont2 
+            ON i.id = cont2.id_inmueble
+            AND (cont2.fecha_inicio IS NULL OR cont2.fecha_inicio <= f_fin)
+            AND (cont2.fecha_fin IS NULL OR cont2.fecha_fin >= f_inicio)
+    WHERE
+        i.borrado = 0
+        AND (cont2.id_inmueble IS NULL)
+    ;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `verify_contrato`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verify_contrato` (IN `f_inicio` DATE, IN `f_fin` DATE, IN `id_prop` INT)   BEGIN
+-- SET @id :=1;
+-- SET @in := '2024-04-01';
+-- SET @out := '2024-05-01';
+ IF (f_inicio < f_fin) THEN
+SELECT id
+FROM contrato
+WHERE
+id_inmueble= id_prop
+AND NOT (
+    (f_fin < fecha_inicio )
+OR
+    (fecha_fin < f_inicio)
+    )
+    LIMIT 1
+;
+ELSE
+SET @MESSAGE_TEXT = 'Fecha Inicio Mayor que Fecha Fin';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @MESSAGE_TEXT;
+    END IF;
+END$$
+
+--
+-- Funciones
+--
+DROP FUNCTION IF EXISTS `validarFechas`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `validarFechas` (`f_inicio` DATE, `f_fin` DATE) RETURNS INT(11)  BEGIN
+    DECLARE resultado INT;
+
+    IF (f_inicio < f_fin) THEN
+        SELECT id INTO resultado
+        FROM contrato
+        WHERE
+            id_inmueble = 1 
+            AND (
+                (f_fin < fecha_inicio )
+                OR
+                (fecha_fin < f_inicio)
+            );  
+    ELSE   
+        SET @MESSAGE_TEXT = 'Fecha Inicio Mayor que Fecha Fin';
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = @MESSAGE_TEXT;
+    END IF;
+
+    RETURN resultado;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -34,15 +359,6 @@ CREATE TABLE `ciudad` (
   `id` int(11) NOT NULL,
   `ciudad` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `ciudad`
---
-
-INSERT INTO `ciudad` (`id`, `ciudad`) VALUES
-(1, 'San Luis'),
-(2, 'Carpinteria'),
-(3, 'Merlo');
 
 -- --------------------------------------------------------
 
@@ -89,21 +405,6 @@ CREATE TABLE `inmueble` (
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `inmueble`
---
-
-INSERT INTO `inmueble` (`id`, `direccion`, `uso`, `id_tipo`, `ambientes`, `coordenadas`, `precio`, `id_propietario`, `estado`, `id_ciudad`, `id_zona`, `borrado`, `descripcion`) VALUES
-(1, 'san martin 45', 'Comercial', 1, 9, '-32.414566613131946, -65.00877119828924', 1.26, 1, 'Disponible', 1, 2, 0, 'Casa  de 2 ambientes'),
-(2, 'av Los Mandarinos 566', 'Comercial', 4, 0, '-32.4239588393048, -65.01171109578154', 2.00, 3, 'Disponible', 2, 2, 0, 'Oficina de 250m2'),
-(3, 'Av. Illia 1234', 'Residencial', 2, 0, '-32.35045498578529, -65.01366813627159', 3.00, 1, 'Disponible', 2, 2, 0, 'Local con dependencias, oficina de 12m2'),
-(4, 'Junin 345', 'Comercial', 2, 0, '-32.35045498578529, -65.01366813627159', 4.00, 8, 'Disponible', 2, 2, 0, 'Local 232 metros, con entrepiso  2 baños'),
-(5, 'Junin 345', 'Comercial', 1, 5, '-33.25, -66.36', 55.00, 3, 'Disponible', 1, 2, 0, 'Casa 2 plantas, techo tecja, con cochera 3 autos'),
-(6, 'Junin 345', 'Comercial', 2, 9, '-33.25, -66.36', 2635.52, 3, 'Disponible', 1, 1, 0, 'Dpto 5º piso,  3 dormitorios, uno en suite. '),
-(7, 'Junin 345', 'Comercial', 1, 0, '-33.25, -66.36', 5555.00, 3, 'Disponible', 1, 1, 0, '55dthysh'),
-(8, 'nose', 'Comercial', 2, 0, '-33.25, -66.36', 150000.00, 3, 'Disponible', 2, 2, 0, '6666666666666'),
-(9, 'Junin 345', 'Comercial', 1, 5, '-33.25, -66.36', 5625.00, 3, 'Disponible', 1, 1, 0, 'csa de 2 planta, 3 dormitorios, uno en suite\r\n');
-
 -- --------------------------------------------------------
 
 --
@@ -120,16 +421,6 @@ CREATE TABLE `inquilino` (
   `telefono` varchar(45) NOT NULL,
   `borrado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `inquilino`
---
-
-INSERT INTO `inquilino` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
-(1, 'Marcelo', 'Jofre', '1256555', 'b1729985-ffa2-11ee-a424-b8aeedb3ac9e', 'b1729993-ffa2-11ee-a424-b8aeedb3ac9e', 0),
-(2, 'Jorge', 'Mendez', '1256555', '905b3f1b-ee14-11ee-8ebc-b8aeedb3ac9e', '905b3f29-ee14-11ee-8ebc-b8aeedb3ac9e', 0),
-(3, 'Natalia', 'Gomez', '1256555', '0f078f6f-ff9f-11ee-a424-b8aeedb3ac9e', '0f078f7c-ff9f-11ee-a424-b8aeedb3ac9e', 0),
-(4, 'Maria Florencia', 'Fernandez', '1256555', 'd3d99b4c-0053-11ef-a424-b8aeedb3ac9e', 'd3d99b62-0053-11ef-a424-b8aeedb3ac9e', 0);
 
 -- --------------------------------------------------------
 
@@ -168,17 +459,6 @@ CREATE TABLE `propietario` (
   `telefono` varchar(45) NOT NULL,
   `borrado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `propietario`
---
-
-INSERT INTO `propietario` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
-(1, 'Jose', 'Perez', '12345678', '64771466-ff83-11ee-a424-b8aeedb3ac9e', '64771473-ff83-11ee-a424-b8aeedb3ac9e', 0),
-(3, 'Marcelo', 'JOFE', '12345678', '372d0744-ff9d-11ee-a424-b8aeedb3ac9e', '372d0751-ff9d-11ee-a424-b8aeedb3ac9e', 0),
-(8, 'Jose', 'Perez', '12345678', 'aaa@aa.coms', '1234', 0),
-(9, 'Marcelo', 'JOFE', '12345678', 'cbd8df41-faa2-11ee-9c9d-b8aeedb3', 'cbd8df4b-faa2-11ee-9c9d-b8aeedb3', 0),
-(10, 'Pedro', 'Junco', '12569865', 'b2944a93-0053-11ef-a424-b8aeedb3ac9e', 'b2944aa0-0053-11ef-a424-b8aeedb3ac9e', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +588,8 @@ ALTER TABLE `propietario`
 -- Indices de la tabla `tipo_inmueble`
 --
 ALTER TABLE `tipo_inmueble`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tipo` (`tipo`);
 
 --
 -- Indices de la tabla `usuario`
@@ -330,7 +611,7 @@ ALTER TABLE `zona`
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `contrato`
@@ -342,13 +623,13 @@ ALTER TABLE `contrato`
 -- AUTO_INCREMENT de la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
@@ -360,7 +641,7 @@ ALTER TABLE `pago`
 -- AUTO_INCREMENT de la tabla `propietario`
 --
 ALTER TABLE `propietario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_inmueble`
