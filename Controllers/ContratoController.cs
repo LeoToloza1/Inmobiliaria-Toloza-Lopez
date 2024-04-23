@@ -142,11 +142,3 @@ public class ContratoController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-/*
-DateOnly fechaIncrementada = fechaInicial.AddMonths(mesesIncremento);
-DateTime fechaInicial = DateTime.Parse("2024-04-15"); // Fecha inicial en formato "yyyy-MM-dd"
-int mesesIncremento = 5; // Cantidad de meses que quieres incrementar
-
-DateTime fechaIncrementada = fechaInicial.AddMonths(mesesIncremento);
-
-*/
