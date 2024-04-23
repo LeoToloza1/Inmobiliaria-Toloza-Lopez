@@ -5,11 +5,12 @@
     string? fechaInicioPedida = request.Query["fechaInicioPedida"];
     string? fechaFinPedida = request.Query["fechaFinPedida"];    
     string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"])?"" : request.Query["contratoVence"];
-    
+
     //string? contratoVence = request.Query["contratoVence"];
     string? precioInmuebleValor=null;
     string? urlLimpia = Url.Action("", new { });
     ViewData["Title"] = "Inicio";
+    
     var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 <div class="text-center">
@@ -65,7 +66,7 @@
             </div>
         </div>
     </div>
-     @if (!(Model != null && Model.Any()))
+    @if (!(Model != null && Model.Any()))
     {
         <div class="alert alert-warning" role="alert">
             <p>Lo siento no pudimos encontrar inmeuble segun su pedido</p>
@@ -109,29 +110,52 @@
                         @contrato.inmueble.propietario.apellido, @contrato.inmueble.propietario.nombre
                     </td>
                     <td colspan="4" class="text-center">
-                        <a class="btn btn-secondary mx-2" asp-controller="contrato" asp-action="edit"
-                            asp-route-id="@contrato.id"><i class="fas fa-file-signature mx-2"> Editar</i> 
+                        <a class="btn btn-secondary mx-2" 
+                            asp-controller="contrato" 
+                            asp-action="edit"
+                            asp-route-id="@contrato.id"
+                            title="Editar Contrato">
+                                <i class="fas fa-file-signature mx-2"> Editar</i> 
                         </a>
-                        <a class="btn btn-secondary mx-2" asp-controller="pago" asp-action="registrar"
-                            asp-route-id="@contrato.id"><i class="fas fa-file-invoice-dollar p-1 mx-2"> Registrar Pago</i> 
+                        <a class="btn btn-secondary mx-2"
+                            asp-controller="pago" 
+                            asp-action="registrar"
+                            asp-route-id="@contrato.id"
+                            title="Registrar Pago">
+                                <i class="fas fa-file-invoice-dollar p-1 mx-2"> Registrar Pago</i> 
                         </a>
-                        <a class="btn btn-secondary mx-2" asp-controller="pago" asp-action="listarPagosPorContrato"
-                            asp-route-id="@contrato.id"><i class="fas fa-file-invoice-dollar p-1 mx-2"> Listar Pagos</i> 
+                        <a class="btn btn-secondary mx-2"
+                            asp-controller="pago" 
+                            asp-action="listarPagosPorContrato"
+                            asp-route-id="@contrato.id"
+                            title="Listar Pagos">
+                                <i class="fas fa-file-invoice-dollar p-1 mx-2">Listar Pagos</i> 
                         </a>
-                        <a class="btn btn-danger mx-2" asp-controller="pago" asp-action="cancel"
-                            asp-route-id="@contrato.id" title="Cancelar contrato"><i class="fas fa-file-excel mx-2"> Cancelar</i>
+                        <a class="btn btn-danger mx-2" 
+                            asp-controller="pago"
+                            asp-action="cancel"
+                            asp-route-id="@contrato.id" title="Cancelar contrato">
+                            <i class="fas fa-file-excel mx-2"> Cancelar</i>
                         </a>            
+                        <a class="btn btn-success mx-2 @(contrato.estaVencido() || !contrato.debeRenovar() ? "d-none" : "")" 
+                            asp-controller="contrato" 
+                            asp-action="renovar"  
+                            asp-route-id="@contrato.id" 
+                            title="Renovar contrato">
+                                <i class="fas fa-file-signature mx-2"> Renovar</i>
+                        </a>                                    
                     </td>
                 </tr>
             }
         </tbody>
     </table>
     }
-</div>
-<div class="container">
-    <p>
-        << paginador>>
-    </p>
+
+    <div class="container">
+        <p>
+            << paginador>>
+        </p>
+    </div>
 </div>
 @section Scripts {
     @* <script src="~/js/inquilino.js"></script> *@
