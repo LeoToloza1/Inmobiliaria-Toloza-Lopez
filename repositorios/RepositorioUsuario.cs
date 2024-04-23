@@ -46,7 +46,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             Usuario? usuario = null;
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @"SELECT id, nombre, apellido, dni, email, rol, avatarUrl FROM usuario WHERE id = @Id;";
+                var sql = @"SELECT id, nombre, apellido, dni, email, rol, password, avatarUrl FROM usuario WHERE id = @Id;";
                 using var command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 connection.Open();
@@ -62,6 +62,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
                             dni = reader.IsDBNull("dni") ? null : reader.GetString("dni"),
                             email = reader.IsDBNull("email") ? null : reader.GetString("email"),
                             rol = reader.IsDBNull("rol") ? null : reader.GetString("rol"),
+                            password = reader.IsDBNull("password") ? null : reader.GetString("password"),
                             avatarUrl = reader.IsDBNull("avatarUrl") ? null : reader.GetString("avatarUrl")
                         };
                     }
@@ -118,7 +119,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, dni = @dni, email = @email, rol = @rol, avatarUrl = @avatarUrl WHERE id = @id;";
+                var sql = @"UPDATE usuario SET nombre = @nombre, apellido = @apellido, dni = @dni, email = @email, rol = @rol, password = @password, avatarUrl = @avatarUrl WHERE id = @id;";
                 using var command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@id", usuario.id);
                 command.Parameters.AddWithValue("@nombre", usuario.nombre);
@@ -126,6 +127,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
                 command.Parameters.AddWithValue("@dni", usuario.dni);
                 command.Parameters.AddWithValue("@email", usuario.email);
                 command.Parameters.AddWithValue("@rol", usuario.rol);
+                command.Parameters.AddWithValue("@password", usuario.password);
                 command.Parameters.AddWithValue("@avatarUrl", usuario.avatarUrl);
                 connection.Open();
                 int columnas = command.ExecuteNonQuery();
@@ -136,7 +138,6 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
                 connection.Close();
             }
             return respuesta;
-
         }
 
         public IList<Usuario> ObtenerUsuarios()
@@ -161,7 +162,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
                                 dni = reader.GetString("dni"),
                                 email = reader.GetString("email"),
                                 rol = reader.GetString("rol"),
-                                avatarUrl = reader.GetString("avatarUrl"),
+                                avatarUrl = reader.IsDBNull("avatarUrl") ? null : reader.GetString("avatarUrl"),
                                 borrado = reader.GetBoolean("borrado")
                             };
                             usuarios.Add(usuario);
@@ -211,7 +212,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             return respuesta;
         }
 
-//busca un usuario segun la contraseña
+        //busca un usuario segun la contraseña
         public Usuario? BuscarUsuarioPorPassword(string password)
         {
             Usuario? usuario = null;

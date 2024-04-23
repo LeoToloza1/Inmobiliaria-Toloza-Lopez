@@ -38,14 +38,14 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input usuario-switch" id="borrado-@usuario.id"
-                                            name="borrado" value="true" @(usuario.borrado == false ? "checked" : "") />
+                                            name="borrado" value="true" @(usuario.borrado == false ? "checked" : "") disabled />
                                         <label class="custom-control-label" for="borrado-@usuario.id">@(usuario.borrado ==
                                         false ? "Activo" : "Inactivo")</label>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-center">
-                                <a href="/Usuario/Perfil/@usuario.id" class="btn btn-primary"
+                                <a asp-controller="Usuario" asp-action="PerfilUsuario" asp-route-id=@usuario.id class="btn btn-primary"
                                     aria-label="Editar usuario @usuario.nombre">Editar</a>
                             </td>
                         </tr>

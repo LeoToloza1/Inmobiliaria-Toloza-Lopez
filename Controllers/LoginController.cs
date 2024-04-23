@@ -46,31 +46,28 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 ViewData["ErrorMessage"] = "El email y la contraseña son requeridos.";
                 return View();
             }
-
             // Obtener el usuario por su correo electrónico
             Usuario? user = repositorioUsuario.GetUsuarioPorEmail(email);
-
             // Verificar si se encontró un usuario con el correo electrónico proporcionado
             if (user == null)
             {
                 ViewData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
                 return View();
             }
-
             // Verificar si la contraseña es correcta
             bool loginSuccessful = repositorioUsuario.CompararPassword(password, email);
             if (loginSuccessful)
             {
-                // Crear las claims para el usuario
-#pragma warning disable CS8604 // Posible argumento de referencia nulo
                 var claims = new List<Claim>
-        {
-            new(ClaimTypes.Name, user.nombre),
-            new(ClaimTypes.Role, user.rol),
-            new(ClaimTypes.Email, user.email),
-            new("AvatarUrl", user.avatarUrl),
-        };
-#pragma warning restore CS8604 // Posible argumento de referencia nulo
+                    {
+                        new(ClaimTypes.Name, user.nombre),
+                        new(ClaimTypes.Role, user.rol),
+                        new(ClaimTypes.Email, user.email),
+                    };
+                if (!string.IsNullOrEmpty(user.avatarUrl))
+                {
+                    claims.Add(new Claim("AvatarUrl", user.avatarUrl));
+                }
 
                 // Crear la identidad del usuario y añadir las claims
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
