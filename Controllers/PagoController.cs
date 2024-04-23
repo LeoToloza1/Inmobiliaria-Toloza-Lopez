@@ -1,3 +1,5 @@
+using System;
+using System.Transactions;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using inmobiliaria_Toloza_Lopez.Models;
@@ -70,6 +72,32 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             }
             return RedirectToAction("listarPagos", "Pago");
         }
+        [Authorize]
+        [HttpPost]
+        public IActionResult CancelPago(Pago pago, string fechaEfectiva)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
+                return RedirectToAction("CancelarPago");
+            }
+            try
+            {
+                using (var scope = new TransactionScope())
+                {
+                    Pago pagoGuardado = repositorioPago.GuardarPago(pago);
+                    repositorioContrato.SetFinContrato(pago.id_contrato, fechaEfectiva);
+                    scope.Complete();
+                    return RedirectToAction("listarPagos", "Pago");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
+                Console.WriteLine("Error al realizar la cancelación: " + ex.Message);
+                return RedirectToAction("VistaAsignarPago");
+            }
+        }
 
         [HttpGet]
         [Authorize(Roles = "administrador")]
@@ -99,15 +127,15 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             }
             return RedirectToAction("editarPago");
         }
-                [Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Cancel(int id)
         {
             var contrato = repositorioContrato.GetContrato(id);
             int numero_pago = repositorioPago.obtenerUltimoPago(id);
-            string fechaHoy = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd"); 
-            contrato.monto = contrato.CalculoMulta(); 
-            contrato.fechaCancelar(fechaHoy);     
+            string fechaHoy = DateOnly.FromDateTime(DateTime.Now).ToString("yyyy-MM-dd");
+            contrato.monto = contrato.CalculoMulta();
+            contrato.fechaCancelar(fechaHoy);
             numero_pago += 1;
             if (numero_pago == 0)
             {

@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 1700px) {
@@ -22,11 +24,6 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
 }
@@ -39,4 +36,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .primary {
   margin-bottom: 50px;
+}
+main{
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 6rem;
+  margin-right: auto;
+  margin-left: auto;
 }

@@ -58,7 +58,7 @@ public class Inmueble
     public string mapa => $"https://www.google.com/maps?q={coordenadas}";
     public override string ToString()
     {
-        return $"{direccion}  |  {uso} |  Ambientes: {ambientes} | $ {precio} | Des. {descripcion} ";
+        return $"{direccion}    {uso}   Ambientes: {ambientes}  $ {precio}   Descripción: {descripcion} ";
     }
     public string datosPropietario()
     {
