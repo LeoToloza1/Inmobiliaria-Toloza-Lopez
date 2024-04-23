@@ -7,12 +7,20 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
 {
     public class TipoInmuebleController : Controller
     {
-        [Authorize]
+        [Authorize]        
         public IEnumerable<TipoInmueble> CargarDatosEnViewBag()
         {
             RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
             var tiposInmuebles = rp.GetTipoInmuebles();
             return tiposInmuebles;
+        }
+
+        [Authorize(Roles = "administrador")]
+        public IActionResult Index()
+        {
+           RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
+           var tiposInmuebles = rp.GetTipoInmuebles();
+            return View(tiposInmuebles);
         }
     }
 }

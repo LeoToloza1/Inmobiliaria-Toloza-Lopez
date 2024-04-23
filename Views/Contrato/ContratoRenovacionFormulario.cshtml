@@ -1,13 +1,12 @@
 @model inmobiliaria_Toloza_Lopez.Models.Contrato
 @{
 var contrato=Model;
-Console.WriteLine(contrato.ToString());
 }
 <div class="container w-75 m-5">
     <div class="text-center">
         <h1 class="display-3">@ViewBag.tipoForm</h1>
     </div>
-
+ @if (TempData["mensaje"] != null) @Html.Raw(TempData["mensaje"])
     </select>
     <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
         <input class="d-none" type="number" id="idInmueble" name="idInmueble" value="@contrato.id_inmueble" readonly>
