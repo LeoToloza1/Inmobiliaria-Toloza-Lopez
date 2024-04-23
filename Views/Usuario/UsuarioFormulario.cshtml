@@ -65,7 +65,13 @@
     <script src="~/js/propietario.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function alerta() {
+        const formUsuario = document.getElementById("formularioUsuario");
+        const pass = document.getElementById("password");
+        const passConfirm = document.getElementById("passConfirm");
+        const btnEnviar = document.getElementById("btnEnviar");
+        btnEnviar.disabled = true;
+        function alerta(event) {
+            event.preventDefault();
             Swal.fire({
                 title: 'Atención!',
                 text: 'Está por crear un nuevo usuario',
@@ -75,35 +81,32 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire("Creando", "", "success");
+                    formUsuario.submit();
                 }
             });
         }
-    </script>
-    <script>
-        const formulario = document.getElementById("formularioUsuario");
-        const pass = document.getElementById("password");
-        const passConfirm = document.getElementById("passConfirm");
-        const btnEnviar = document.getElementById("btnEnviar");
-        btnEnviar.disabled = true;
-        formulario.addEventListener('input', function () {
-            if (formulario.checkValidity()) {
+        formUsuario.addEventListener('input', function () {
+            if (formUsuario.checkValidity()) {
                 btnEnviar.disabled = false;
             } else {
                 btnEnviar.disabled = true;
             }
         });
-        formulario.addEventListener('submit', function (event) {
+        btnEnviar.addEventListener('click', function (event) {
+            alerta(event);
+        });
+        formUsuario.addEventListener('submit', function (event) {
             event.preventDefault();
             if (pass.value !== passConfirm.value) {
                 Swal.fire({
                     title: 'Atención!',
-                    text: 'las contraseñas no coinciden',
+                    text: 'Las contraseñas no coinciden',
                     icon: 'question',
                     showCloseButton: true,
                     showCancelButton: true
                 });
             } else {
-                formulario.submit();
+                alerta(event);
             }
         });
     </script>

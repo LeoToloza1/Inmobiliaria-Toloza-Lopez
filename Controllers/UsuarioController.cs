@@ -82,7 +82,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         [Authorize(Roles = "administrador")]
         public IActionResult Create()
         {
-
             return View("UsuarioFormulario");
         }
 
@@ -92,38 +91,30 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
 
-            if (ModelState.IsValid)
+            if (!Directory.Exists(folderPath))
             {
-                if (!Directory.Exists(folderPath))
-                {
-                    // Si no existe, la crea
-                    Directory.CreateDirectory(folderPath);
-                }
-                if (avatarFile != null)
-                {
-                    var filePath = Path.Combine(folderPath, avatarFile.FileName);
-                    using var stream = new FileStream(filePath, FileMode.Create);
-                    await avatarFile.CopyToAsync(stream);
-                    usuario.avatarUrl = avatarFile.FileName;
-                }
 
-                bool creacionExitosa = repositorioUsuario.GuardarUsuario(usuario);
-                if (creacionExitosa)
-                {
-                    return RedirectToAction("Listado", "Usuario");
-                }
+                Directory.CreateDirectory(folderPath);
+            }
+            if (avatarFile != null && avatarFile.Length > 0)
+            {
+                var filePath = Path.Combine(folderPath, avatarFile.FileName);
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await avatarFile.CopyToAsync(stream);
+                usuario.avatarUrl = avatarFile.FileName;
             }
             else
             {
-                Console.WriteLine("El modelo no es válido");
-                var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.ErrorMessage));
-                foreach (var error in errors)
-                {
-                    Console.WriteLine(error);
-                }
+                usuario.avatarUrl = null;
+            }
+            bool creacionExitosa = repositorioUsuario.GuardarUsuario(usuario);
+            if (creacionExitosa)
+            {
+                return RedirectToAction("Listado", "Usuario");
             }
             return View("UsuarioFormulario", usuario);
         }
+
 
     }
 

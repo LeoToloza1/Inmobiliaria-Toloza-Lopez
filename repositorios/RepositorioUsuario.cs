@@ -161,7 +161,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
                                 dni = reader.GetString("dni"),
                                 email = reader.GetString("email"),
                                 rol = reader.GetString("rol"),
-                                avatarUrl = reader.GetString("avatarUrl"),
+                                avatarUrl = reader.IsDBNull("avatarUrl") ? null : reader.GetString("avatarUrl"),
                                 borrado = reader.GetBoolean("borrado")
                             };
                             usuarios.Add(usuario);
@@ -211,7 +211,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             return respuesta;
         }
 
-//busca un usuario segun la contraseña
+        //busca un usuario segun la contraseña
         public Usuario? BuscarUsuarioPorPassword(string password)
         {
             Usuario? usuario = null;

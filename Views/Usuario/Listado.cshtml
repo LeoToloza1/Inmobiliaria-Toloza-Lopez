@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input usuario-switch" id="borrado-@usuario.id"
-                                            name="borrado" value="true" @(usuario.borrado == false ? "checked" : "") />
+                                            name="borrado" value="true" @(usuario.borrado == false ? "checked" : "") disabled />
                                         <label class="custom-control-label" for="borrado-@usuario.id">@(usuario.borrado ==
                                         false ? "Activo" : "Inactivo")</label>
                                     </div>
