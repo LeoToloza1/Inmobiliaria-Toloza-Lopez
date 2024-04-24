@@ -100,7 +100,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 ViewData["ErrorMessage"] = "Ocurrió un error al intentar cambiar la contraseña. Por favor, inténtalo de nuevo.";
                 return View("enviarMail");
             }
-            var recoveryUrl = Url.Action("recovery", "Login", new { id = usuario.password }, Request.Scheme);
+            var recoveryUrl = Url.Action("recovery", "Login", new { token=usuario.password, id=usuario.id  }, Request.Scheme);
             // Crear un modelo anonimo con el nombre del usuario y la nueva contraseña.
             var modelo = new { Nombre = usuario.nombre, RecoveryUrl = recoveryUrl };
             // Renderizar la vista "TemplateEmail" como una cadena de texto con el modelo creado.
@@ -145,11 +145,13 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return View("AccesoDenegado");
         }
 
-        public IActionResult recovery(string id, string password)
+        public IActionResult recovery(int id, string token, string password)
         {
+
+            Console.WriteLine(id+" - "+ token);
             // Decodificar el hash de la contraseña
-            string decodedHash = HttpUtility.UrlDecode(id);
-            Usuario? usuario = repositorioUsuario.BuscarUsuarioPorPassword(decodedHash);
+            string decodedHash = HttpUtility.UrlDecode(token);
+            Usuario? usuario = repositorioUsuario.GetUsuario(id);
             if (usuario == null)
             {
                 ViewData["ErrorMessage"] = "Lo sentimos, ocurrió un error. Por favor, intenta de nuevo.";

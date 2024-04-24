@@ -28,7 +28,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         [HttpGet]
         public IActionResult listarPagosPorContrato(int id)
         {
-            Console.WriteLine("CONTRATO: -->" + id);
             IList<Pago> pagos = repositorioPago.listarPagosPorContrato(id);
             return View("PagosPorContrato", pagos);
         }
