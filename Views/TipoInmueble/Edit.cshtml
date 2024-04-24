@@ -1,4 +1,4 @@
-@model IEnumerable<TipoInmueble>
+@model TipoInmueble
 @{
     var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
@@ -12,43 +12,20 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card p-4 shadow">
-                    <form id="formTipoInmueble" method="post" action="@Url.Action("create", "tipoInmueble")">
+                    <form id="formTipoInmueble" method="post" action="@Url.Action("update", "tipoInmueble")">
                     @if (TempData["mensaje"] != null) @Html.Raw(TempData["mensaje"])     
-                    <div class="form-group">
-                        <label for="tipoInmueble">Nuevo Tipo Inmueble:</label>
-                        <input type="text" class="form-control" id="tipoInmueble" name="tipo">                        
-                        <button type="submit" class="btn btn-primary mt-2" id="btnSubmit">Crear tipo</button>
-                    </div>
+                        <div class="form-group">
+                            <label for="tipoInmueble">Cambiar Tipo Inmueble:</label>
+                            <input type="hidden" class="form-control" id="id" name="id" value="@Model.id">
+                            <input type="text" class="form-control" id="tipoInmueble" name="tipo" value="@Model.tipo">                        
+                            <label for="tipoInmueble">Borrar:</label>
+                            <div class="custom-control custom-switch mb-3 mr-3 ">
+                                <input type="checkbox" class="custom-control-input" id="borrado" name="borrado" value = 1 @(Model.borrado == 1 ? "checked" : "")  />
+                                <label class="custom-control-label mb-3 mr-3" for="borrado"></label>
+                            </div>                                        
+                            <button type="submit" class="btn btn-primary mt-2" id="btnSubmit">Guardar cambios</button>
+                        </div>
                     </form>    
-                <table class="table table-striped">
-                    <caption>Listado tipos inmuebles</caption>
-                    <thead>
-                        <tr>
-                        <th scope="col">Tipo</th>
-                        <th colspan="5"scope="col">Administración</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var tip in Model)
-                        {
-                            <tr>
-                                <td>
-                                    @tip.tipo
-                                </td>
-                                <td class="d-flex justify-content-around">
-                                    @if (userRol == "administrador"){
-                                        <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="edit" asp-route-id="@tip.id">
-                                            <i class="fas fa-folder-open">  Editar</i>                                
-                                        </a>                            
-                                        <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="delete" asp-route-id="@tip.id">
-                                            <i class="fas fa-trash-alt"> Borrar</i>                                
-                                        </a>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

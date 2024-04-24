@@ -16,7 +16,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             var tipoInmuebles = new List<TipoInmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"SELECT {nameof(TipoInmueble.id)},{nameof(TipoInmueble.tipo)},{nameof(TipoInmueble.borrado)} FROM tipo_inmueble;";
+                var sql = @$"SELECT {nameof(TipoInmueble.id)},{nameof(TipoInmueble.tipo)},{nameof(TipoInmueble.borrado)} FROM tipo_inmueble ;";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -28,6 +28,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                             {
                                 id = reader.GetInt32(nameof(TipoInmueble.id)),
                                 tipo = reader.GetString(nameof(TipoInmueble.tipo)),
+                                borrado = reader.GetInt32(nameof(TipoInmueble.borrado))
                             });
                         }
                     }
@@ -67,10 +68,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             {
                 using (var connection = new MySqlConnection(conexion))
                 {
-                    var sql = @$"UPDATE `tipo_inmueble` SET
-                                    `({nameof(TipoInmueble.tipo)})` = VALUES(@{nameof(TipoInmueble.tipo)}
-                                    `({nameof(TipoInmueble.borrado)})` = VALUES(@{nameof(TipoInmueble.borrado)}
-                                WHERE `tipo_inmueble`.`id` = VALUES(@{nameof(TipoInmueble.id)};";
+                    var sql = @$"UPDATE tipo_inmueble SET {nameof(TipoInmueble.tipo)} = @{nameof(TipoInmueble.tipo)},  {nameof(TipoInmueble.borrado)} = @{nameof(TipoInmueble.borrado)} WHERE tipo_inmueble.id = @{nameof(TipoInmueble.id)};";
                     using (var command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue($"@{nameof(TipoInmueble.tipo)}", tipoInmueble.tipo);
