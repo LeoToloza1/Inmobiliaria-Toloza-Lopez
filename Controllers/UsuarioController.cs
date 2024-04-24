@@ -5,6 +5,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using inmobiliaria_Toloza_Lopez.Servicios;
+
 
 namespace inmobiliaria_Toloza_Lopez.Controllers
 {
@@ -47,8 +49,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 Directory.CreateDirectory(folderPath);
             }
             if (usuario.password != null && usuario.password.Trim() != "")
-            {
-                user.password = usuario.password;
+            {  
+                user.password = HashPass.HashearPass(usuario.password);
             }
             if (avatarFile != null)
             {
