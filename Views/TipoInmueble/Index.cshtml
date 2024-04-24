@@ -5,7 +5,7 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Editar Pago</h1>
+    <h1 class="display-4">Tipo Inmuebles</h1>
 </div>
 
 <div class="container">
@@ -14,7 +14,7 @@
             <div class="card p-4 shadow">
                     <form id="formTipoInmueble" method="post" action="@Url.Action("create", "tipoInmueble")">
                     <div class="form-group">
-                        <label for="tipoInmueble">Tipo Inmueble:</label>
+                        <label for="tipoInmueble">Nuevo Tipo Inmueble:</label>
                         <input type="text" class="form-control" id="tipoInmueble" name="tipoInmueble">
                         <button type="submit" class="btn btn-primary mt-2" id="btnSubmit">Crear tipo</button>
                     </div>
@@ -34,7 +34,7 @@
                                 <td>
                                     @tip.tipo
                                 </td>
-                                <td>
+                                <td class="d-flex justify-content-around">
                                     @if (userRol == "administrador"){
                                         <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="edit" asp-route-id="@tip.id">
                                             <i class="fas fa-folder-open">  Editar</i>                                
