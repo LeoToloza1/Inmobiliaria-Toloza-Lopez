@@ -2,10 +2,12 @@
 
 @{
     ViewData["Title"] = "Asignar Pago";
+    var userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Asignar Pago</h1>
+    <h1 id="titulo" class="display-4">Asignar Pago</h1>
 </div>
 
 <div class="container">
@@ -33,23 +35,43 @@
                         <label for="detalle">Detalle:</label>
                         <textarea class="form-control" id="detalle" name="detalle" rows="3"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="btnSubmit">Asignar Pago</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btnSubmit">Asignar Pago</button>
+                        @if (userRol == "administrador")
+                        {
+                            <button type="button" class="btn btn-danger" id="btnNotaCredito">Realizar nota de
+                                credito</button>
+                        }
+                    </div>
                 </form>
             </div>
-
             @if (TempData["mensaje"] != null)
             {
                 <div class="alert alert-success mt-4" role="alert">
                     @TempData["mensaje"]
                 </div>
             }
-
         </div>
     </div>
 </div>
-
 @section Scripts {
     <script>
+        const importeInput = document.getElementById("importe");
+        const btnNotaCredito = document.getElementById("btnNotaCredito");
+        const titulo = document.getElementById("titulo");
+        let notaCreditoActiva = false;
+        btnNotaCredito.addEventListener("click", function () {
+            notaCreditoActiva = !notaCreditoActiva;
+            if (notaCreditoActiva) {
+                importeInput.removeAttribute("readonly");
+                titulo.textContent = "Nota de credito";
+                btnAsignarPago.style.display = "block";
+            } else {
+                importeInput.setAttribute("readonly", true);
+                titulo.textContent = "Asignar Pago";
+                btnAsignarPago.style.display = "none";
+            }
+        });
         document.getElementById("btnSubmit").addEventListener("click", function (event) {
             event.preventDefault();
             Swal.fire({
