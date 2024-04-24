@@ -173,26 +173,49 @@ public class ContratoController : Controller
         ViewBag.action = "EditarContrato";
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Contrato contrato = repositorioContrato.GetContrato(id);
-        return View("contratoRenovacionFormulario", contrato);
+        return View("contratoEdicionFormulario", contrato);
     }
     [Authorize]
     [HttpPost]
-    public IActionResult EditarContrato(Contrato contrato)
+    public IActionResult EditarContrato(int id, int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes)
     {
+        if (fechaInicio >= fechaFin)
+        {
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
+            return Redirect(@$"/contrato/Editar/{id}");
+        }
+        Contrato contrato = new Contrato();
+        contrato.id_inquilino = idInquilino;
+        contrato.id_inmueble = idInmueble;
+        contrato.fecha_inicio = fechaInicio;
+        contrato.fecha_fin = fechaFin;
+        contrato.fecha_efectiva = fechaFin;
+        contrato.monto = decimal.Parse(montoMes);
         RepositorioContrato repositorioContrato = new RepositorioContrato();
-        bool actualizacionExitosa = repositorioContrato.ActualizarContrato(contrato);
 
-        if (actualizacionExitosa)
+        try
         {
-            TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato editado exitosamente</div>";
+            if (repositorioContrato.ActualizarContrato(id, contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.monto))
+            {
+                TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato Modificado correctamente</div>";
+                return Redirect("/contrato");
+            }
+            else
+            {
+                ViewBag.errores = "El inmueble ya tiene un contrato activo en la fechas solicitadas";
+                Console.WriteLine("El inmueble ya tiene un contrato activo");
+                TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. El inmueble ya tiene un contrato activo entre las fechas " + contrato.fecha_inicio + " - " + contrato.fecha_fin + "</div>";
+                return Redirect(@$"/contrato/Editar/{contrato.id_inmueble}");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No se pudo completar la operacion. Por favor, intenta de nuevo.</div>";
+            Console.WriteLine("Error en VerifyInmuebleContrato: " + ex.Message);
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Completarse la operacion el sistema arrojo el siguiente error: <em>" + ex.Message + "<em></div>";
+            return Redirect(@$"/contrato/Editar/{contrato.id_inmueble}");
         }
-
-        return View("contratoRenovacionFormulario", contrato);
     }
+
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
