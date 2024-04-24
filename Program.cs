@@ -52,10 +52,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+
 app.MapControllerRoute(
 name: "default",
 pattern: "{controller=Login}/{action=Login}/{id?}");
+
 app.MapControllerRoute(
     name: "Home",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.Run();

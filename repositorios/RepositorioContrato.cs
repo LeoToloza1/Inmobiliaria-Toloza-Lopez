@@ -351,19 +351,19 @@ metodo para obtener todos los Contratos
         return null;
     }
 
-    public bool ActualizarContrato(Contrato contrato)
+    public bool ActualizarContrato(int id, string fecha_fin, decimal monto)
     { //solo se le perimite modificar la fecha de fin - la fecha de efectiva y el monto
         bool respuesta = false;
         using (var connection = new MySqlConnection(conexion))
         {
 
-            var sql = @$"UPDATE contrato SET fecha_fin = @fecha_fin, fecha_efectiva = @fecha_efectiva, monto = @monto WHERE id = @id;";
+            var sql = @$"UPDATE contrato SET fecha_fin = @fecha_fin, fecha_efectiva = @fecha_efectiva, monto = @monto WHERE id = @id";
             using var command = new MySqlCommand(sql, connection);
             {
-                command.Parameters.AddWithValue("@id", contrato.id);
-                command.Parameters.AddWithValue("@fecha_fin", contrato.fecha_fin.ToString("yyyy-MM-dd"));
-                command.Parameters.AddWithValue("@fecha_efectiva", contrato.fecha_efectiva.ToString("yyyy-MM-dd"));
-                command.Parameters.AddWithValue("@monto", contrato.monto);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@fecha_fin", fecha_fin);
+                command.Parameters.AddWithValue("@fecha_efectiva", fecha_fin);
+                command.Parameters.AddWithValue("@monto", monto);
                 connection.Open();
                 int columnas = command.ExecuteNonQuery();
                 if (columnas > 0)
