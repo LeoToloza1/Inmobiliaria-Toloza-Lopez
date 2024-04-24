@@ -81,8 +81,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 return View();
             }
         }
-
-
         [AllowAnonymous]
         public ActionResult enviarMail()
         {
