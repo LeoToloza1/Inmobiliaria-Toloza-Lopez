@@ -43,7 +43,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             // Verificar si el correo electrónico y la contraseña están presentes
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                ViewData["ErrorMessage"] = "El email y la contraseña son requeridos.";
+                TempData["ErrorMessage"] = "El email y la contraseña son requeridos.";
                 return View();
             }
             // Obtener el usuario por su correo electrónico
@@ -51,7 +51,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             // Verificar si se encontró un usuario con el correo electrónico proporcionado
             if (user == null)
             {
-                ViewData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
+                TempData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
                 return View();
             }
             // Verificar si la contraseña es correcta
@@ -77,7 +77,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             }
             else
             {
-                ViewData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
+                TempData["ErrorMessage"] = "El email o la contraseña son incorrectos.";
                 return View();
             }
         }
@@ -97,7 +97,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             // Si no se encuentra al usuario, mostrar un mensaje de error y volver a la vista de recuperación de contraseña.
             if (usuario == null)
             {
-                ViewData["ErrorMessage"] = "Ocurrió un error al intentar cambiar la contraseña. Por favor, inténtalo de nuevo.";
+                TempData["ErrorMessage"] = "Ocurrió un error al intentar cambiar la contraseña. Por favor, inténtalo de nuevo.";
                 return View("enviarMail");
             }
             var recoveryUrl = Url.Action("recovery", "Login", new { token=usuario.password, id=usuario.id  }, Request.Scheme);
@@ -151,8 +151,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             Console.WriteLine(id+" - "+ token);
             // Decodificar el hash de la contraseña
             string decodedHash = HttpUtility.UrlDecode(token);
-            Usuario? usuario = repositorioUsuario.GetUsuario(id);
-            if (usuario == null || !HashPass.VerificarPassword(decodedHash, usuario.password))
+            Usuario? usuario = repositorioUsuario.GetUsuario(id);         
+            if (usuario == null || (decodedHash!=usuario.password))
             {
                 TempData["mensaje"] = "<div class=\"alert alert-danger px-5 mt-4 \" role=\"alert\">  Lo sentimos, ocurrió un error. Por favor, intenta de nuevo. </div>";
                 return RedirectToAction("Login", "Login");
