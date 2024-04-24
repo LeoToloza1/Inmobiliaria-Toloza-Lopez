@@ -5,6 +5,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using inmobiliaria_Toloza_Lopez.Servicios;
+
 
 namespace inmobiliaria_Toloza_Lopez.Controllers
 {
@@ -32,25 +34,23 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             Usuario? user = repositorioUsuario.GetUsuarioPorEmail(userEmail);
-
             return View("Perfil", user);
         }
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Update(int id, Usuario usuario, IFormFile avatarFile)
         {
-
             string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
-            Console.WriteLine(usuario.ToString());
+
             Usuario? user = repositorioUsuario?.GetUsuario(id);
-            user.nombre = usuario.nombre;
-            user.apellido = usuario.apellido;
-            user.dni = usuario.dni;          
-            if(usuario.password != null) user.password = usuario.password;
             if (!Directory.Exists(folderPath))
             {
                 // Si no existe, la crea
                 Directory.CreateDirectory(folderPath);
+            }
+            if (usuario.password != null && usuario.password.Trim() != "")
+            {  
+                user.password = HashPass.HashearPass(usuario.password);
             }
             if (avatarFile != null)
             {
@@ -59,6 +59,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 await avatarFile.CopyToAsync(stream);
                 user.avatarUrl = avatarFile.FileName;
             }
+            else
+            { user.avatarUrl = null; }
 
             bool actualizacionExitosa = repositorioUsuario.ActualizarUsuario(user);
             if (actualizacionExitosa)
