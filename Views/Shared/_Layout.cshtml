@@ -1,8 +1,9 @@
 ﻿@{
     var userName = User?.Identity?.Name;
-    var avatarUrl = User.Identity.IsAuthenticated ?
-    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
+    string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;
+    var avatarUrl = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
     var userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    
 }
 
 <!DOCTYPE html>
@@ -30,6 +31,7 @@
                 <span class="brand-text font-weight-light">Inmobiliara T & L</span>
             </a>
             <div class="sidebar">
+                <h1>@userId</h1>
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @{
