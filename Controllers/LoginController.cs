@@ -152,10 +152,10 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             // Decodificar el hash de la contraseña
             string decodedHash = HttpUtility.UrlDecode(token);
             Usuario? usuario = repositorioUsuario.GetUsuario(id);
-            if (usuario == null)
+            if (usuario == null || !HashPass.VerificarPassword(decodedHash, usuario.password))
             {
-                ViewData["ErrorMessage"] = "Lo sentimos, ocurrió un error. Por favor, intenta de nuevo.";
-                return View("AccesoDenegado");
+                TempData["mensaje"] = "<div class=\"alert alert-danger px-5 mt-4 \" role=\"alert\">  Lo sentimos, ocurrió un error. Por favor, intenta de nuevo. </div>";
+                return RedirectToAction("Login", "Login");
             }
 
             if (!string.IsNullOrEmpty(password))
