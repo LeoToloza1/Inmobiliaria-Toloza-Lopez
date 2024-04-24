@@ -117,9 +117,12 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
 
         public bool ActualizarUsuario(Usuario usuario)
         {
-                Console.WriteLine(usuario.ToString());
-                usuario.password=HashPass.HashearPass(usuario.password);
-                Console.WriteLine(usuario.ToString());
+            Console.WriteLine(usuario.ToString());
+            if (usuario.password != null && usuario.password.Trim() != "")
+            {
+                usuario.password = HashPass.HashearPass(usuario.password);
+            }
+            Console.WriteLine(usuario.ToString());
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
             {
