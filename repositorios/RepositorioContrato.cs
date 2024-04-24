@@ -186,7 +186,7 @@ metodo para obtener todos los Contratos
                 string dataWhere = " WHERE c.id = " + id;
                 string sql = dataAccion + dataContrato + dataInquilino + dataInmueble + dataPropietario + dataFrom;
                 sql += dataJoinInquilino + dataOnInquilino + dataJoinInmueble + dataOnInmueble + dataJoinPropietario + dataOnPropietario + dataWhere;
-       
+
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     connection.Open();
@@ -211,6 +211,7 @@ metodo para obtener todos los Contratos
                                 meses_contrato = (int)Math.Abs((decimal)(Utils.CompararFecha(reader.GetDateTime("fechaFin").ToString("yyyy-MM-dd"), reader.GetDateTime("fechaInicio").ToString("yyyy-MM-dd"), false) / 30.473)),
                                 inquilino = new Inquilino
                                 {
+                                    id = reader.GetInt32("idInquilino"),
                                     nombre = reader.GetString("inquilinoNombre"),
                                     apellido = reader.GetString("inquilinoApellido").ToUpper()
                                 },
@@ -350,6 +351,30 @@ metodo para obtener todos los Contratos
         return null;
     }
 
+    public bool ActualizarContrato(Contrato contrato)
+    { //solo se le perimite modificar la fecha de fin - la fecha de efectiva y el monto
+        bool respuesta = false;
+        using (var connection = new MySqlConnection(conexion))
+        {
+
+            var sql = @$"UPDATE contrato SET fecha_fin = @fecha_fin, fecha_efectiva = @fecha_efectiva, monto = @monto WHERE id = @id;";
+            using var command = new MySqlCommand(sql, connection);
+            {
+                command.Parameters.AddWithValue("@id", contrato.id);
+                command.Parameters.AddWithValue("@fecha_fin", contrato.fecha_fin.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@fecha_efectiva", contrato.fecha_efectiva.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@monto", contrato.monto);
+                connection.Open();
+                int columnas = command.ExecuteNonQuery();
+                if (columnas > 0)
+                {
+                    respuesta = true;
+                }
+                connection.Close();
+            }
+            return respuesta;
+        }
+    }
 
     public bool VerifyInmuebleContrato(string F1, string F2, int id)
     {
