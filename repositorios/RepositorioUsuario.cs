@@ -116,8 +116,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
         }
 
         public bool ActualizarUsuario(Usuario usuario)
-        {
-            Console.WriteLine(usuario.ToString());
+        {      
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
             {

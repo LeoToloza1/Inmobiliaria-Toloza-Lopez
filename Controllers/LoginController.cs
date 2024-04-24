@@ -145,9 +145,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
 
         public IActionResult recovery(int id, string? token, string? password)
         {
-
-            Console.WriteLine(id+" - "+ token);
-
             // Decodificar el hash de la contraseña
             string decodedHash = HttpUtility.UrlDecode(token);
             Usuario? usuario = repositorioUsuario.GetUsuario(id);         

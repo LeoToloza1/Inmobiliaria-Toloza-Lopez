@@ -25,6 +25,7 @@
                     <thead>
                         <tr>
                         <th scope="col">Tipo</th>
+                        <th scope="col">Desactivado</th>
                         <th colspan="5"scope="col">Administración</th>
                         </tr>
                     </thead>
@@ -35,14 +36,18 @@
                                 <td>
                                     @tip.tipo
                                 </td>
+                                <td>
+                                    <div class="custom-control custom-switch mb-3 mr-3 ">
+                                        <input type="checkbox" class="custom-control-input" id="borrado" name="borrado" value = 1 @(tip.borrado == 1 ? "checked" : "") disabled /> 
+                                         <label class="custom-control-label mb-3 mr-3" for="borrado"></label>
+                                    </div>                                        
+        
+                                </td>
                                 <td class="d-flex justify-content-around">
                                     @if (userRol == "administrador"){
                                         <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="edit" asp-route-id="@tip.id">
                                             <i class="fas fa-folder-open">  Editar</i>                                
-                                        </a>                            
-                                        <a class="btn btn-secondary py-1 mr-1" asp-controller="tipoInmueble" asp-action="delete" asp-route-id="@tip.id">
-                                            <i class="fas fa-trash-alt"> Borrar</i>                                
-                                        </a>
+                                        </a>                                                                    
                                     }
                                 </td>
                             </tr>

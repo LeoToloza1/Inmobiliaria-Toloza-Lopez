@@ -28,8 +28,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
             if (ModelState.IsValid)
-            {                
-                Console.WriteLine(tipoInmueble);
+            {               
                 if(rp.AltaTipoInmueble(tipoInmueble)){
                     TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4 \" role=\"alert\">  Tipo inmueble creado con exito. </div>";
                 }else{
@@ -40,14 +39,15 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 return RedirectToAction("Index");
         }
         [Authorize(Roles = "administrador")]
+        [HttpPost]
         public IActionResult Update(TipoInmueble tipoInmueble)
         {
             RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
             if (ModelState.IsValid)
-            {                
-                Console.WriteLine(tipoInmueble);
+            {               
+                
                 if(rp.UpdateTipoInmueble(tipoInmueble)){
-                    TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4 \" role=\"alert\">  Tipo inmueble creado con exito. </div>";
+                    TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4 \" role=\"alert\">  Tipo inmueble modificado con exito. </div>";
                 }else{
                     TempData["mensaje"] = "<div class=\"alert alert-danger px-5 mt-4 \" role=\"alert\">  Lo sentimos, ocurrió un error. Por favor, intenta de nuevo. </div>";
                 }
@@ -60,14 +60,14 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 RepositorioTipoInmueble rp = new RepositorioTipoInmueble();
                 var tipoInmueble = rp.GetTipoInmueble(id);
                 if (ModelState.IsValid)
-                {                
-                    Console.WriteLine(tipoInmueble);
+                {
+
                     // if(rp.UpdateTipoInmueble(tipoInmueble)){
                     //     TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4 \" role=\"alert\">  Tipo inmueble creado con exito. </div>";
                     // }else{
                     //     TempData["mensaje"] = "<div class=\"alert alert-danger px-5 mt-4 \" role=\"alert\">  Lo sentimos, ocurrió un error. Por favor, intenta de nuevo. </div>";
                     // }
-                    return RedirectToAction("Edit",tipoInmueble);
+                    return View("edit",tipoInmueble);
                 }
                     TempData["mensaje"] = "<div class=\"alert alert-danger px-5 mt-4 \" role=\"alert\">  Lo sentimos, ocurrió un error. Por favor, intenta de nuevo. </div>";
                     return RedirectToAction("Index");

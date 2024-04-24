@@ -80,6 +80,10 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
                 return RedirectToAction("CancelarPago");
             }
+            DateOnly fecha1 = DateOnly.Parse(fechaEfectiva).AddMonths(1);
+            DateOnly date = new DateOnly(fecha1.Year, fecha1.Month,01).AddDays(-1);
+            fechaEfectiva = date.ToString("yyyy-MM-dd");
+
             try
             {
                 using (var scope = new TransactionScope())
