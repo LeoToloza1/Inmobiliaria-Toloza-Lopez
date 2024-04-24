@@ -1,6 +1,7 @@
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewData["Title"] = "Recuperar contraseña";
+    string token=ViewBag.token;
 }
 
 @section recuperarPass {
@@ -19,6 +20,8 @@
                             </div>
                         }
                         <form method="post" asp-controller="Login" asp-action="recovery" id="passwordForm">
+                               <input type="hidden" name="token" value=@token />             
+                
                             <div class="form-group">
                                 <label for="newPassword">Nueva Contraseña:</label>
                                 <input type="password" class="form-control" id="password" name="password" required />
