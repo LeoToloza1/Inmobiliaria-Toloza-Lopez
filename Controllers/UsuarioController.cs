@@ -39,13 +39,14 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id, Usuario usuario, IFormFile avatarFile)
         {
-            string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
 
+            string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
+            Console.WriteLine(usuario.ToString());
             Usuario? user = repositorioUsuario?.GetUsuario(id);
             user.nombre = usuario.nombre;
             user.apellido = usuario.apellido;
-            user.dni = usuario.dni;
-
+            user.dni = usuario.dni;          
+            if(usuario.password != null) user.password = usuario.password;
             if (!Directory.Exists(folderPath))
             {
                 // Si no existe, la crea
