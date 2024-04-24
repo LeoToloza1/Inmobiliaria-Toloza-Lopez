@@ -1,0 +1,97 @@
+@model inmobiliaria_Toloza_Lopez.Models.Contrato
+@{
+    var contrato = Model;
+    ViewData["Title"] = "Contrato";
+}
+<div class="container w-75 m-5">
+    <div class="text-center">
+        <h1 class="display-3">@ViewBag.tipoForm</h1>
+    </div>
+    @if (TempData["mensaje"] != null)
+        @Html.Raw(TempData["mensaje"])
+
+    </select>
+    <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
+        <input class="d-none" type="number" id="idInmueble" name="id_inmueble" value="@contrato.id_inmueble" readonly>
+        <input class="d-none" type="number" id="idInquilino" name="id_inquilino" value="@contrato.id_inquilino" readonly>
+        @* <input type="date" id="fechaInicio" name="fechaInicio" value=@contrato.fecha_inicio.ToString("yyyy-MM-dd")
+        readonly> *@
+        @*
+        <input type="date" id="fechaFin" name="fecha_fin" value=@contrato.fecha_fin.ToString("yyyy-MM-dd") >
+        <input id="fecha_efectiva" name="fecha_inicio" value="@contrato.fecha_efectiva" readonly hidden>
+        <input id="monto" name="monto" value="@contrato.monto" readonly>
+        *@
+
+        <div class="w-100 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-lefth ">Datos inmueble</label>
+                            <input class="form-control " id="dataInmueble" readonly value="@contrato.inmueble ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-100 ">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label text-md-lefth " for="valueInquilino">Inquilino</label>
+                            <input class="form-control" id="valueInquilino" type="text"
+                                value="@contrato.inquilino.apellido, @contrato.inquilino.nombre " readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="contratoEtapa2" class="">
+            <div class="w-100 ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row d-flex justify-content-around">
+                                <div class="col-md-3">
+                                    <label for="fechaInicio" class="col-form-label text-md-right">Fecha inicio
+                                        Contrato</label>
+                                    <input class="form-control" id="fech1aInicio" name="fechaInicio" type="date"
+                                        value=@contrato.fecha_inicio.ToString("yyyy-MM-dd") readonly>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="fechaFin" class="col-form-label text-md-right">Fecha fin
+                                        Contrato</label>
+                                    <input class="form-control" id="fechaFin" name="fechaFin" type="date"
+                                        value=@contrato.fecha_fin.ToString("yyyy-MM-dd")>
+                                    @* <input class="form-control" id="fechaEfectiva" name="fechaEfectiva" type="date"
+                                    value=@contrato.fecha_fin.ToString("yyyy-MM-dd") hidden readonly> *@
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="montoMes" class="col-form-label text-md-right">Monto mensual</label>
+                                    <input class="form-control" id="montoMes" name="montoMes" type="number" step="any"
+                                        placeholder="Ingrese monto" value=@contrato.inmueble.precio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 mt-5">
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-md-5">
+                            <button type="submit" class="btn btn-primary w-50">@ViewBag.btnAction </button>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="btn btn-secondary w-50">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @* <script src="~/js/contrato.js"></script> *@
+}
