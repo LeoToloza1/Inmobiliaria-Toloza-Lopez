@@ -2,10 +2,12 @@
 
 @{
     ViewData["Title"] = "Asignar Pago";
+    var userRol =
+    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Asignar Pago</h1>
+    <h1 id="titulo" class="display-4">Asignar Pago</h1>
 </div>
 
 <div class="container">
@@ -33,40 +35,87 @@
                         <label for="detalle">Detalle:</label>
                         <textarea class="form-control" id="detalle" name="detalle" rows="3"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" id="btnSubmit">Asignar Pago</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btnSubmit">Asignar Pago</button>
+
+                    </div>
                 </form>
+                @if (userRol == "administrador")
+                {
+                    <div class="form-group mt-3">
+                        <button type="button" class="btn btn-danger" id="btnNotaCredito">Realizar nota de
+                            crédito</button>
+                    </div>
+                }
+
+                @if (TempData["mensaje"] != null)
+                {
+                    <div class="alert alert-success mt-4" role="alert">
+                        @TempData["mensaje"]
+                    </div>
+                }
             </div>
-
-            @if (TempData["mensaje"] != null)
-            {
-                <div class="alert alert-success mt-4" role="alert">
-                    @TempData["mensaje"]
-                </div>
-            }
-
         </div>
     </div>
-</div>
+    @section Scripts {
+        <script>
+            const importeInput = document.getElementById("importe");
+            const btnNotaCredito = document.getElementById("btnNotaCredito");
+            const titulo = document.getElementById("titulo");
+            const btnAsignarPago = document.getElementById("btnSubmit");
+            let notaCreditoActiva = false;
+            let valorOriginal = @ViewBag.Contrato.monto;
 
-@section Scripts {
-    <script>
-        document.getElementById("btnSubmit").addEventListener("click", function (event) {
-            event.preventDefault();
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: 'Estás por realizar una acción importante. ¿Deseas continuar?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, continuar',
-                cancelButtonText: 'Cancelar',
-                allowOutsideClick: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById("formPago").submit();
+            btnNotaCredito.addEventListener("click", function () {
+                notaCreditoActiva = !notaCreditoActiva;
+
+                if (notaCreditoActiva) {
+                    importeInput.removeAttribute("readonly");
+                    titulo.textContent = "Nota de crédito";
+                    btnAsignarPago.style.display = "block";
+
+                    importeInput.addEventListener("input", validarImporte);
+                } else {
+                    importeInput.setAttribute("readonly", true);
+                    titulo.textContent = "Asignar Pago";
+                    btnAsignarPago.style.display = "block";
+
+                    importeInput.removeEventListener("input", validarImporte);
+                    if (importeInput.value === "") {
+                        importeInput.value = valorOriginal;
+                    }
                 }
             });
-        });
-    </script>
-}
+
+            function validarImporte() {
+                const importe = parseFloat(importeInput.value);
+                if (importe > 0) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'El importe debe ser negativo',
+                        icon: 'error'
+                    });
+                    importeInput.value = "";
+                }
+            }
+
+            document.getElementById("btnSubmit").addEventListener("click", function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: 'Estás por realizar una acción importante. ¿Deseas continuar?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, continuar',
+                    cancelButtonText: 'Cancelar',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("formPago").submit();
+                    }
+                });
+            });
+        </script>
+    }

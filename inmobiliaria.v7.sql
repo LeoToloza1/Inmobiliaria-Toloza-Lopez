@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-04-2024 a las 01:43:40
+-- Tiempo de generación: 24-04-2024 a las 22:21:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -360,6 +360,15 @@ CREATE TABLE `ciudad` (
   `ciudad` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `ciudad`
+--
+
+INSERT INTO `ciudad` (`id`, `ciudad`) VALUES
+(1, 'San Luis'),
+(2, 'Carpinteria'),
+(3, 'Merlo');
+
 -- --------------------------------------------------------
 
 --
@@ -381,6 +390,16 @@ CREATE TABLE `contrato` (
   `borrado_fecha` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `borrado_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contrato`
+--
+
+INSERT INTO `contrato` (`id`, `id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`, `fecha_efectiva`, `monto`, `borrado`, `creado_fecha`, `creado_usuario`, `borrado_fecha`, `borrado_usuario`) VALUES
+(1, 1, 7, '2023-04-23', '2024-04-25', '2024-04-25', 1050.00, 0, '2024-04-23 01:47:34', 0, '2024-04-24 17:00:20', 0),
+(2, 3, 1, '2023-04-20', '2024-04-23', '2024-04-23', 23425.00, 0, '2024-04-23 01:49:19', 0, '2024-04-24 15:34:20', 0),
+(3, 1, 2, '2023-04-26', '2024-04-24', '2024-04-25', 2500.00, 0, '2024-04-23 02:04:46', 0, '2024-04-24 15:37:01', 0),
+(4, 1, 7, '2024-04-26', '2025-04-25', '2025-04-25', 5555.00, 0, '2024-04-24 15:38:58', 0, '2024-04-24 15:38:58', 0);
 
 -- --------------------------------------------------------
 
@@ -405,6 +424,22 @@ CREATE TABLE `inmueble` (
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `inmueble`
+--
+
+INSERT INTO `inmueble` (`id`, `direccion`, `uso`, `id_tipo`, `ambientes`, `coordenadas`, `precio`, `id_propietario`, `estado`, `id_ciudad`, `id_zona`, `borrado`, `descripcion`) VALUES
+(1, 'san martin 45', 'Comercial', 1, 9, '-32.414566613131946, -65.00877119828924', 1.26, 1, 'Disponible', 1, 2, 0, 'Casa  de 2 ambientes'),
+(2, 'av Los Mandarinos 566', 'Comercial', 4, 0, '-32.4239588393048, -65.01171109578154', 2.00, 3, 'Disponible', 2, 2, 0, 'Oficina de 250m2'),
+(3, 'Av. Illia 1234', 'Residencial', 2, 0, '-32.35045498578529, -65.01366813627159', 3.00, 1, 'Disponible', 2, 2, 0, 'Local con dependencias, oficina de 12m2'),
+(4, 'Junin 345', 'Comercial', 2, 0, '-32.35045498578529, -65.01366813627159', 4.00, 8, 'Disponible', 2, 2, 0, 'Local 232 metros, con entrepiso  2 baños'),
+(5, 'Junin 345', 'Comercial', 1, 5, '-33.25, -66.36', 55.00, 3, 'Disponible', 1, 2, 0, 'Casa 2 plantas, techo tecja, con cochera 3 autos'),
+(6, 'Junin 345', 'Comercial', 2, 9, '-33.25, -66.36', 2635.52, 3, 'Disponible', 1, 1, 0, 'Dpto 5º piso,  3 dormitorios, uno en suite. '),
+(7, 'Junin 345', 'Comercial', 1, 0, '-33.25, -66.36', 5555.00, 3, 'Disponible', 1, 1, 0, '55dthysh'),
+(8, 'nose', 'Comercial', 2, 0, '-33.25, -66.36', 150000.00, 3, 'Disponible', 2, 2, 0, '6666666666666'),
+(9, 'Junin 345', 'Comercial', 1, 5, '-33.25, -66.36', 5625.00, 3, 'Disponible', 1, 1, 0, 'csa de 2 planta, 3 dormitorios, uno en suite\r\n'),
+(10, 'Junin 345', 'Comercial', 1, 4, '-33.25, -66.36', 666.00, 1, 'Disponible', 1, 1, 0, 'ssaf');
+
 -- --------------------------------------------------------
 
 --
@@ -421,6 +456,16 @@ CREATE TABLE `inquilino` (
   `telefono` varchar(45) NOT NULL,
   `borrado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `inquilino`
+--
+
+INSERT INTO `inquilino` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
+(1, 'Marcelo', 'Jofre', '1256555', 'b1729985-ffa2-11ee-a424-b8aeedb3ac9e', 'b1729993-ffa2-11ee-a424-b8aeedb3ac9e', 0),
+(2, 'Jorge', 'Mendez', '1256555', '905b3f1b-ee14-11ee-8ebc-b8aeedb3ac9e', '905b3f29-ee14-11ee-8ebc-b8aeedb3ac9e', 0),
+(3, 'Natalia', 'Gomez', '1256555', '0f078f6f-ff9f-11ee-a424-b8aeedb3ac9e', '0f078f7c-ff9f-11ee-a424-b8aeedb3ac9e', 0),
+(4, 'Maria Florencia', 'Fernandez', '1256555', 'd3d99b4c-0053-11ef-a424-b8aeedb3ac9e', 'd3d99b62-0053-11ef-a424-b8aeedb3ac9e', 0);
 
 -- --------------------------------------------------------
 
@@ -443,6 +488,14 @@ CREATE TABLE `pago` (
   `borrado_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`id`, `id_contrato`, `fecha_pago`, `importe`, `estado`, `numero_pago`, `detalle`, `creado_fecha`, `creado_usuario`, `borrado_fecha`, `borrado_usuario`) VALUES
+(1, 2, '2024-04-24', 46850.00, '0', 1, 'Cancela Pago, Fecha 2024-04-24 ', '2024-04-24 14:47:53', 0, '0000-00-00 00:00:00', 0),
+(2, 3, '2024-04-24', 7500.00, '0', 1, 'Cancela Pago, Fecha 2024-04-24 ', '2024-04-24 14:48:35', 0, '0000-00-00 00:00:00', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -459,6 +512,17 @@ CREATE TABLE `propietario` (
   `telefono` varchar(45) NOT NULL,
   `borrado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `propietario`
+--
+
+INSERT INTO `propietario` (`id`, `nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`) VALUES
+(1, 'Jose', 'Perez', '12345678', '64771466-ff83-11ee-a424-b8aeedb3ac9e', '64771473-ff83-11ee-a424-b8aeedb3ac9e', 0),
+(3, 'Marcelo', 'JOFE', '12345678', '372d0744-ff9d-11ee-a424-b8aeedb3ac9e', '372d0751-ff9d-11ee-a424-b8aeedb3ac9e', 0),
+(8, 'Jose', 'Perez', '12345678', 'aaa@aa.coms', '1234', 0),
+(9, 'Marcelo', 'JOFE', '12345678', 'cbd8df41-faa2-11ee-9c9d-b8aeedb3', 'cbd8df4b-faa2-11ee-9c9d-b8aeedb3', 0),
+(10, 'Pedro', 'Junco', '12569865', 'b2944a93-0053-11ef-a424-b8aeedb3ac9e', 'b2944aa0-0053-11ef-a424-b8aeedb3ac9e', 1);
 
 -- --------------------------------------------------------
 
@@ -479,11 +543,13 @@ CREATE TABLE `tipo_inmueble` (
 
 INSERT INTO `tipo_inmueble` (`id`, `tipo`, `borrado`) VALUES
 (1, 'Casa', 0),
-(2, 'Departamento', 0),
+(2, 'Departamento', 1),
 (3, 'Deposito', 0),
 (4, 'Local', 0),
 (5, 'Cabaña', 0),
-(6, 'Quinta', 0);
+(6, 'Quintas', 0),
+(7, 'HOSTEL', 0),
+(8, 'CAMPING', 1);
 
 -- --------------------------------------------------------
 
@@ -501,17 +567,18 @@ CREATE TABLE `usuario` (
   `password` varchar(250) NOT NULL,
   `rol` enum('usuario','administrador') NOT NULL DEFAULT 'usuario' COMMENT 'solo vamos a usar 2 tipos de usuarios.\\n- usuario normal de la plataforma\\n- un  administrador',
   `avatarUrl` varchar(100) DEFAULT NULL,
-  `borrado` tinyint(1) DEFAULT 0 COMMENT '0 para activo, 1 para inactivo'
+  `borrado` tinyint(1) DEFAULT 0 COMMENT '0 para activo, 1 para inactivo',
+  `update_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='tabla para usuarios internos del sistema';
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `dni`, `email`, `password`, `rol`, `avatarUrl`, `borrado`) VALUES
-(1, 'Leonel', 'Toloza', '38860057', 'admin@admin.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'administrador', '3ec637a6-8e23-4e65-990e-39432a5f90b3.webp', 0),
-(2, 'Santiago', 'Toloza', '38860057', 'leotoloza6@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'usuario', 'Designer.jpeg', 0),
-(3, 'Rafael ', 'Lopez', '123456', 'lopezrafa@gmail.com', '$2a$11$fP4bmBL.WdxxJY9pIhSIRuvmDR92qnG4ymEsaCbQACatxpu5rNzDa', 'administrador', 'cristanDROID.png', 0);
+INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `dni`, `email`, `password`, `rol`, `avatarUrl`, `borrado`, `update_at`) VALUES
+(1, 'Leonel', 'Toloza', '38860057', 'admin@admin.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'administrador', '3ec637a6-8e23-4e65-990e-39432a5f90b3.webp', 0, '2024-04-24 11:14:54'),
+(2, 'Santiago', 'Toloza', '38860057', 'leotoloza6@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'usuario', 'Designer.jpeg', 0, '2024-04-24 11:14:49'),
+(3, 'Rafael ', 'Lopez', '123456', 'lopezrafa@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'administrador', 'worker.png', 0, '2024-04-24 12:04:55');
 
 -- --------------------------------------------------------
 
@@ -611,43 +678,43 @@ ALTER TABLE `zona`
 -- AUTO_INCREMENT de la tabla `ciudad`
 --
 ALTER TABLE `ciudad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `contrato`
 --
 ALTER TABLE `contrato`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `propietario`
 --
 ALTER TABLE `propietario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_inmueble`
 --
 ALTER TABLE `tipo_inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
