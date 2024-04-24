@@ -17,7 +17,9 @@
                 <th scope="col">Fecha de Pago</th>
                 <th scope="col">Importe</th>
                 <th scope="col">Detalle</th>
-                <th scope="col">+Info</th>
+                <th scope="col">                    
+                    <a class="btn btn-dark btnInfo " href="/Usuario/admin"><i class="nav-icon fas fa-cogs" aria-hidden="true"> Volver</i></a>    
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +38,7 @@
                     <td>@(string.IsNullOrEmpty(pago.detalle) ? "Sin detalle" : pago.detalle)</td>
                     <td>
                         <a class="btn btn-dark btnInfo " href="/pago/listarPagosPorContrato/@pago.id_contrato">
-                            <i class="fas fa-pencil" aria-hidden="true"> Ver Info</i>
+                            <i class="fas fa-info-circle" > Ver Info</i>
                         </a>
                     </td>
                 </tr>

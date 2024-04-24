@@ -63,13 +63,20 @@ public class ContratoController : Controller
     [Authorize]
     [HttpPost]
     //public IActionResult Save(IFormCollection form)
+    /** save neuvo contrtato **/
     public IActionResult Save(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes)
     {
+        DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
 
         if (fechaInicio >= fechaFin)
         {
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
-            return Redirect(@$"/contrato/renovar/{idInmueble}");
+            return Redirect(@$"/contrato/create/{idInmueble}");
+        }
+        if (fechaInicio < fechaHoy)
+        {
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Inicio no peude ser menor que el dia actual. No se permiten contratos retroactivos  </div>";
+            return Redirect(@$"/contrato/create/{idInmueble}");
         }
         Contrato contrato = new Contrato();
         contrato.id_inquilino = idInquilino;
@@ -93,16 +100,18 @@ public class ContratoController : Controller
                 ViewBag.errores = "El inmueble ya tiene un contrato activo en la fechas solicitadas";
                 Console.WriteLine("El inmueble ya tiene un contrato activo");
                 TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. El inmueble ya tiene un contrato activo entre las fechas " + contrato.fecha_inicio + " - " + contrato.fecha_fin + "</div>";
-                return Redirect(@$"/contrato/renovar/{contrato.id_inmueble}");
+                return Redirect(@$"/contrato/create/{contrato.id_inmueble}");
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine("Error en VerifyInmuebleContrato: " + ex.Message);
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Completarse la operacion elsistema arrojo el siguiente error: <em>" + ex.Message + "<em></div>";
-            return Redirect(@$"/contrato/renovar/{contrato.id_inmueble}");
+            return Redirect(@$"/contrato/create/{contrato.id_inmueble}");
         }
     }
+
+
 
     [Authorize]
     /* listado contratos para un inmueble*/
@@ -142,6 +151,7 @@ public class ContratoController : Controller
 
 
     public IActionResult Renew(int id)
+    /** Renovacion **/
     {
         ViewBag.tipoForm = "Nuevo Contrato...";
         ViewBag.controller = "contrato";
@@ -150,12 +160,15 @@ public class ContratoController : Controller
         ViewBag.inmueble = inmueble;
         return View("ContratoFormulario");
     }
+    [Authorize]
+    [HttpGet]
     public IActionResult Renovar(int id)
     {
         ViewBag.tipoForm = "Renovar Contrato";
         ViewBag.controller = "contrato";
-        ViewBag.action = "save";
+        ViewBag.action = "renovar";
         ViewBag.btnAction = "Renovar";
+        ViewBag.id = id;
         RepositorioContrato repositorioContrato = new RepositorioContrato();
         Contrato contrato = repositorioContrato.GetContrato(id);
         contrato.fecha_inicio = contrato.fecha_fin.AddDays(1);
@@ -163,6 +176,56 @@ public class ContratoController : Controller
         contrato.fecha_efectiva = contrato.fecha_fin;
         return View("ContratoRenovacionFormulario", contrato);
     }
+    [Authorize]
+    [HttpPost]
+    public IActionResult renovar(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes, int id)
+    {
+        DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
+
+        if (fechaInicio >= fechaFin)
+        {
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
+            return Redirect(@$"/contrato/renovar/{id}");
+        }
+        if (fechaInicio < fechaHoy)
+        {
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Inicio no peude ser menor que el dia actual. No se permiten contratos retroactivos  </div>";
+            return Redirect(@$"/contrato/renovar/{id}");
+        }
+        Contrato contrato = new Contrato();
+        contrato.id_inquilino = idInquilino;
+        contrato.id_inmueble = idInmueble;
+        contrato.fecha_inicio = fechaInicio;
+        contrato.fecha_fin = fechaFin;
+        contrato.fecha_efectiva = fechaFin;
+        contrato.monto = decimal.Parse(montoMes);
+        RepositorioContrato repositorioContrato = new RepositorioContrato();
+
+        try
+        {
+            if (repositorioContrato.VerifyInmuebleContrato(contrato.fecha_inicio.ToString("yyyy-MM-dd"), contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.id_inmueble))
+            {
+                repositorioContrato.Create(contrato);
+                TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato creado correctamente</div>";
+                return Redirect("/contrato");
+            }
+            else
+            {
+                ViewBag.errores = "El inmueble ya tiene un contrato activo en la fechas solicitadas";
+                Console.WriteLine("El inmueble ya tiene un contrato activo");
+                TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. El inmueble ya tiene un contrato activo entre las fechas " + contrato.fecha_inicio + " - " + contrato.fecha_fin + "</div>";
+                return Redirect(@$"/contrato/renovar/{id}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error en VerifyInmuebleContrato: " + ex.Message);
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Completarse la operacion elsistema arrojo el siguiente error: <em>" + ex.Message + "<em></div>";
+            return Redirect(@$"/contrato/renovar/{id}");
+        }
+    }
+    /** edicion **/
+
     [Authorize]
     [HttpGet]
     public IActionResult Editar(int id)
@@ -179,9 +242,15 @@ public class ContratoController : Controller
     [HttpPost]
     public IActionResult EditarContrato(int id, int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes)
     {
+        DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
         if (fechaInicio >= fechaFin)
         {
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
+            return Redirect(@$"/contrato/Editar/{id}");
+        }
+        if (fechaInicio < fechaHoy)
+        {
+            TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\"> <p> No pudo Editarse contratos fuera de la fecha de creacion.. </p>En caso necesario debe anularse y crearse un contrato nuevo  </div>";
             return Redirect(@$"/contrato/Editar/{id}");
         }
         Contrato contrato = new Contrato();
