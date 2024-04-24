@@ -46,6 +46,7 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
             Usuario? usuario = null;
             using (var connection = new MySqlConnection(conexion))
             {
+
                 var sql = @"SELECT id, nombre, apellido, dni, email, rol, password, avatarUrl FROM usuario WHERE id = @Id;";
                 using var command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
@@ -116,6 +117,9 @@ VALUES (@{nameof(Usuario.nombre)}, @{nameof(Usuario.apellido)}, @{nameof(Usuario
 
         public bool ActualizarUsuario(Usuario usuario)
         {
+                Console.WriteLine(usuario.ToString());
+                usuario.password=HashPass.HashearPass(usuario.password);
+                Console.WriteLine(usuario.ToString());
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
             {

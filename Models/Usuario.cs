@@ -21,6 +21,11 @@ namespace inmobiliaria_Toloza_Lopez.Models
 
         public IFormFile avatarFile { get; set; } = null!;
 
+
         public bool borrado { get; set; }
+        public override string ToString()
+        {
+            return  $"{id}  | {nombre}  |  {apellido}  |   {dni}  |   {email} | {password}  | {rol}  | {avatarUrl} | {borrado}";
+        }
     }
 }

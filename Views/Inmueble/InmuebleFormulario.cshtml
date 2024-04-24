@@ -1,8 +1,7 @@
 @model inmobiliaria_Toloza_Lopez.Models.Inmueble
 
 @{
-    ViewData["Title"] = "Inmuebles";
-    @* Console.WriteLine(ViewBag.tipoForm); *@
+    ViewData["Title"] = "Inmuebles";    
     int id = 0;
     var direccion = "";
     var uso = "Residencial";
@@ -18,7 +17,6 @@
     var verbo = "Nuevo";
     if (ViewBag.tipoForm == "Editando Inmueble")
     {
-        Console.WriteLine(ViewBag.verboForm);
         id = Model.id;
         direccion = Model.direccion;
         uso = Model.uso.ToString();
