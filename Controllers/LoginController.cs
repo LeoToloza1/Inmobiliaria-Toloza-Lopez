@@ -145,10 +145,11 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return View("AccesoDenegado");
         }
 
-        public IActionResult recovery(int id, string token, string password)
+        public IActionResult recovery(int id, string? token, string? password)
         {
 
             Console.WriteLine(id+" - "+ token);
+
             // Decodificar el hash de la contraseña
             string decodedHash = HttpUtility.UrlDecode(token);
             Usuario? usuario = repositorioUsuario.GetUsuario(id);         
@@ -164,6 +165,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 repositorioUsuario.CambiarPassword(usuario.email, nuevaPassHasheada);
                 return RedirectToAction("Login", "Login");
             }
+            ViewBag.token=usuario.password;
             return View("recuperarPass");
         }
 
