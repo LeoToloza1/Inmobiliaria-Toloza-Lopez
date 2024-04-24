@@ -10,10 +10,12 @@
     @if (TempData["mensaje"] != null)
         @Html.Raw(TempData["mensaje"])
 
-    </select>
+
+
     <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
-        <input class="d-none" type="number" id="idInmueble" name="id_inmueble" value="@contrato.id_inmueble" readonly>
-        <input class="d-none" type="number" id="idInquilino" name="id_inquilino" value="@contrato.id_inquilino" readonly>
+        <input class="d-none" type="number" id="idInmueble" name="idInmueble" value="@contrato.id_inmueble" readonly>
+        <input class="d-none" type="number" id="idInquilino" name="idInquilino" value="@contrato.id_inquilino" readonly>
+        <input hidden id="id" name="id" type="number" value="@contrato.id" readonly>
         @* <input type="date" id="fechaInicio" name="fechaInicio" value=@contrato.fecha_inicio.ToString("yyyy-MM-dd")
         readonly> *@
         @*
@@ -70,7 +72,7 @@
                                 <div class="col-md-3">
                                     <label for="montoMes" class="col-form-label text-md-right">Monto mensual</label>
                                     <input class="form-control" id="montoMes" name="montoMes" type="number" step="any"
-                                        placeholder="Ingrese monto" value=@contrato.inmueble.precio>
+                                        placeholder="Ingrese monto" value=@contrato.monto>
                                 </div>
                             </div>
                         </div>
