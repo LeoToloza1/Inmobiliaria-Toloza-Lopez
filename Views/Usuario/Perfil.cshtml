@@ -65,6 +65,11 @@
                                             <label class="custom-control-label" for="borrado"></label>
                                         </div>
                                     </div>  
+                                       <div class="form-group">
+                                        <label for="image">Imagen de perfil:</label>
+                                        <input type="file" id="image" name="avatarFile" class="form-control"
+                                            accept="image/*" disabled>
+                                    </div>
                                     <div class="form-group">
                                         <label for="password">Contraseña:</label>
                                         <input type="password" id="password" name="password" class="form-control" disabled />
@@ -141,37 +146,32 @@
             }
         }
         function mostrarAlerta(event) {
-            event.preventDefault();
-            var passwordHidden = document.getElementById("passwordHidden");
-            if (passwordInput.value !== passConfirm.value) {
-                Swal.fire({
-                    title: 'Atención!',
-                    text: 'Las contraseñas no coinciden',
-                    icon: 'question',
-                    showCloseButton: true,
-                    showCancelButton: true
-                });
-                return;
-            }
-            passwordHidden.value = passwordInput.value.trim();
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¿Quieres guardar los cambios?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, guardar cambios!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Guardado!',
-                        'Tus cambios han sido guardados.',
-                        'success'
-                    )
-                    document.getElementById('perfilForm').submit();
-                }
-            })
+    event.preventDefault();
+    var passwordHidden = document.getElementById("passwordHidden");
+    if (passwordInput.value !== passConfirm.value) {
+        Swal.fire({
+            title: 'Atención!',
+            text: 'Las contraseñas no coinciden',
+            icon: 'question',
+            showCloseButton: true,
+            showCancelButton: true
+        });
+        return;
+    }
+    passwordHidden.value = passwordInput.value.trim();
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Quieres guardar los cambios?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, guardar cambios!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('perfilForm').submit();
         }
+    });
+}
     </script>
 }

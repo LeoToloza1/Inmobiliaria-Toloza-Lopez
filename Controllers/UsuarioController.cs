@@ -21,10 +21,11 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             hostingEnvironment = _hostingEnvironment;
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         public IActionResult PerfilUsuario(int id)
         {
             Usuario? user = repositorioUsuario.GetUsuario(id);
+
             return View("Perfil", user);
         }
 
@@ -41,35 +42,48 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         public async Task<IActionResult> Update(int id, Usuario usuario, IFormFile avatarFile)
         {
             string folderPath = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
-
             Usuario? user = repositorioUsuario?.GetUsuario(id);
-            if (!Directory.Exists(folderPath))
-            {
-                // Si no existe, la crea
-                Directory.CreateDirectory(folderPath);
-            }
+
+            // Desarmar el objeto usuario y asignarlo al user
+            user.nombre = usuario.nombre == null ? user.nombre : usuario.nombre;
+            user.apellido = usuario.apellido == null ? user.apellido : usuario.apellido;
+            user.dni = usuario.dni == null ? user.dni : usuario.dni;
+            user.email = usuario.email == null ? user.email : usuario.email;
+            user.borrado = usuario.borrado == null ? user.borrado : usuario.borrado;
+            user.rol = usuario.rol == null ? user.rol : usuario.rol;
+
             if (usuario.password != null && usuario.password.Trim() != "")
-            {  
+            {
                 user.password = HashPass.HashearPass(usuario.password);
             }
+
             if (avatarFile != null)
             {
+                if (!Directory.Exists(folderPath))
+                {
+                    // Si no existe, la crea
+                    Directory.CreateDirectory(folderPath);
+                }
+
                 var filePath = Path.Combine(folderPath, avatarFile.FileName);
                 using var stream = new FileStream(filePath, FileMode.Create);
                 await avatarFile.CopyToAsync(stream);
                 user.avatarUrl = avatarFile.FileName;
             }
             else
-            { user.avatarUrl = null; }
+            {
+                user.avatarUrl = null;
+            }
 
             bool actualizacionExitosa = repositorioUsuario.ActualizarUsuario(user);
             if (actualizacionExitosa)
             {
-                return RedirectToAction("Perfil", "Usuario");
+                return RedirectToAction("index", "Home");
             }
 
             return View("Perfil", usuario);
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
