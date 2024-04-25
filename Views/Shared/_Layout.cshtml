@@ -30,8 +30,8 @@
                     style="opacity: .8">
                 <span class="brand-text font-weight-light">Inmobiliara T & L</span>
             </a>
-            <div class="sidebar">
-                <h1>@userId</h1>
+            <div class="sidebar">               
+                <a asp-controller="Usuario" asp-action="Perfil" class="d-block">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @{
@@ -48,9 +48,10 @@
                         }
                     </div>
                     <div class="info">
-                        <a asp-controller="Usuario" asp-action="Perfil" class="d-block">@userName</a>
+                        @userName
                     </div>
                 </div>
+                </a>
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">

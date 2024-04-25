@@ -9,9 +9,6 @@
     </div>
     @if (TempData["mensaje"] != null)
         @Html.Raw(TempData["mensaje"])
-
-
-
     <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
         <input class="d-none" type="number" id="idInmueble" name="idInmueble" value="@contrato.id_inmueble" readonly>
         <input class="d-none" type="number" id="idInquilino" name="idInquilino" value="@contrato.id_inquilino" readonly>

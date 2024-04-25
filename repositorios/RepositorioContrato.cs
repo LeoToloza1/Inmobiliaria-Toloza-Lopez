@@ -364,6 +364,7 @@ metodo para obtener todos los Contratos
                 command.Parameters.AddWithValue("@fecha_fin", fecha_fin);
                 command.Parameters.AddWithValue("@fecha_efectiva", fecha_fin);
                 command.Parameters.AddWithValue("@monto", monto);
+                command.Parameters.AddWithValue("@userID", userId);
                 connection.Open();
                 int columnas = command.ExecuteNonQuery();
                 if (columnas > 0)

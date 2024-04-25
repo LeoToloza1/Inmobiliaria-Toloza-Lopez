@@ -61,15 +61,7 @@
                             <div class="card bg-info text-white mb-4">
                                 <div class="card-body">Contratos</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/admin/contratos">Ver detalles</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-dark text-white mb-4">
-                                <div class="card-body">Reportes</div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/admin/reportes">Ver detalles</a>
+                                    <a class="small text-white stretched-link" asp-controller="Contrato" asp-action="">Ver detalles</a>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +72,22 @@
                                     <a class="small text-white stretched-link" asp-controller="tipoInmueble"
                                         asp-action="Index">Ver
                                         detalles</a>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="col-md-4">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Auditoria Contratos</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="contrato" asp-action="auditoria" >Ver detalles</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Auditoria Pagos</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" asp-controller="pago" asp-action="auditoria" >Ver detalles</a>
                                 </div>
                             </div>
                         </div>
