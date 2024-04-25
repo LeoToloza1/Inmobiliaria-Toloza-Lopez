@@ -7,42 +7,22 @@
     <h1 class="display-4">Listado de Propietarios</h1>
 </div>
 <div>
-    @* seccion busqueda *@
-        <div class="container-fluid p-0">
-        <label class="form-check-label fs-4" for="formPropietario">Busqueda Propietario</label>
-        <div class="border-top border-bottom mb-1 ">            
-            <div class="d-flex justify-content-between align-items-center px-3 py-2">                
-                <form id= "formPropietario" method="get" action="/propietario" name="form-propietario" class="d-flex justify-content-evenly w-100">
-                    <input hidden type="text" name="page" value=1>
-                    <div class="d-flex justify-content-evenly w-100  align-items-center">                        
-                        <div class="flex-item row w-25">
-                            <label class="form-check-label" for="buscaPropietario">Propietario</label>
-                            <input id="dataPropietario" name="dataPropietario" class="form-control form-control-sm mb-2" type="text"
-                                placeholder="Ingrese Nombre apellido o dni buscar" aria-label="fecha-inicio-pedida" value="">                                
-                        </div>                        
-                        <div class="flex-item w-75 align-items-center ">
-                            @* @if (!(Model != null && Model.Any()))
-                                { *@
-                                    <a asp-controller="propietario" asp-action="create" class="btn btn-success pb-1 ml-4 mt-3 "  ><i class="fa fa-user-plus"> Nuevo</i></a>
-                                @* } *@
-                            @* hidden-link *@
-                        </div>                       
-                        <div class="flex-item w-25">
-                            <button type="submit" class="btn btn-primary py-3 mr-2"><i class="fas fa-search"> Buscar</i></button>
-                            <a href="/propietario"  class="btn btn-success py-3" ><i class="fas fa-ban"> Reset</i></a> 
-                        </div>
-                    </div>
-                </form>                
+    <div class="container-fluid p-0">       
+        <div class="border-top border-bottom mb-1 ">
+            <div class="d-flex flex-row-reverse align-items-center px-3 py-2">                
+                <a asp-controller="propietario" asp-action="create" class="btn btn-primary p-2 mx-2 w-25"  >
+                    <i class="fa fa-user-plus"><br> Propietario</i>
+                </a>
             </div>
         </div>
     </div>
     @* @if (Model != null && Model.Any()) *@
     @if (!(Model != null && Model.Any()))
     {
-        <div class="alert alert-warning" role="alert">
-            <p>Lo siento no pudimos encontrar un Propietario  segun su pedido</p>
-            <p>Refine su filtro o cree el mismo </p>
-        </div>
+     <div class="alert alert-warning" role="alert">
+        <p>Lo siento no pudimos encontrar un Propietario  segun su pedido</p>
+        <p>Refine su filtro o cree el mismo </p>
+    </div>
     }
     else
     {
@@ -101,6 +81,6 @@
 @section Scripts {
     @* <script src="~/js/inquilino.js"></script> *@
      <script>
-                                document.querySelector('.hidden-link').style.visibility = 'hidden';
-                            </script>
+        document.querySelector('.hidden-link').style.visibility = 'hidden';
+    </script>
 }
