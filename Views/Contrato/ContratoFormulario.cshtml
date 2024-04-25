@@ -82,29 +82,6 @@
             </div>
         </div>
     </form>
-        <style>
-            .modaljj {                
-                position: fixed;
-                z-index: 1;
-                padding-top: 100px;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                background-color: rgb(0,0,0);
-                background-color: rgba(0,0,0,0.4);
-                z-index: 1005;
-            }
-            .modalmain{
-                background-color: #fefefe;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #888;
-                width: 50%;
-                border-radius: 10px;
-            }
-        </style>
     <div id="modalInquilino" class="modaljj d-none">
         <div class="modalmain">
             <div><h1>Alta Inquilino</h1></div>
@@ -112,27 +89,27 @@
                 <div class="w-100 ">
                     <label for="nombre-inquilino" class="">Nombre Inquilino</label>
                     <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre" name="nombre"
-                        required verfy="text" value="aaa" >
+                        required verfy="text" value="" >
                 </div>
                 <div class="w-100 ">
                     <label for="apellido-inquilino" class="">Apellido Inquilino</label>
                     <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
-                        name="apellido" required verfy="text" value="bbb">
+                        name="apellido" required verfy="text" value="">
                 </div>
                 <div class="w-100 ">
                     <label for="dni-inquilino" class="">Documento Inquilino</label>
                     <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni" required
-                        verfy="number" value="2222"  title="Ingrese un dni valido" >
+                        verfy="number" value=""  title="Ingrese un dni valido" >
                 </div>
                 <div class="w-100 ">
                     <label for="email-inquilino" class="">Email Inquilino</label>
                     <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email" name="email"
-                        title="Ingrese un email valido" required verfy="email" value="aaa@ddd" >
+                        title="Ingrese un email valido" required verfy="email" value="" >
                 </div>
                 <div class="w-100 ">
                     <label for="telefono-inquilino" class="">Telefono Inquilino</label>
                     <input type="text" class="form-control" id="telefono-inquilino" placeholder="Ingrese Telefono" name="telefono"
-                        title="Ingrese un Telefono valido" required verfy="telefono" value="234">
+                        title="Ingrese un Telefono valido" required verfy="telefono" value="">
                 </div>
                 <div class=" d-flex justify-content-around w-100 mt-3 ">
                 <button id="btnSend" class="btn btn-primary my-3 w-25" >Crear inquilino</button>  
