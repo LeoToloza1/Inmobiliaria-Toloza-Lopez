@@ -314,13 +314,12 @@ metodo para obtener todos los Contratos
         }
         return contratos;
     }
-    public Contrato Create(Contrato contrato)
+    public Contrato Create(Contrato contrato, string userId)
     {
         /*validar datos*/
         using (var connection = new MySqlConnection(conexion))
-        {
-            //fecha.ToString("yyyy-MM-dd");
-            string sql = @$" INSERT INTO `contrato` (`id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`,`fecha_efectiva` , `monto`) VALUES (   @{nameof(Contrato.id_inquilino)},@{nameof(Contrato.id_inmueble)}, @{nameof(Contrato.fecha_inicio)}, @{nameof(Contrato.fecha_fin)},  @{nameof(Contrato.fecha_efectiva)}, @{nameof(Contrato.monto)});";
+        {            
+            string sql = @$" INSERT INTO `contrato` (`id_inquilino`, `id_inmueble`, `fecha_inicio`, `fecha_fin`,`fecha_efectiva` , `monto`, `creado_fecha`, `creado_usuario`) VALUES (   @{nameof(Contrato.id_inquilino)},@{nameof(Contrato.id_inmueble)}, @{nameof(Contrato.fecha_inicio)}, @{nameof(Contrato.fecha_fin)},  @{nameof(Contrato.fecha_efectiva)}, @{nameof(Contrato.monto)},now(),@userId);";
             using var command = new MySqlCommand(sql, connection);
             command.Parameters.AddWithValue($"@{nameof(Contrato.id_inquilino)}", contrato.id_inquilino);
             command.Parameters.AddWithValue($"@{nameof(Contrato.id_inmueble)}", contrato.id_inmueble);
@@ -328,6 +327,7 @@ metodo para obtener todos los Contratos
             command.Parameters.AddWithValue($"@{nameof(Contrato.fecha_fin)}", contrato.fecha_fin.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue($"@{nameof(Contrato.fecha_efectiva)}", contrato.fecha_efectiva.ToString("yyyy-MM-dd"));
             command.Parameters.AddWithValue($"@{nameof(Contrato.monto)}", contrato.monto);
+            command.Parameters.AddWithValue($"@userId", userId);
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
@@ -351,13 +351,13 @@ metodo para obtener todos los Contratos
         return null;
     }
 
-    public bool ActualizarContrato(int id, string fecha_fin, decimal monto)
+    public bool ActualizarContrato(int id, string fecha_fin, decimal monto,string userId)
     { //solo se le perimite modificar la fecha de fin - la fecha de efectiva y el monto
         bool respuesta = false;
         using (var connection = new MySqlConnection(conexion))
         {
 
-            var sql = @$"UPDATE contrato SET fecha_fin = @fecha_fin, fecha_efectiva = @fecha_efectiva, monto = @monto WHERE id = @id";
+            var sql = @$"UPDATE contrato SET fecha_fin = @fecha_fin, fecha_efectiva = @fecha_efectiva, monto = @monto, editado_fecha = now(), editado_usuario = @userId  WHERE id = @id";
             using var command = new MySqlCommand(sql, connection);
             {
                 command.Parameters.AddWithValue("@id", id);
