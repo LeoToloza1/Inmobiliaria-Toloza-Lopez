@@ -6,7 +6,7 @@
     string? tipoInmuebleForm = request.Query["tipoInmueble"];
     string? ciudadInmuebleForm = request.Query["ciudadInmueble"];
     string? fechaInicioPedida = string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) ? DateTime.Today.ToString("yyyy-MM-dd") : request.Query["fechaInicioPedida"];
-    string? fechaFinPedida = request.Query["fechaFinPedida"];
+    string? fechaFinPedida = string.IsNullOrEmpty(request.Query["fechaFinPedida"]) ?DateTime.Today.AddYears(1).ToString("yyyy-MM-dd") : request.Query["fechaFinPedida"];
     string? zonaInmuebleForm = request.Query["zonaInmueble"];
     string? paginaActualForm = request.Query["page"];
     int? paginaActual = string.IsNullOrEmpty(paginaActualForm) ? null : (int.TryParse(paginaActualForm, out int  parsedPaginaActual) ? parsedPaginaActual : (int)0);
@@ -151,7 +151,7 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                 @foreach (var inmueble in Model)
                 {
                     <tr>
-                        <td class="text-center">@inmueble.id @inmueble.tipoInmueble?.tipo</td>
+                        <td class="text-center">@inmueble.tipoInmueble?.tipo</td>
                         <td class="text-center">@inmueble.uso</td>
                         <td class="text-center">@inmueble.ambientes</td>
                         <td class="text-center">@inmueble.precio</td>
@@ -183,8 +183,7 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                 }
             </tbody>
         </table>
-    }
-    <div id="mapView" title="Mapa de Google" style="width: 600px; height: 600px;"></div>
+    }   
 
 </div>
 @section Scripts {
