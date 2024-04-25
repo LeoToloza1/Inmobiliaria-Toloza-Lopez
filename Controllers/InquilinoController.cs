@@ -69,10 +69,19 @@ public class InquilinoController : Controller
         // return View("index", lista);
     }
     [Authorize]
+    [HttpGet]
     public IActionResult FindInquilinos(string value)
     {
         RepositorioInquilino rp = new RepositorioInquilino();
         var listaInquilinos = rp.FindInquilinos(value);
         return Json(listaInquilinos);
     }
+    [HttpPost]
+    public IActionResult PostCreate([FromBody] Inquilino inquilino){
+        int id=0;
+        RepositorioInquilino rp = new RepositorioInquilino();
+        id = rp.GuardarInquilinoPost(inquilino);
+        return Json(id);
+    }
+
 }
