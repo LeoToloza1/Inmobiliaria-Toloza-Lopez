@@ -1,12 +1,49 @@
+Date.prototype.addYears = function (years) {
+    let date = new Date(this.valueOf());
+    date.setFullYear(date.getFullYear() + years);
+    return date;
+};
 document.addEventListener('DOMContentLoaded', function () {
+    // elementos seccion modal inquilino
+    const modalInquilino = document.getElementById('modalInquilino');
+    const formInquilino = document.getElementById('formInquilino');
+    const btnSend = document.getElementById('btnSend');
+    const btnCancel = document.getElementById('btnCancel');
+    const urlPostInquilino = "/inquilino/PostCreate";
+
+    // elemntos seccion contrato
     const fechaInicio = document.getElementById('fechaInicio');
-    const fechaActual = new Date().toISOString().split('T')[0];
+    const fechaFin = document.getElementById('fechaFin');
     const inputValor = document.getElementById('valueInquilino');
     const selectInquilino = document.getElementById('idInquilino');
     const contratoEtapa2 = document.getElementById('contratoEtapa2');
     let timeoutId = null;
-    const urlInquilinos = "/inquilino/findinquilinos?value=";
-    fechaInicio.value = fechaActual;
+    const urlGetInquilinos = "/inquilino/findinquilinos?value=";
+
+    // SET FECHAS CONTRATO 
+    fechaInicio.value = new Date().toISOString().split('T')[0];
+    fechaFin.value = new Date().addYears(1).toISOString().split('T')[0];
+
+    // listener botones modal inquilino
+    btnSend.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const formInputs = Array.from(formInquilino.querySelectorAll('input'));
+        const formData = {};
+        formInputs.forEach((input) => {
+            formData[input.name] = input.value;
+        });
+        console.log("Datos a enviar:", formData);
+        registroInquilino(formData);
+    });
+
+    btnCancel.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        modalInquilino.classList.add('d-none');
+    });
+
+    // Listener valores inquilino a buscar,recursivo para cada char
     inputValor.focus();
     inputValor.addEventListener('input', () => {
         selectInquilino.innerHTML = '';
@@ -22,37 +59,33 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-    function findInquilinos(valor) {
-        fetch(urlInquilinos + encodeURIComponent(valor))
+ const    findInquilinos=(valor) =>{
+        fetch(urlGetInquilinos + encodeURIComponent(valor))
             .then(response => {
                 if (!response.ok) {
                     selectInquilino.innerHTML = '';
                     throw new Error('Error al obtener los datos.');
-                }
-                let resp = false;
+                }                
                 try {
-                    //   selectInquilino.innerHTML = '';
-                    resp = response.json();
+                   return  response.json();
                 }
                 catch {
                     console.log('error');
                 }
-                return resp;
+                return false;
             })
             .then(data => {
                 if (data.length === 0) {
-             //      alerta('Inquilinos', "No se econtro Cree uno","error")
-             registroInquilino();
-          //          openD();
+                    modalInquilino.classList.remove('d-none');                     
+                }else{
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.id;
+                        option.text = `${item.apellido}, ${item.nombre}. DNI: ${item.dni} Teléfono: ${item.telefono}`;
+                        selectInquilino.appendChild(option);
+                    });
+                    toggleDisplay(data);
                 }
-                data.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.text = `${item.apellido}, ${item.nombre}. DNI: ${item.dni} Teléfono: ${item.telefono}`;
-                    selectInquilino.appendChild(option);
-                });
-                toggleDisplay(data);
             })
             .catch(error => {
                 selectInquilino.innerHTML = '';
@@ -65,7 +98,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 selectInquilino.classList.add("d-none");
             });
     }
+const registroInquilino = (formData) => {
+    fetch(urlPostInquilino, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)        
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al crear el inquilino.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data > 0){             
+                    const option = document.createElement('option');
+                    option.value = data;
+                    option.text = `${formData.apellido}, ${formData.nombre}. DNI: ${formData.dni} Teléfono: ${formData.telefono}`;
+                    console.log('Inquilino creado:', formData, data);
+                    selectInquilino.appendChild(option);  
+                    selectInquilino.classList.remove("d-none");
+                    contratoEtapa2.classList.remove("d-none");   
+                    modalInquilino.classList.add('d-none');           
 
+            console.log('Inquilino creado:', formData, data);
+            alerta('Inquilino', 'Inquilino creado con exito')
+            modalInquilino.classList.add('d-none');
+            }else{
+                console.log('Inquilino NO creado:', formData, data);
+            }
+        })
+}
     function toggleDisplay(data) {
         //const selectInquilino = document.getElementById('idInquilino');
         if (data.length > 0) {
@@ -77,118 +142,4 @@ document.addEventListener('DOMContentLoaded', function () {
             contratoEtapa2.classList.add("d-none");
         }
     }
-
-
-
-
-
-function  registroInquilino(){
-    Swal.fire({
-        title: "Nuevo Inquilino",
-        html:`
-        <div class="w-100 ">
-        <div class="w-100 ">
-            <label for="nombre-inquilino" class="">Nombre Inquilino</label>
-            <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre" name="nombre"
-                required verfy="text" value="" >
-        </div>
-        <div class="w-100 ">
-            <label for="apellido-inquilino" class="">Apellido Inquilino</label>
-            <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
-                name="apellido" required verfy="text" value="">
-        </div>
-        <div class="w-100 ">
-            <label for="dni-inquilino" class="">Documento Inquilino</label>
-            <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni" required
-                verfy="number" value=""  title="Ingrese un dni valido" >
-        </div>
-        <div class="w-100 ">
-            <label for="email-inquilino" class="">Email Inquilino</label>
-            <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email" name="email"
-                title="Ingrese un email valido" required verfy="email" value="" >
-        </div>
-        <div class="w-100 ">
-            <label for="telefono-inquilino" class="">Telefono Inquilino</label>
-            <input type="text" class="form-control" id="telefono-inquilino" placeholder="Ingrese Telefono" name="telefono"
-                title="Ingrese un Telefono valido" required verfy="telefono" value="">
-        </div>
-    </div>   
-        `,
-        showCancelButton: true,
-        cancelButtonText:"Cerrar",
-        confirmButtonText: "GUARDAR",
-        showLoaderOnConfirm: true,
-        preConfirm: async (login) => {
-            try {
-                const githubUrl = ` https://api.github.com/users/${login} `;
-                const response = await fetch(githubUrl);
-                if (!response.ok) {
-                return Swal.showValidationMessage(`
-                    ${JSON.stringify(await response.json())}
-                `);
-                }
-                console.log("mierda");
-                return response.json();
-            } 
-            catch (error) {
-                Swal.showValidationMessage(`
-                Request failed: ${error}
-                `);
-            }
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: `${result.value.login}'s avatar`,
-            imageUrl: result.value.avatar_url
-          });
-        }
-      });
-}   
-
 });
-
-Swal.fire({
-    title: "Submit your Github username",
-    input: "text",
-    inputAttributes: {
-      autocapitalize: "off"
-    },
-    showCancelButton: true,
-    confirmButtonText: "Look up",
-    showLoaderOnConfirm: true,
-    preConfirm: 
-    async (login) => {
-      try {
-        const githubUrl = ` https://api.github.com/users/${login} `;
-        const response = await fetch(githubUrl);
-        if (!response.ok) {
-          return Swal.showValidationMessage(`
-            ${JSON.stringify(await response.json())}
-          `);
-        }
-        console.log("mierda");
-
-        return response.json();
-
-      } catch (error) {
-        Swal.showValidationMessage(`
-          Request failed: ${error}
-        `);
-      }
-
-    
-    },
-    allowOutsideClick: () => !Swal.isLoading()
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: `${result.value.login}'s avatar`,
-        imageUrl: result.value.avatar_url
-      });
-    }
-  });
-
-
-  
