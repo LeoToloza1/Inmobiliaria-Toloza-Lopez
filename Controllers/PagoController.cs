@@ -151,5 +151,15 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             return View("CancelarPago");
         }
 
+        [Authorize(Roles = "administrador")]
+        [HttpGet]
+        public IActionResult Auditoria()
+        {
+            IList<Pago> listaPagos = repositorioPago.AuditoriaPago();
+            return View("AuditoriaPago", listaPagos);
+        }
+
+
+
     }
 }
