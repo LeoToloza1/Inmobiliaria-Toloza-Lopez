@@ -3,7 +3,6 @@ using inmobiliaria_Toloza_Lopez.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
-
 public class InmuebleController : Controller
 {
   private readonly RepositorioInmueble _repositorioInmueble;
@@ -91,7 +90,7 @@ public class InmuebleController : Controller
       rp.GuardarInmueble(inmueble, userId);
       return RedirectToAction("Index");
     }
-    return View(inmueble);
+    return View(inmueble);  
   }
   [Authorize]
   [HttpPost]

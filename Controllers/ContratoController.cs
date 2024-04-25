@@ -66,8 +66,8 @@ public class ContratoController : Controller
     /** save neuvo contrtato **/
     public IActionResult Save(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes)
     {
+        string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
         DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
-
         if (fechaInicio >= fechaFin)
         {
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
@@ -91,7 +91,7 @@ public class ContratoController : Controller
         {
             if (repositorioContrato.VerifyInmuebleContrato(contrato.fecha_inicio.ToString("yyyy-MM-dd"), contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.id_inmueble))
             {
-                repositorioContrato.Create(contrato);
+                repositorioContrato.Create(contrato,userId);
                 TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato creado correctamente</div>";
                 return Redirect("/contrato");
             }
@@ -110,8 +110,6 @@ public class ContratoController : Controller
             return Redirect(@$"/contrato/create/{contrato.id_inmueble}");
         }
     }
-
-
 
     [Authorize]
     /* listado contratos para un inmueble*/
@@ -181,7 +179,7 @@ public class ContratoController : Controller
     public IActionResult renovar(int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes, int id)
     {
         DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
-
+        string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
         if (fechaInicio >= fechaFin)
         {
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
@@ -205,7 +203,7 @@ public class ContratoController : Controller
         {
             if (repositorioContrato.VerifyInmuebleContrato(contrato.fecha_inicio.ToString("yyyy-MM-dd"), contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.id_inmueble))
             {
-                repositorioContrato.Create(contrato);
+                repositorioContrato.Create(contrato,userId);
                 TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato creado correctamente</div>";
                 return Redirect("/contrato");
             }
@@ -225,7 +223,6 @@ public class ContratoController : Controller
         }
     }
     /** edicion **/
-
     [Authorize]
     [HttpGet]
     public IActionResult Editar(int id)
@@ -243,6 +240,7 @@ public class ContratoController : Controller
     public IActionResult EditarContrato(int id, int idInquilino, int idInmueble, DateOnly fechaInicio, DateOnly fechaFin, string montoMes)
     {
         DateOnly fechaHoy = DateOnly.FromDateTime(DateTime.Now);
+        string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
         if (fechaInicio >= fechaFin)
         {
             TempData["mensaje"] = "<div class=\"alert alert-warning px-5 mt-4\" role=\"alert\">  No pudo Crearse  Contrato. La fecha Fin " + fechaFin + " debe ser mayor que la fecha Inicio " + fechaInicio + " </div>";
@@ -261,10 +259,9 @@ public class ContratoController : Controller
         contrato.fecha_efectiva = fechaFin;
         contrato.monto = decimal.Parse(montoMes);
         RepositorioContrato repositorioContrato = new RepositorioContrato();
-
         try
         {
-            if (repositorioContrato.ActualizarContrato(id, contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.monto))
+            if (repositorioContrato.ActualizarContrato(id, contrato.fecha_fin.ToString("yyyy-MM-dd"), contrato.monto, userId))
             {
                 TempData["mensaje"] = "<div class=\"alert alert-success px-5 mt-4\" role=\"alert\">  Contrato Modificado correctamente</div>";
                 return Redirect("/contrato");
@@ -284,7 +281,6 @@ public class ContratoController : Controller
             return Redirect(@$"/contrato/Editar/{contrato.id_inmueble}");
         }
     }
-
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
