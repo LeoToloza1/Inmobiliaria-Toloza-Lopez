@@ -32,5 +32,6 @@ inputsRadio.forEach((inputRadio) => {
     })
 })
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('fechaInicio').value = new Date().toISOString().split('T')[0];
+   // document.getElementById('fechaInicio').value = new Date().toISOString().split('T')[0];
+   // document.getElementById('fechaFin').value =  new Date().addYears(1).toISOString().split('T')[0];
 });

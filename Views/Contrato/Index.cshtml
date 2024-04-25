@@ -4,12 +4,12 @@
    // string? fechaInicioPedida = string.IsNullOrEmpty(request.Query["fechaInicioPedida"]) ? DateTime.Today.ToString("yyyy-MM-dd") : request.Query["fechaInicioPedida"];
     string? fechaInicioPedida = request.Query["fechaInicioPedida"];
     string? fechaFinPedida = request.Query["fechaFinPedida"];    
-   string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"])?"" : request.Query["contratoVence"];
+    string? contratoVence = string.IsNullOrEmpty(request.Query["contratoVence"])?"" : request.Query["contratoVence"];
     string? precioInmuebleValor=null;
     string? urlLimpia = Url.Action("", new { });
-    ViewData["Title"] = "Inicio";
-    
+    ViewData["Title"] = "Inicio";    
     var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    string hiddenlink = "hidden-link";
 }
 <div class="text-center">
     <h1 class="display-4">Listado de Contratos</h1>
@@ -89,9 +89,11 @@
         <tbody>
             @foreach (var contrato in Model)
             {
+                @if(contrato.debeRenovar()){ hiddenlink=""; }else{ hiddenlink="hidden-link"; };
+
                 <tr>
                     <td class="text-center">
-                        @contrato.inmueble.id @contrato.fecha_inicio
+                        @contrato.fecha_inicio
                     </td>
                     <td class="text-center">
                         @contrato.fecha_fin
@@ -135,14 +137,16 @@
                             asp-action="cancel"
                             asp-route-id="@contrato.id" title="Cancelar contrato">
                             <i class="fas fa-file-excel mx-2"> Cancelar</i>
-                        </a>            
-                        <a class="btn btn-success mx-2 @(contrato.estaVencido() || !contrato.debeRenovar() ? "hidden-link" : "")" 
+                        </a>
+                        <span class="w-25">
+                        <a class="btn btn-success mx-2 @hiddenlink" 
                             asp-controller="contrato" 
                             asp-action="renovar"  
                             asp-route-id="@contrato.id" 
                             title="Renovar contrato">
                                 <i class="fas fa-file-signature mx-2"> Renovar</i>
-                        </a>                                    
+                        </a> 
+                       </span>                                                             
                     </td>
                 </tr>
             }
@@ -158,6 +162,10 @@
 @section Scripts {
     @* <script src="~/js/inquilino.js"></script> *@
     <script>
-        document.querySelector('.hidden-link').style.visibility = 'hidden';
+        
+        
+        document.querySelectorAll('.hidden-link').forEach(element => {
+            element.style.display = 'none'; 
+        });
     </script>
 }

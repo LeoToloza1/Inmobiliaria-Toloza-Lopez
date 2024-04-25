@@ -29,7 +29,9 @@ public class InmuebleController : Controller
   [HttpGet]
   public IActionResult Index(int page = 1, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "", string fechaInicioPedida = "", string fechaFinPedida = "")
   {
-    
+      DateOnly hoy= DateOnly.FromDateTime(DateTime.Now);
+    fechaInicioPedida = (fechaInicioPedida=="")?  hoy.ToString("yyyy-MM-dd") : fechaInicioPedida;
+    fechaFinPedida = (fechaFinPedida=="")?  hoy.AddYears(1).ToString("yyyy-MM-dd") : fechaInicioPedida;
     ViewBag.query = "usoinmueble " + usoInmueble + ", precioinmueble " + precioInmueble + ", tipoinmueble " + tipoInmueble + ", ciudadinmueble " + ciudadInmueble + ", zonainmueble " + zonaInmueble + "fechaInicioPedida" + fechaInicioPedida + "fechaFinPedida" + fechaFinPedida;
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
