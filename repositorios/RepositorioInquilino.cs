@@ -212,4 +212,33 @@ metodo para guardar un nuevo inquilino en la base de datos
         return inquilinos;
     }
 
+    public int GuardarInquilinoPost(Inquilino inquilino)
+    {
+        int id = 0;
+        using (var connection = new MySqlConnection(Conexion.GetConnectionString()))
+        {
+            string sql = @"INSERT INTO 
+                            inquilino (`nombre`, `apellido`, `dni`, `email`, `telefono`, `borrado`)
+                            VALUES (@Nombre, @Apellido, @DNI, @Email, @Telefono, '0');
+                            SELECT LAST_INSERT_ID();";
+            using var command = new MySqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@Nombre", inquilino.nombre);
+            command.Parameters.AddWithValue("@Apellido", inquilino.apellido);
+            command.Parameters.AddWithValue("@DNI", inquilino.dni);
+            command.Parameters.AddWithValue("@Email", inquilino.email);
+            command.Parameters.AddWithValue("@Telefono", inquilino.telefono);        
+            try
+            {
+                connection.Open();
+                id = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+            Console.WriteLine("Error al guardar inquilino: " + ex.Message);
+            return -1;
+            }
+        }
+        return id;
+    }
+
 }
