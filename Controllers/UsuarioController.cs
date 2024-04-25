@@ -21,10 +21,11 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             hostingEnvironment = _hostingEnvironment;
         }
 
-        [Authorize]
+        [Authorize(Roles = "administrador")]
         public IActionResult PerfilUsuario(int id)
         {
             Usuario? user = repositorioUsuario.GetUsuario(id);
+
             return View("Perfil", user);
         }
 
@@ -34,11 +35,6 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             Usuario? user = repositorioUsuario.GetUsuarioPorEmail(userEmail);
-            var userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
-            if (userRol == "administrador")
-            {
-                return View("perfilAdmin", user);
-            }
             return View("Perfil", user);
         }
         [Authorize]
