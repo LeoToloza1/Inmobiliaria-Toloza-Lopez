@@ -39,14 +39,21 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return pagos;
         }
-        public Pago? GuardarPago(Pago pago)
+
+        /// <summary>
+        /// Guarda un objeto Pago en la base de datos con el ID de usuario dado.
+        /// </summary>
+        /// <param name="pago">El objeto Pago a guardar.</param>
+        /// <param name="userId">El ID del usuario que realiza la operación de guardado.</param>
+        /// <returns>El objeto Pago guardado, o null si ocurrió un error.</returns>
+        public Pago? GuardarPago(Pago pago, string userId)
         {
             try
             {
                 using (var connection = new MySqlConnection(conexion))
                 {
-                    var sql = @$"INSERT INTO pago (`{nameof(Pago.id_contrato)}`, `{nameof(Pago.importe)}`,`{nameof(Pago.estado)}`, `{nameof(Pago.numero_pago)}`, `{nameof(Pago.detalle)}`)
-                    VALUES (@id_contrato, @importe, @estado, @numero_pago, @detalle)";
+                    var sql = @$"INSERT INTO pago (`{nameof(Pago.id_contrato)}`, `{nameof(Pago.importe)}`,`{nameof(Pago.estado)}`, `{nameof(Pago.numero_pago)}`, `{nameof(Pago.detalle)}`, `creado_usuario`, `creado_fecha`)
+                    VALUES (@id_contrato, @importe, @estado, @numero_pago, @detalle, @userId, now());";
                     using (var command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@id_contrato", pago.id_contrato);
@@ -54,6 +61,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                         command.Parameters.AddWithValue("@estado", pago.estado);
                         command.Parameters.AddWithValue("@numero_pago", pago.numero_pago);
                         command.Parameters.AddWithValue("@detalle", pago.detalle);
+                        command.Parameters.AddWithValue("@userId", userId);
                         connection.Open();
                         command.ExecuteNonQuery();
                     }
@@ -306,17 +314,24 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return pago;
         }
 
-        public bool EditarPago(Pago pago)
+        // Actualiza un pago en la base de datos con el nuevo importe y detalles. 
+        // Parámetros:
+        //   pago: El objeto de pago que contiene la información del pago actualizada.
+        //   userId: El ID del usuario que realiza la edición.
+        // Retorna:
+        //   Un booleano que indica si la operación de actualización fue exitosa.
+        public bool EditarPago(Pago pago, string userId)
         {
             using (var connection = new MySqlConnection(conexion))
             {
                 connection.Open();
-                var sql = "UPDATE pago SET importe = @importe, detalle = @detalle WHERE id = @id";
+                var sql = "UPDATE pago SET importe = @importe, detalle = @detalle, editado_usuario = @userId, editado_fecha = now() WHERE id = @id";
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@id", pago.id);
                     command.Parameters.AddWithValue("@importe", pago.importe);
                     command.Parameters.AddWithValue("@detalle", pago.detalle);
+                    command.Parameters.AddWithValue("@userId", userId);
                     return command.ExecuteNonQuery() > 0;
                 }
             }

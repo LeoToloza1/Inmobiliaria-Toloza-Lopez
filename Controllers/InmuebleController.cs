@@ -3,7 +3,6 @@ using inmobiliaria_Toloza_Lopez.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace inmobiliaria_Toloza_Lopez.Controllers;
-
 public class InmuebleController : Controller
 {
   private readonly RepositorioInmueble _repositorioInmueble;
@@ -30,6 +29,7 @@ public class InmuebleController : Controller
   [HttpGet]
   public IActionResult Index(int page = 1, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "", string fechaInicioPedida = "", string fechaFinPedida = "")
   {
+    
     ViewBag.query = "usoinmueble " + usoInmueble + ", precioinmueble " + precioInmueble + ", tipoinmueble " + tipoInmueble + ", ciudadinmueble " + ciudadInmueble + ", zonainmueble " + zonaInmueble + "fechaInicioPedida" + fechaInicioPedida + "fechaFinPedida" + fechaFinPedida;
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
@@ -69,6 +69,7 @@ public class InmuebleController : Controller
   [HttpGet]
   public IActionResult Edit(int id)
   {
+
     var inmueble = _repositorioInmueble.GetInmueble(id);
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
@@ -82,27 +83,30 @@ public class InmuebleController : Controller
   [HttpPost]
   public IActionResult Nuevo(Inmueble inmueble)
   {
+    string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
     var rp = _repositorioInmueble;    
     if (ModelState.IsValid)
     {
-      rp.GuardarInmueble(inmueble);
+      rp.GuardarInmueble(inmueble, userId);
       return RedirectToAction("Index");
     }
-    return View(inmueble);
+    return View(inmueble);  
   }
   [Authorize]
   [HttpPost]
   public IActionResult Update(Inmueble inmueble)
   {
+    string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
     var rp = _repositorioInmueble;
-    rp.ActualizarInmueble(inmueble);
+    rp.ActualizarInmueble(inmueble, userId);
     return RedirectToAction("Index");
   }
   [Authorize(Roles = "administrador")]
   public IActionResult Delete(int id)
   {
+    string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;    
     var rp = _repositorioInmueble;
-    rp.EliminarInmueble(id);
+    rp.EliminarInmueble(id, userId);
     return RedirectToAction("Index");
   }
 [Authorize]

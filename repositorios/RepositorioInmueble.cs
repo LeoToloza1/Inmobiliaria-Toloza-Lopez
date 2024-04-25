@@ -378,7 +378,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return inmueble;
         }
 
-        public bool GuardarInmueble(Inmueble inmueble)
+        public bool GuardarInmueble(Inmueble inmueble,string userId)
         {
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
@@ -407,7 +407,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             return respuesta;
         }
 
-        public bool ActualizarInmueble(Inmueble inmueble)
+        public bool ActualizarInmueble(Inmueble inmueble, string userId)
         {
             bool respuesta = true;
             Inmueble? casa = GetInmueble(inmueble.id);
@@ -442,7 +442,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
             return respuesta;
         }
-        public bool EliminarInmueble(int id)
+        public bool EliminarInmueble(int id,string userId)
         {
             bool respuesta = false;
             using (var connection = new MySqlConnection(conexion))
