@@ -136,7 +136,7 @@
                             asp-route-id="@contrato.id" title="Cancelar contrato">
                             <i class="fas fa-file-excel mx-2"> Cancelar</i>
                         </a>            
-                        <a class="btn btn-success mx-2 @(contrato.estaVencido() || !contrato.debeRenovar() ? "d-none" : "")" 
+                        <a class="btn btn-success mx-2 @(contrato.estaVencido() || !contrato.debeRenovar() ? "hidden-link" : "")" 
                             asp-controller="contrato" 
                             asp-action="renovar"  
                             asp-route-id="@contrato.id" 
@@ -157,4 +157,7 @@
 </div>
 @section Scripts {
     @* <script src="~/js/inquilino.js"></script> *@
+    <script>
+        document.querySelector('.hidden-link').style.visibility = 'hidden';
+    </script>
 }
