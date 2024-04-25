@@ -42,6 +42,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         [HttpGet]
         public IActionResult Registrar(int id)
         {
+
             var contrato = repositorioContrato.GetContrato(id);
             int numero_pago = repositorioPago.obtenerUltimoPago(id);
             numero_pago += 1;
@@ -62,8 +63,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 TempData["mensaje"] = "No se pudo guardar el pago, intente de nuevo";
                 return RedirectToAction("VistaAsignarPago");
             }
-
-            Pago? pagoGuardado = repositorioPago.GuardarPago(pago);
+            string? userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;
+            Pago? pagoGuardado = repositorioPago.GuardarPago(pago, userId);
 
             if (pagoGuardado == null)
             {
@@ -81,14 +82,14 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 return RedirectToAction("CancelarPago");
             }
             DateOnly fecha1 = DateOnly.Parse(fechaEfectiva).AddMonths(1);
-            DateOnly date = new DateOnly(fecha1.Year, fecha1.Month,01).AddDays(-1);
+            DateOnly date = new DateOnly(fecha1.Year, fecha1.Month, 01).AddDays(-1);
             fechaEfectiva = date.ToString("yyyy-MM-dd");
-
+            string? userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;
             try
             {
                 using (var scope = new TransactionScope())
                 {
-                    Pago pagoGuardado = repositorioPago.GuardarPago(pago);
+                    Pago pagoGuardado = repositorioPago.GuardarPago(pago, userId);
                     repositorioContrato.SetFinContrato(pago.id_contrato, fechaEfectiva);
                     scope.Complete();
                     return RedirectToAction("listarPagos", "Pago");
@@ -119,7 +120,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             }
             else
             {
-                if (repositorioPago.EditarPago(pago))
+                string? userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;
+                if (repositorioPago.EditarPago(pago, userId))
                 {
                     TempData["mensaje"] = "Pago editado correctamente";
                 }

@@ -1,8 +1,9 @@
 ﻿@{
     var userName = User?.Identity?.Name;
-    var avatarUrl = User.Identity.IsAuthenticated ?
-    ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
+    string userId = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("userId")?.Value : null;
+    var avatarUrl = User.Identity.IsAuthenticated ? ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst("AvatarUrl")?.Value : null;
     var userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+    
 }
 
 <!DOCTYPE html>
@@ -29,7 +30,8 @@
                     style="opacity: .8">
                 <span class="brand-text font-weight-light">Inmobiliara T & L</span>
             </a>
-            <div class="sidebar">
+            <div class="sidebar">               
+                <a asp-controller="Usuario" asp-action="Perfil" class="d-block">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @{
@@ -46,9 +48,10 @@
                         }
                     </div>
                     <div class="info">
-                        <a asp-controller="Usuario" asp-action="Perfil" class="d-block">@userName</a>
+                        @userName
                     </div>
                 </div>
+                </a>
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">

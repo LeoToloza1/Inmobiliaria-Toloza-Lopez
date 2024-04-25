@@ -47,7 +47,8 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 return View();
             }
             // Obtener el usuario por su correo electrónico
-            Usuario? user = repositorioUsuario.GetUsuarioPorEmail(email);
+            Usuario? user = repositorioUsuario.GetUsuarioPorEmail(email);            
+
             // Verificar si se encontró un usuario con el correo electrónico proporcionado
             if (user == null)
             {
@@ -58,12 +59,14 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
             bool loginSuccessful = repositorioUsuario.CompararPassword(password, email);
             if (loginSuccessful)
             {
+
                 var claims = new List<Claim>
                     {
                         new(ClaimTypes.Name, user.nombre),
                         new(ClaimTypes.Role, user.rol),
-                        new(ClaimTypes.Email, user.email),
+                        new(ClaimTypes.Email, user.email),                     
                     };
+                claims.Add(new Claim("userId", user.id.ToString()));    
                 if (!string.IsNullOrEmpty(user.avatarUrl))
                 {
                     claims.Add(new Claim("AvatarUrl", user.avatarUrl));
