@@ -153,11 +153,10 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
 
         [Authorize(Roles = "administrador")]
         [HttpGet]
-        public IActionResult Auditoria(int id_usuario)
+        public IActionResult Auditoria()
         {
-            Pago pagoAuditado = repositorioPago.AuditoriaPago(id_usuario);
-
-            return View("AuditoriaPago", pagoAuditado);
+            IList<Pago> listaPagos = repositorioPago.AuditoriaPago();
+            return View("AuditoriaPago", listaPagos);
         }
 
 

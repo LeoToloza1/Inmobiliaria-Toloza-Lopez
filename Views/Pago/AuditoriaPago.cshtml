@@ -1,6 +1,42 @@
-@model Pago
+@model IEnumerable<Pago>
 @{
     ViewData["Title"] = "Auditoría de pagos";
 }
 
-<h1>Auditoria</h1>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h1>Listado de pagos creados</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Datos del Contrato</th>
+                        <th>Fecha de Pago</th>
+                        <th>Importe</th>
+                        <th>Número de Pago</th>
+                        <th>Detalle</th>
+                        <th>Creado por</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pago in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>Dirección:</strong> @pago.Contrato.inmueble.direccion <br />
+                                <strong>Uso:</strong> @pago.Contrato.inmueble.uso <br />
+                                <strong>Tipo:</strong> @pago.Contrato.inmueble.tipoInmueble.tipo
+                            </td>
+                            <td>@pago.fecha_pago.ToShortDateString()</td>
+                            <td>@pago.importe</td>
+                            <td>@pago.numero_pago</td>
+                            <td>@pago.detalle</td>
+                            <td>@pago.creado_usuario.nombre @pago.creado_usuario.apellido - @pago.creado_usuario.email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
