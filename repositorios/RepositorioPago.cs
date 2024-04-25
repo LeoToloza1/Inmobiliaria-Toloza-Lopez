@@ -337,6 +337,39 @@ namespace inmobiliaria_Toloza_Lopez.Models
             }
         }
 
+        public Pago AuditoriaPago(int idUsuario)
+        {
+            Pago pago = null;
+            using (var connection = new MySqlConnection(conexion))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("auditoria_pagos", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@usuario_id", idUsuario);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        pago.id = Convert.ToInt32(reader["id"]);
+                        pago.id_contrato = Convert.ToInt32(reader["id_contrato"]);
+                        pago.fecha_pago = new DateOnly(reader.GetDateTime("fecha_pago").Year, reader.GetDateTime("fecha_pago").Month, reader.GetDateTime("fecha_pago").Day);
+                        pago.importe = Convert.ToDecimal(reader["importe"]);
+                        pago.numero_pago = Convert.ToInt32(reader["numero_pago"]);
+                        pago.detalle = reader.IsDBNull(reader.GetOrdinal("detalle")) ? null : reader.GetString("detalle");
+                        pago.creado_usuario = new Usuario
+                        {
+                            id = Convert.ToInt32(reader["creado_usuario"]),
+                            nombre = reader["nombre"].ToString(),
+                            apellido = reader["apellido"].ToString(),
+                            email = reader["email"].ToString()
+                        };
+                    }
+                    connection.Close();
+                }
+            }
+            return pago;
+        }
+
 
     }
 }
