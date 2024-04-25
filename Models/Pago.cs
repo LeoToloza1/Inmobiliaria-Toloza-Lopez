@@ -10,6 +10,11 @@ namespace inmobiliaria_Toloza_Lopez.Models
         public int numero_pago { get; set; }
         public string? detalle { get; set; }
         public Contrato? Contrato { get; set; }
+        public DateOnly fecha_creado { get; set; }
+        public DateOnly fecha_editado { get; set; }
+        public Usuario? creado_usuario { get; set; }
+        public Usuario? editado_usuario { get; set; }
 
     }
 }
+
