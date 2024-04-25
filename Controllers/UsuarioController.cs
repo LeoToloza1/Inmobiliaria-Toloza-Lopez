@@ -34,6 +34,11 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
         {
             var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             Usuario? user = repositorioUsuario.GetUsuarioPorEmail(userEmail);
+            var userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+            if (userRol == "administrador")
+            {
+                return View("perfilAdmin", user);
+            }
             return View("Perfil", user);
         }
         [Authorize]
@@ -49,7 +54,7 @@ namespace inmobiliaria_Toloza_Lopez.Controllers
                 Directory.CreateDirectory(folderPath);
             }
             if (usuario.password != null && usuario.password.Trim() != "")
-            {  
+            {
                 user.password = HashPass.HashearPass(usuario.password);
             }
             if (avatarFile != null)
