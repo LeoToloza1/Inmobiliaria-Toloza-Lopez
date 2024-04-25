@@ -1,23 +1,22 @@
-﻿
-@model inmobiliaria_Toloza_Lopez.Models.Inquilino
-
+﻿@model inmobiliaria_Toloza_Lopez.Models.Inquilino
 @{
-    ViewData["Title"] = "Inicio"; 
-    int id=0;
-    var nombre="";
-    var apellido="";
-    var dni="";
-    var email="";
-    var telefono="";
-    var verbo="save";
-    if(ViewBag.tipoForm == "Editando Inquilino"){
-        id=Model.id;
-        nombre=Model.nombre;
-        apellido=Model.apellido;
-        dni=Model.dni;
-        email=Model.email;
-        telefono =Model.telefono;
-        verbo=ViewBag.verboForm;            
+    ViewData["Title"] = "Inquilino";
+    int id = 0;
+    var nombre = "";
+    var apellido = "";
+    var dni = "";
+    var email = "";
+    var telefono = "";
+    var verbo = "save";
+    if (ViewBag.tipoForm == "Editando Inquilino")
+    {
+        id = Model.id;
+        nombre = Model.nombre;
+        apellido = Model.apellido;
+        dni = Model.dni;
+        email = Model.email;
+        telefono = Model.telefono;
+        verbo = ViewBag.verboForm;
     }
 }
 
@@ -25,32 +24,33 @@
     <div class="text-center">
         <h1 class="display-3">@ViewBag.tipoForm</h1>
     </div>
-    <form  asp-action="@verbo" asp-controller="inquilino" asp-route-id="@(((int)id != 0) ? (int)id : "")">
+    <form id="FormInquilino" asp-action="@verbo" asp-controller="inquilino"
+        asp-route-id="@(((int)id != 0) ? (int)id : "")">
         <div class="w-100 m-5">
             <div class="w-75 m-5">
                 <label for="nombre-inquilino" class="">Nombre Inquilino</label>
                 <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre" name="nombre"
-                    required verfy="text" value="@nombre">
+                    required value="@nombre">
             </div>
             <div class="w-75 m-5">
                 <label for="apellido-inquilino" class="">Apellido Inquilino</label>
                 <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
-                    name="apellido" required verfy="text" value="@apellido">
+                    name="apellido" required value="@apellido">
             </div>
             <div class="w-75 m-5">
                 <label for="dni-inquilino" class="">Documento Inquilino</label>
-                <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni" required
-                    verfy="number" value="@dni"  title="Ingrese un dni valido" >
+                <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni"
+                    required value="@dni" title="Ingrese un dni valido">
             </div>
             <div class="w-75 m-5">
                 <label for="email-inquilino" class="">Email Inquilino</label>
                 <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email" name="email"
-                    title="Ingrese un email valido" required verfy="email" value="@email" >
+                    required value="@email">
             </div>
             <div class="w-75 m-5">
                 <label for="telefono-inquilino" class="">Telefono Inquilino</label>
-                <input type="text" class="form-control" id="telefono-inquilino" placeholder="Ingrese Telefono" name="telefono"
-                    title="Ingrese un Telefono valido" required verfy="telefono" value="@telefono">
+                <input type="text" class="form-control" id="telefono-inquilino" placeholder="Ingrese Telefono"
+                    name="telefono" required value="@telefono">
             </div>
         </div>
         <div class="modal-footer  justify-content-around">
@@ -58,10 +58,102 @@
                 Cerrar
             </a>
             <button type="reset" class="btn btn-warning">Borrar</button>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-primary" id="enviarBtn">Enviar</button>
         </div>
     </form>
 </div>
 @section Scripts {
-    <script src="~/js/inquilino.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function showAlert(message) {
+                Swal.fire({
+                    title: 'Error',
+                    text: message,
+                    icon: 'error'
+                });
+            }
+
+            function showConfirmation(message, callback) {
+                Swal.fire({
+                    title: 'Confirmar',
+                    text: message,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        callback();
+                    }
+                });
+            }
+
+            function validateNombre() {
+                const nombreInput = document.getElementById("nombre-inquilino");
+                if (nombreInput.value.trim().length < 3) {
+                    showAlert("El nombre debe tener al menos 3 caracteres");
+                    return false;
+                }
+                return true;
+            }
+
+            function validateApellido() {
+                const apellidoInput = document.getElementById("apellido-inquilino");
+                if (apellidoInput.value.trim().length < 3) {
+                    showAlert("El apellido debe tener al menos 3 caracteres");
+                    return false;
+                }
+                return true;
+            }
+
+            function validateDNI() {
+                const dniInput = document.getElementById("dni-inquilino");
+                if (dniInput.value.trim().length < 10 || isNaN(dniInput.value.trim())) {
+                    showAlert("El DNI debe tener al menos 10 caracteres y ser un número");
+                    return false;
+                }
+                return true;
+            }
+
+            function validateEmail() {
+                const emailInput = document.getElementById("email-inquilino");
+                if (!emailInput.value.trim()) {
+                    showAlert("Por favor, ingrese un email válido");
+                    return false;
+                }
+                return true;
+            }
+
+            function validateTelefono() {
+                const telefonoInput = document.getElementById("telefono-inquilino");
+                if (telefonoInput.value.trim().length < 8 || isNaN(telefonoInput.value.trim())) {
+                    showAlert("El teléfono debe tener al menos 8 caracteres y ser un número");
+                    return false;
+                }
+                return true;
+            }
+
+            function validateForm() {
+                return validateNombre() && validateApellido() && validateDNI() && validateEmail() && validateTelefono();
+            }
+
+            const enviarBtn = document.getElementById("enviarBtn");
+            enviarBtn.addEventListener("click", function () {
+                if (validateForm()) {
+                    showConfirmation("¿Estás seguro de guardar el usuario?", function () {
+                        document.getElementById("FormInquilino").submit();
+                    });
+                }
+            });
+
+            const borrarBtn = document.querySelector("button[type='reset']");
+            borrarBtn.addEventListener("click", function () {
+                showConfirmation("¿Estás seguro de que deseas borrar el formulario?", function () {
+                    document.getElementById("FormInquilino").reset();
+                });
+            });
+        });
+    </script>
 }
