@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2024 a las 14:50:19
+-- Tiempo de generación: 25-04-2024 a las 17:26:53
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -388,6 +388,10 @@ CREATE TABLE IF NOT EXISTS `ciudad` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONES PARA LA TABLA `ciudad`:
+--
+
+--
 -- Volcado de datos para la tabla `ciudad`
 --
 
@@ -422,7 +426,15 @@ CREATE TABLE IF NOT EXISTS `contrato` (
   KEY `contrato_inmueble_idx` (`id_inmueble`),
   KEY `contrato_inquilino_idx` (`id_inquilino`),
   KEY `fecha_inicio` (`fecha_inicio`,`fecha_fin`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `contrato`:
+--   `id_inmueble`
+--       `inmueble` -> `id`
+--   `id_inquilino`
+--       `inquilino` -> `id`
+--
 
 --
 -- Volcado de datos para la tabla `contrato`
@@ -432,7 +444,8 @@ INSERT INTO `contrato` (`id`, `id_inquilino`, `id_inmueble`, `fecha_inicio`, `fe
 (1, 1, 1, '2023-04-23', '2024-04-30', '2024-04-30', '1500.00', 0, '2024-04-23 01:47:34', 0, '2024-04-24 16:31:44', 0, 0, NULL),
 (2, 3, 1, '2023-04-23', '2025-04-23', '2025-04-23', '23425.00', 0, '2024-04-23 01:49:19', 0, '2024-04-23 01:53:57', 0, 0, NULL),
 (3, 1, 1, '2024-04-26', '2025-04-25', '2025-04-25', '2500.00', 0, '2024-04-23 02:04:46', 0, '2024-04-23 02:04:46', 0, 0, NULL),
-(4, 4, 3, '2024-04-25', '2024-04-30', '2024-04-30', '1000.00', 0, '2024-04-24 22:10:10', 0, NULL, 0, NULL, NULL);
+(4, 4, 3, '2024-04-25', '2024-04-30', '2024-04-30', '1000.00', 0, '2024-04-24 22:10:10', 0, NULL, 0, NULL, NULL),
+(5, 4, 10, '2024-04-25', '2024-05-01', '2024-05-01', '1000.00', 0, '2024-04-25 12:15:10', 2, NULL, 0, 2, '2024-04-25 12:22:08');
 
 -- --------------------------------------------------------
 
@@ -461,6 +474,18 @@ CREATE TABLE IF NOT EXISTS `inmueble` (
   KEY `fk_inmueble_ciudad1_idx` (`id_ciudad`),
   KEY `fk_inmueble_zona1_idx` (`id_zona`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `inmueble`:
+--   `id_ciudad`
+--       `ciudad` -> `id`
+--   `id_zona`
+--       `zona` -> `id`
+--   `id_tipo`
+--       `tipo_inmueble` -> `id`
+--   `id_propietario`
+--       `propietario` -> `id`
+--
 
 --
 -- Volcado de datos para la tabla `inmueble`
@@ -496,6 +521,10 @@ CREATE TABLE IF NOT EXISTS `inquilino` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `inquilino`:
+--
 
 --
 -- Volcado de datos para la tabla `inquilino`
@@ -535,6 +564,16 @@ CREATE TABLE IF NOT EXISTS `pago` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONES PARA LA TABLA `pago`:
+--   `id_contrato`
+--       `contrato` -> `id`
+--   `creado_usuario`
+--       `usuario` -> `id`
+--   `editado_usuario`
+--       `usuario` -> `id`
+--
+
+--
 -- Volcado de datos para la tabla `pago`
 --
 
@@ -563,6 +602,10 @@ CREATE TABLE IF NOT EXISTS `propietario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
+-- RELACIONES PARA LA TABLA `propietario`:
+--
+
+--
 -- Volcado de datos para la tabla `propietario`
 --
 
@@ -587,6 +630,10 @@ CREATE TABLE IF NOT EXISTS `tipo_inmueble` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `tipo` (`tipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `tipo_inmueble`:
+--
 
 --
 -- Volcado de datos para la tabla `tipo_inmueble`
@@ -624,13 +671,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='tabla para usuarios internos del sistema';
 
 --
+-- RELACIONES PARA LA TABLA `usuario`:
+--
+
+--
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `dni`, `email`, `password`, `rol`, `avatarUrl`, `borrado`, `update_at`) VALUES
-(1, 'Leonel', 'Toloza', '38860057', 'admin@admin.com', '$2a$11$..jMfFLHoPD4mkiDz6neX.80LhpUwcIwkSZtKrlB1lX4z6k4T9Jw2', 'administrador', 'Designer.jpeg', 0, '2024-04-25 08:39:08'),
-(2, 'Santiago', 'Toloza', '38860057', 'leotoloza6@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'usuario', 'Designer.jpeg', 0, '2024-04-24 11:14:49'),
-(3, 'Rafael ', 'Lopez', '123456', 'lopezrafa@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'administrador', 'worker.png', 0, '2024-04-24 12:04:55');
+(1, 'Leonel', 'Toloza', '123456789', 'admin@admin.com', '$2a$11$..jMfFLHoPD4mkiDz6neX.80LhpUwcIwkSZtKrlB1lX4z6k4T9Jw2', 'administrador', 'Designer.jpeg', 0, '2024-04-25 11:55:52'),
+(2, 'Santiago Leonel', 'Toloza', '987654321', 'leotoloza6@gmail.com', '$2a$11$IYzzl8cwybgKg7dAe/URhO9qZXGXAUtcqZXrkpHnjahqzGzJoQDuG', 'usuario', NULL, 0, '2024-04-25 11:58:13'),
+(3, 'Rafael ', 'Lopez', '123456', 'lopezrafa@gmail.com', '$2a$11$zujeCmTH/ewXdFu738wpqur5i69oPqLpIam6vGtLmHRdr55zft.m6', 'administrador', NULL, 0, '2024-04-25 10:31:20');
 
 -- --------------------------------------------------------
 
@@ -644,6 +695,10 @@ CREATE TABLE IF NOT EXISTS `zona` (
   `zona` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+--
+-- RELACIONES PARA LA TABLA `zona`:
+--
 
 --
 -- Volcado de datos para la tabla `zona`
