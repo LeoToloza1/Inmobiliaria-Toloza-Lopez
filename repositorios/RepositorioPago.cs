@@ -342,9 +342,31 @@ namespace inmobiliaria_Toloza_Lopez.Models
             List<Pago> listaPagos = new List<Pago>();
             using (var connection = new MySqlConnection(conexion))
             {
+                var sql = @$"SELECT
+                            alquiler.direccion,
+                            alquiler.uso,
+                            t.tipo,
+                            i.nombre as nombre_inquilino,
+                            i.apellido as apellido_inquilino,
+                            p.fecha_pago, 
+                            p.importe, 
+                            p.numero_pago,
+                            p.detalle, 
+                            p.creado_fecha, 
+                            u.nombre, 
+                            u.apellido,
+                            u.email
+                            FROM pago as p
+                            INNER JOIN usuario as u ON p.creado_usuario = u.id
+                            INNER JOIN contrato c ON p.id_contrato = c.id
+                            INNER JOIN inquilino i ON c.id_inquilino = i.id
+                            INNER JOIN inmueble alquiler ON c.id_inmueble = alquiler.id
+                            INNER JOIN tipo_inmueble as t ON alquiler.id_tipo = t.id
+                            INNER JOIN propietario pro ON alquiler.id_propietario = pro.id
+                            WHERE u.id = p.creado_usuario;";
                 connection.Open();
-                MySqlCommand command = new MySqlCommand("auditoria_pagos", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                // command.CommandType = CommandType.StoredProcedure; //para no usar el procedimiento almacenado
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
