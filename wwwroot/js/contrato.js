@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const contratoEtapa2 = document.getElementById('contratoEtapa2');
     let timeoutId = null;
     const urlInquilinos = "/inquilino/findinquilinos?value=";
-
     fechaInicio.value = fechaActual;
     inputValor.focus();
     inputValor.addEventListener('input', () => {
@@ -43,7 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 if (data.length === 0) {
-                    alert2('Inquilinos', "No se econtro Cree uno","error")
+             //      alerta('Inquilinos', "No se econtro Cree uno","error")
+             registroInquilino();
+          //          openD();
                 }
                 data.forEach(item => {
                     const option = document.createElement('option');
@@ -76,17 +77,118 @@ document.addEventListener('DOMContentLoaded', function () {
             contratoEtapa2.classList.add("d-none");
         }
     }
-    // function alerta(titulo, msg) {
-    //     Swal.fire({
-    //         title: `<h1>${titulo}</h1>`,
-    //         icon: 'question',
-    //         html: ` <b>${msg}</b>`,
-    //         showConfirmButton: false,
-    //         //     showCloseButton: true,
-    //         showCancelButton: true,
-    //         focusCancel: true,
-    //         cancelButtonText: `<i class="fas fa-thumbs-down"></i> Cerrar`,
-    //         cancelButtonAriaLabel: "Thumbs down"
-    //     })
-    // }
+
+
+
+
+
+function  registroInquilino(){
+    Swal.fire({
+        title: "Nuevo Inquilino",
+        html:`
+        <div class="w-100 ">
+        <div class="w-100 ">
+            <label for="nombre-inquilino" class="">Nombre Inquilino</label>
+            <input type="text" class="form-control" id="nombre-inquilino" placeholder="Ingrese nombre" name="nombre"
+                required verfy="text" value="" >
+        </div>
+        <div class="w-100 ">
+            <label for="apellido-inquilino" class="">Apellido Inquilino</label>
+            <input type="text" class="form-control" id="apellido-inquilino" placeholder="Ingrese apellido"
+                name="apellido" required verfy="text" value="">
+        </div>
+        <div class="w-100 ">
+            <label for="dni-inquilino" class="">Documento Inquilino</label>
+            <input type="number" class="form-control" id="dni-inquilino" placeholder="Ingrese DNI" name="dni" required
+                verfy="number" value=""  title="Ingrese un dni valido" >
+        </div>
+        <div class="w-100 ">
+            <label for="email-inquilino" class="">Email Inquilino</label>
+            <input type="email" class="form-control" id="email-inquilino" placeholder="Ingrese Email" name="email"
+                title="Ingrese un email valido" required verfy="email" value="" >
+        </div>
+        <div class="w-100 ">
+            <label for="telefono-inquilino" class="">Telefono Inquilino</label>
+            <input type="text" class="form-control" id="telefono-inquilino" placeholder="Ingrese Telefono" name="telefono"
+                title="Ingrese un Telefono valido" required verfy="telefono" value="">
+        </div>
+    </div>   
+        `,
+        showCancelButton: true,
+        cancelButtonText:"Cerrar",
+        confirmButtonText: "GUARDAR",
+        showLoaderOnConfirm: true,
+        preConfirm: async (login) => {
+            try {
+                const githubUrl = ` https://api.github.com/users/${login} `;
+                const response = await fetch(githubUrl);
+                if (!response.ok) {
+                return Swal.showValidationMessage(`
+                    ${JSON.stringify(await response.json())}
+                `);
+                }
+                console.log("mierda");
+                return response.json();
+            } 
+            catch (error) {
+                Swal.showValidationMessage(`
+                Request failed: ${error}
+                `);
+            }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: `${result.value.login}'s avatar`,
+            imageUrl: result.value.avatar_url
+          });
+        }
+      });
+}   
+
 });
+
+Swal.fire({
+    title: "Submit your Github username",
+    input: "text",
+    inputAttributes: {
+      autocapitalize: "off"
+    },
+    showCancelButton: true,
+    confirmButtonText: "Look up",
+    showLoaderOnConfirm: true,
+    preConfirm: 
+    async (login) => {
+      try {
+        const githubUrl = ` https://api.github.com/users/${login} `;
+        const response = await fetch(githubUrl);
+        if (!response.ok) {
+          return Swal.showValidationMessage(`
+            ${JSON.stringify(await response.json())}
+          `);
+        }
+        console.log("mierda");
+
+        return response.json();
+
+      } catch (error) {
+        Swal.showValidationMessage(`
+          Request failed: ${error}
+        `);
+      }
+
+    
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: `${result.value.login}'s avatar`,
+        imageUrl: result.value.avatar_url
+      });
+    }
+  });
+
+
+  

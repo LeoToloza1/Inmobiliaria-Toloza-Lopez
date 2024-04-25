@@ -1,3 +1,4 @@
+console.log("asasfasfasf");
 function alerta(titulo, msg, icon = "question") {
   Swal.fire({
     title: `<h1>${titulo}</h1>`,

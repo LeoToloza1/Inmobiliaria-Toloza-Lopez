@@ -1,47 +1,43 @@
 @model IEnumerable<Contrato>
 @{
-    var inmueble = ViewBag.inmueble;   
-    var id =ViewBag.id;
+    var inmueble = ViewBag.inmueble;
+    var id = ViewBag.id;
 }
 
 <div class="container w-75 m-5">
     <div class="text-center">
         <h1 class="display-3">@ViewBag.tipoForm</h1>
     </div>
-@if (TempData["mensaje"] != null) @Html.Raw(TempData["mensaje"])
-    </select>
+    @if (TempData["mensaje"] != null) {
+        @Html.Raw(TempData["mensaje"])
+    }
     <form asp-action="@ViewBag.action" asp-controller="@ViewBag.controller" method="post">
 
         <input hidden id="idInmueble" name="idInmueble" value="@inmueble.id">
         <input hidden id="idContratoOld" name="id" value="@id">
-        <div class="w-100 ">
+        <div class="w-100">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-md-2 col-form-label text-md-lefth ">Datos
-                                inmueble</label>
-                            <p class="form-control w-100 text-truncate" id="dataInmueble"> @ViewBag.inmueble.ToString()
-                            </p>
+                            <label class="col-md-2 col-form-label text-md-left">Datos inmueble</label>
+                            <p class="form-control w-100 text-truncate" id="dataInmueble">@ViewBag.inmueble.ToString()</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="w-100 ">
-            <div class="container ">
+        <div class="w-100">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label for="idInquilino"
-                                class="col-md-2 col-form-label text-md-right align-items-center ">Inquilino</label>
+                            <label for="idInquilino" class="col-md-2 col-form-label text-md-right align-items-center">Inquilino</label>
                             <div class="col-md-4">
-                                <input class="form-control my-2" id="valueInquilino" name="value" type="text"
-                                    placeholder="Ingrese nombre, apellido, email o dni">
+                                <input class="form-control my-2" id="valueInquilino" name="value" type="text" placeholder="Ingrese nombre, apellido, email o dni">
                             </div>
                             <div class="col-md-6">
-                                <select class="form-select my-2 d-none" id="idInquilino" name="idInquilino" required>
-                                </select>
+                                <select class="form-select my-2 d-none" id="idInquilino" name="idInquilino" required></select>
                             </div>
                         </div>
                     </div>
@@ -49,24 +45,21 @@
             </div>
         </div>
         <div id="contratoEtapa2" class="d-none">
-            <div class="w-100 ">
+            <div class="w-100">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label for="fechaInicio" class="col-md-2 col-form-label text-md-right">Fecha inicio
-                                    Contrato</label>
+                                <label for="fechaInicio" class="col-md-2 col-form-label text-md-right">Fecha inicio Contrato</label>
                                 <div class="col-md-2">
                                     <input class="form-control" id="fechaInicio" name="fechaInicio" type="date">
                                 </div>
-                                <label for="fechaFin" class="col-md-2 col-form-label text-md-right">Fecha fin
-                                    Contrato</label>
+                                <label for="fechaFin" class="col-md-2 col-form-label text-md-right">Fecha fin Contrato</label>
                                 <div class="col-md-2">
                                     <input class="form-control" id="fechaFin" name="fechaFin" type="date">
                                     <input class="form-control" id="fechaFin" name="fechaFin" type="date" hidden>
                                 </div>
-                                <label for="montoMes" class="col-md-2 col-form-label text-md-right">Monto
-                                    mensual</label>
+                                <label for="montoMes" class="col-md-2 col-form-label text-md-right">Monto mensual</label>
                                 <div class="col-md-2">
                                     <input class="form-control" id="montoMes" name="montoMes" type="number" step="any" placeholder="Ingrese monto">
                                 </div>
@@ -92,4 +85,4 @@
 </div>
 @section Scripts {
     <script src="~/js/contrato.js"></script>
-   }
+}
