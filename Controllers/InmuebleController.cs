@@ -36,7 +36,7 @@ public class InmuebleController : Controller
     ViewBag.tipoInmuebles = _repositorioTipoInmueble.GetTipoInmuebles();
     ViewBag.ciudades = _repositorioCiudad.ObtenerCiudades();
     ViewBag.zonas = _repositorioZona.ListarZonas();
-    int pageSize = 10; // Elementos por pagina
+    int pageSize = 100; // Elementos por pagina
     var totalItems = _repositorioInmueble.GetTotalInmuebles(usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble); // Obtener el total de elementos
     var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize); // Calcular el total de páginas
     var inmuebles = _repositorioInmueble.GetInmuebles(page, pageSize, usoInmueble, precioInmueble, tipoInmueble, ciudadInmueble, zonaInmueble, fechaInicioPedida, fechaFinPedida); // Obtener los inmuebles para la página actual aplicando filtros

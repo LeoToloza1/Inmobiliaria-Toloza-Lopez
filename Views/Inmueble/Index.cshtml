@@ -151,7 +151,7 @@ var  userRol = ((System.Security.Claims.ClaimsIdentity)User.Identity).FindFirst(
                 @foreach (var inmueble in Model)
                 {
                     <tr>
-                        <td class="text-center">@inmueble.tipoInmueble?.tipo</td>
+                        <td class="text-center">@inmueble.id - @inmueble.tipoInmueble?.tipo</td>
                         <td class="text-center">@inmueble.uso</td>
                         <td class="text-center">@inmueble.ambientes</td>
                         <td class="text-center">@inmueble.precio</td>

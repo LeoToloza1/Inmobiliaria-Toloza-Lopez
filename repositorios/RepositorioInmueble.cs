@@ -14,12 +14,14 @@ namespace inmobiliaria_Toloza_Lopez.Models
             // this.conexion = Conexion.GetConnectionStringRemota();
         }
 
+
+
         public IList<Inmueble> GetInmuebles(int page, int pageSize, string usoInmueble = "", string precioInmueble = "", string tipoInmueble = "", string ciudadInmueble = "", string zonaInmueble = "", string fechaInicioPedida = "", string fechaFinPedida = "") //paginado + filtros
         {
             var inmuebles = new List<Inmueble>();
             using (var connection = new MySqlConnection(conexion))
             {
-                var sql = @$"                              
+                var sql2 = @$"                              
                     SELECT 
                         i.id,
                         i.direccion,
@@ -58,7 +60,24 @@ namespace inmobiliaria_Toloza_Lopez.Models
                                     AND i.borrado = 0
 
                     ";
-
+                string sql=@$"SELECT i.id, i.direccion, i.uso, i.id_tipo, i.ambientes, i.coordenadas, i.precio, i.id_propietario, i.estado, i.id_ciudad, i.id_zona, i.borrado, i.descripcion, t.id AS t_id_tipo, t.tipo AS tipo_inmueble, p.id AS p_id, p.nombre AS nombre_propietario, p.apellido AS apellido_propietario, c.ciudad, z.zona
+                FROM  inmueble AS i
+                INNER JOIN tipo_inmueble AS t ON i.id_tipo = t.id
+                INNER JOIN propietario AS p ON i.id_propietario = p.id
+                JOIN ciudad AS c
+                    ON c.id = i.id_ciudad
+                JOIN zona AS z ON z.id = i.id_zona
+                LEFT JOIN contrato AS cont 
+                    ON i.id = cont.id_inmueble
+                AND (
+                    (@fechaFinPedida <= cont.fecha_inicio) 
+                    OR (@fechaInicioPedida >= cont.fecha_fin)
+                )
+                LEFT JOIN contrato AS cont2 
+                    ON i.id = cont2.id_inmueble
+                AND (cont2.fecha_inicio IS NULL OR cont2.fecha_inicio <= @fechaFinPedida)
+                AND (cont2.fecha_fin IS NULL OR cont2.fecha_fin >= @fechaInicioPedida)
+                WHERE  i.borrado = 0 AND (cont2.id_inmueble IS NULL)   ";    
                 if (zonaInmueble != "") { sql += " AND i.id_zona = @zonaInmueble "; }
                 if (ciudadInmueble != "") { sql += " AND i.id_ciudad = @ciudadInmueble "; }
                 if (tipoInmueble != "") { sql += " AND i.id_tipo = @tipoInmueble "; }
@@ -66,6 +85,7 @@ namespace inmobiliaria_Toloza_Lopez.Models
                 if (usoInmueble != "") { sql += " AND i.uso = @usoInmueble "; }
                 sql += " ORDER BY i.id LIMIT @PageSize OFFSET @Offset ";
                 sql += " ;";          
+                Console.WriteLine(sql);
                 using (var command = new MySqlCommand(sql, connection))
                 {
                     int offset = (page - 1) * pageSize;
